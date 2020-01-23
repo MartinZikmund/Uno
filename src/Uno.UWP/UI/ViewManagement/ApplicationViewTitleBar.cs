@@ -96,7 +96,7 @@ namespace Windows.UI.ViewManagement
 			}
 		}
 
-#if !__WASM__
+#if !__WASM__ && !__ANDROID__
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Color? BackgroundColor
 		{
