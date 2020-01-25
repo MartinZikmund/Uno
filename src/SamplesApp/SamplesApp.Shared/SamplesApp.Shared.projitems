@@ -43,6 +43,9 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icons\home.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icons\play.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\ScaledImage.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\ScaledImage.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\ScaledImage.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\lockscreenlogo.scale-200.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\ScrollGesture.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\splashscreen.scale-200.png" />
