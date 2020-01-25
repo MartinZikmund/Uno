@@ -1,7 +1,6 @@
-﻿<UserControl x:Class="Uno.UI.Samples.UITests.Image"
+﻿<UserControl x:Class="Uno.UI.Samples.UITests.Image.Image_Scale"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:local="using:UITests.Shared.Windows_UI_Xaml_Controls.ImageTests"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d"
@@ -9,20 +8,17 @@
 			 d:DesignWidth="400">
 
 	<StackPanel>
-		<StackPanel.Resources>
-			<Style TargetType="Image">
-				<Setter Property="HorizontalAlignment"
-						Value="Left" />
-			</Style>
-		</StackPanel.Resources>
 		<TextBlock Text="Scaled image" />
-		<Image Width="100"
+		<Image HorizontalAlignment="Left"
+			   Width="100"
 			   Source="/Assets/Images/ScaledImage.png" />
 		<TextBlock Text="Scaled image (ms-appx:)" />
-		<Image Width="100"
+		<Image HorizontalAlignment="Left"
+			   Width="100"
 			   Source="ms-appx:///Assets/Images/ScaledImage.png" />
 		<TextBlock Text="Explicit scale" />
-		<Image Width="100"
+		<Image HorizontalAlignment="Left"
+			   Width="100"
 			   Source="ms-appx:///Assets/Images/ScaledImage.scale-200.png" />
 	</StackPanel>
 </UserControl>
