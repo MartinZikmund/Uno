@@ -264,6 +264,11 @@ namespace Windows.UI.Xaml
 			{
 				return nsControl.SizeThatFits(new CoreGraphics.CGSize(availableSize.Width, availableSize.Height));
 			}
+			else if (element is UnoWKWebView webView)
+			{
+				//TODO: this is not ideal
+				return webView.FittingSize;
+			}
 			else if (element is FrameworkElement fe)
 			{
 				fe.XamlMeasure(new CoreGraphics.CGSize(availableSize.Width, availableSize.Height));
