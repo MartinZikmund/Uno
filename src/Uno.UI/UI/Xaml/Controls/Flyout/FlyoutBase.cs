@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Media;
 using View = UIKit.UIView;
 #elif XAMARIN_ANDROID
 using View = Android.Views.View;
+#elif __MACOS__
+using View = AppKit.NSView;
 #else
 using View = Windows.UI.Xaml.UIElement;
 #endif

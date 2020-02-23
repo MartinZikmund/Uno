@@ -15,6 +15,10 @@ using Point = Android.Graphics.Point;
 using UIKit;
 using View = UIKit.UIView;
 using Point = System.Drawing.PointF;
+#elif __MACOS__
+using AppKit;
+using View = AppKit.NSView;
+using Point = System.Drawing.PointF;
 #else
 using View = Windows.UI.Xaml.UIElement;
 #endif

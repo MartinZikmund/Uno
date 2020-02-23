@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Markup;
 using View = UIKit.UIView;
 #elif XAMARIN_ANDROID
 using Android.Views;
+#elif __MACOS__
+using View = AppKit.NSView;
 #else
 using View = Windows.UI.Xaml.UIElement;
 #endif

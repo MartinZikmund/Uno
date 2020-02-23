@@ -15,6 +15,10 @@ using Font = UIKit.UIFont;
 using View = MonoTouch.UIKit.UIView;
 using Color = MonoTouch.UIKit.UIColor;
 using Font = MonoTouch.UIKit.UIFont;
+#elif __MACOS__
+using View = AppKit.NSView;
+using Color = AppKit.NSColor;
+using Font = AppKit.NSFont;
 #elif NETFX_CORE
 using View = Windows.UI.Xaml.FrameworkElement;
 using Windows.UI.Xaml.Controls;

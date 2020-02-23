@@ -12,6 +12,8 @@ using Uno;
 using Android.Views;
 #elif XAMARIN_IOS
 using View = UIKit.UIView;
+#elif __MACOS__
+using View = AppKit.NSView;
 #else
 using View = Windows.UI.Xaml.UIElement;
 #endif
