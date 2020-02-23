@@ -83,7 +83,7 @@ namespace Windows.UI.Xaml.Controls
 #if __IOS__
 				_measuredSize = _content.SizeThatFits(availableSizeForChild);
 #else
-				_measuredSize = (_content as FrameworkElement)?.SizeThatFits(availableSizeForChild) ?? default(CGSize);
+				_measuredSize = _content.SizeThatFits(availableSizeForChild);
 #endif
 				_measuredSize.Width += (nfloat)horizontalMargin;
 				_measuredSize.Height += (nfloat)verticalMargin;
