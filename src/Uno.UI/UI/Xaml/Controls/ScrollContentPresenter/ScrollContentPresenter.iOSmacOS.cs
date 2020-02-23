@@ -66,8 +66,8 @@ namespace Windows.UI.Xaml.Controls
 			{
 				var frameworkElement = _content as IFrameworkElement;
 
-				var horizontalMargin = frameworkElement.Margin.Left + frameworkElement.Margin.Right;
-				var verticalMargin = frameworkElement.Margin.Top + frameworkElement.Margin.Bottom;
+				var horizontalMargin = frameworkElement?.Margin.Left ?? 0 + frameworkElement?.Margin.Right ?? 0;
+				var verticalMargin = frameworkElement?.Margin.Top ?? 0 + frameworkElement?.Margin.Bottom ?? 0;
 
 				size = AdjustSize(size);
 
@@ -120,13 +120,15 @@ namespace Windows.UI.Xaml.Controls
 
 					var frameworkElement = _content as IFrameworkElement;
 
-					var horizontalMargin = frameworkElement.Margin.Left + frameworkElement.Margin.Right;
-					var verticalMargin = frameworkElement.Margin.Top + frameworkElement.Margin.Bottom;
+					var horizontalMargin = frameworkElement?.Margin.Left ?? 0 + frameworkElement?.Margin.Right ?? 0;
+					var verticalMargin = frameworkElement?.Margin.Top ?? 0 + frameworkElement?.Margin.Bottom ?? 0;
 
-					var adjustedMeasure = new CGSize(
-						GetAdjustedArrangeWidth(frameworkElement, (nfloat)horizontalMargin),
-						GetAdjustedArrangeHeight(frameworkElement, (nfloat)verticalMargin)
-					);
+					var adjustedMeasure = frameworkElement != null ?
+						new CGSize(
+							GetAdjustedArrangeWidth(frameworkElement, (nfloat)horizontalMargin),
+							GetAdjustedArrangeHeight(frameworkElement, (nfloat)verticalMargin)
+						) :
+						CGSize.Empty;
 
 					// Zoom works by applying a transform to the child view. If a view has a non-identity transform, its Frame shouldn't be set.
 					if (ZoomScale == 1)
@@ -174,12 +176,12 @@ namespace Windows.UI.Xaml.Controls
 			switch (child?.HorizontalAlignment ?? HorizontalAlignment.Stretch)
 			{
 				case HorizontalAlignment.Left:
-					return (nfloat)child.Margin.Left;
+					return (nfloat)(child?.Margin.Left ?? 0f);
 
 				case HorizontalAlignment.Right:
 					return (adjustedMeasuredSize.Width + horizontalMargin) <= frameSize.Width ?
-						frameSize.Width - adjustedMeasuredSize.Width - (nfloat)child.Margin.Right :
-						(nfloat)child.Margin.Left;
+						frameSize.Width - adjustedMeasuredSize.Width - (nfloat)(child?.Margin.Right ?? 0f) :
+						(nfloat)(child?.Margin.Left ?? 0f);
 
 				case HorizontalAlignment.Stretch: //Treat Stretch the same as Center here even if the child is not the same Width as the container, adjustments have already been applied
 				case HorizontalAlignment.Center:
@@ -187,11 +189,11 @@ namespace Windows.UI.Xaml.Controls
 					if (layoutWidth <= frameSize.Width)
 					{
 						var marginToFrame = (frameSize.Width - layoutWidth) / 2;
-						return (nfloat)(marginToFrame + child.Margin.Left);
+						return (nfloat)(marginToFrame + child?.Margin.Left ?? 0);
 					}
 					else
 					{
-						return (nfloat)child.Margin.Left;
+						return (nfloat)(child?.Margin.Left ?? 0f);
 
 					}
 
@@ -207,12 +209,12 @@ namespace Windows.UI.Xaml.Controls
 			switch (child?.VerticalAlignment ?? VerticalAlignment.Stretch)
 			{
 				case VerticalAlignment.Top:
-					return (nfloat)child.Margin.Top;
+					return (nfloat)(child?.Margin.Top ?? 0f);
 
 				case VerticalAlignment.Bottom:
 					return (adjustedMeasuredSize.Height + verticalMargin) <= frameSize.Height ?
-						frameSize.Height - adjustedMeasuredSize.Height - (nfloat)child.Margin.Bottom :
-						(nfloat)child.Margin.Top;
+						frameSize.Height - adjustedMeasuredSize.Height - (nfloat)(child?.Margin.Bottom ?? 0f) :
+						(nfloat)(child?.Margin.Top ?? 0f);
 
 				case VerticalAlignment.Stretch: //Treat Stretch the same as Center even if the child is not the same Height as the container, adjustments have already been applied
 				case VerticalAlignment.Center:
@@ -220,11 +222,11 @@ namespace Windows.UI.Xaml.Controls
 					if (layoutHeight <= frameSize.Height)
 					{
 						var marginToFrame = (frameSize.Height - layoutHeight) / 2;
-						return (nfloat)(marginToFrame + child.Margin.Top);
+						return (nfloat)(marginToFrame + child?.Margin.Top ?? 0);
 					}
 					else
 					{
-						return (nfloat)child.Margin.Top;
+						return (nfloat)(child?.Margin.Top ?? 0f);
 					}
 
 				default:
