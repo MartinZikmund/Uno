@@ -36,7 +36,7 @@ namespace Windows.UI.Xaml.Controls
 		/// </summary>
 		internal IDynamicPopupLayouter CustomLayouter { get; set; }
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			IsOpen = false;
 			base.OnUnloaded();

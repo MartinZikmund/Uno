@@ -140,7 +140,7 @@ namespace Windows.UI.Xaml.Controls
 			});
         }
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

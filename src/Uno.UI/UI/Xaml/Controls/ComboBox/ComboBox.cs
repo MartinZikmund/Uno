@@ -137,7 +137,7 @@ namespace Windows.UI.Xaml.Controls
 		}
 #endif
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 
@@ -152,7 +152,7 @@ namespace Windows.UI.Xaml.Controls
 			Xaml.Window.Current.SizeChanged += OnWindowSizeChanged;
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

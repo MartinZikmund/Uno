@@ -35,7 +35,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

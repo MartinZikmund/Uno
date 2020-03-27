@@ -46,7 +46,7 @@ namespace Windows.UI.Xaml.Shapes
 			RefreshShape();
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

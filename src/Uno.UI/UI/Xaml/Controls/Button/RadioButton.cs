@@ -120,14 +120,14 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 
 			RegisterInGroup(this, GroupName).DisposeWith(_groupMembership);
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

@@ -79,12 +79,26 @@ namespace <#= mixin.NamespaceName #>
 							((IDependencyObjectStoreProvider)this).Store.Parent = superView;
 						}
 
-						OnLoading();
-						OnLoaded();
+						if ((object)this is FrameworkElement f)
+						{
+							LifetimeTracker.AddLoading(f);
+						}
+						else
+						{
+							OnLoading();
+							OnLoaded();
+						}
 					}
 					else
 					{
-						OnUnloaded();
+						if ((object)this is FrameworkElement f)
+						{
+							LifetimeTracker.AddUnloaded(f);
+						}
+						else
+						{
+							OnUnloaded();
+						}
 					}
 
 					_currentWindow = newWindow;
@@ -608,7 +622,7 @@ namespace <#= mixin.NamespaceName #>
 
 		partial void OnLoadingPartial();
 
-		protected virtual void OnLoaded()
+		internal virtual void OnLoaded()
 		{
 			IsLoaded = true;
 
@@ -620,7 +634,7 @@ namespace <#= mixin.NamespaceName #>
 
 		partial void OnLoadedPartial();
 
-		protected virtual void OnUnloaded()
+		internal virtual void OnUnloaded()
 		{
 			IsLoaded = false;
 

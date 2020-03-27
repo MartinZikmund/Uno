@@ -171,7 +171,7 @@ namespace Windows.UI.Xaml.Controls
 			SetupFlyoutButton();
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

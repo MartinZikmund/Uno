@@ -21,7 +21,7 @@ namespace Windows.UI.Xaml.Controls
 
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 			RegisterSetPasswordScope();
@@ -69,7 +69,7 @@ namespace Windows.UI.Xaml.Controls
 
 		partial void EndRevealPartial();
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 			_revealButtonSubscription.Disposable = null;

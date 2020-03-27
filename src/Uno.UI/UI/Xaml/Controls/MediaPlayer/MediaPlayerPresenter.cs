@@ -85,7 +85,7 @@ namespace Windows.UI.Xaml.Controls
 		{
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			MediaPlayer.Stop();
 			base.OnUnloaded();

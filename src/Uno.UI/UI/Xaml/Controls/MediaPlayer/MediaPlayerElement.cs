@@ -279,7 +279,7 @@ namespace Windows.UI.Xaml.Controls
 			TransportControls = new MediaTransportControls();
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

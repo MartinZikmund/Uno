@@ -247,7 +247,7 @@ namespace Windows.UI.Xaml.Controls
 
 		partial void OnApplyTemplatePartial();
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

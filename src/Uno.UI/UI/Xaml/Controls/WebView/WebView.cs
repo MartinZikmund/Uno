@@ -143,7 +143,7 @@ namespace Windows.UI.Xaml.Controls
 		partial void NavigateWithHttpRequestMessagePartial(HttpRequestMessage requestMessage);
 		partial void StopPartial();
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 

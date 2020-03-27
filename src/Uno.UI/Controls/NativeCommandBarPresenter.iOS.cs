@@ -20,8 +20,8 @@ namespace Uno.UI.Controls
 	{
 		private readonly SerialDisposable _statusBarSubscription = new SerialDisposable();
 		private readonly SerialDisposable _orientationSubscription = new SerialDisposable();
-		
-		protected override void OnLoaded()
+
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 
@@ -52,7 +52,7 @@ namespace Uno.UI.Controls
 			}
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

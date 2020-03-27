@@ -38,7 +38,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 
@@ -47,7 +47,7 @@ namespace Windows.UI.Xaml.Controls
 			_tabBar.ItemSelected += OnItemSelected;
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

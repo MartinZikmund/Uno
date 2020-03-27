@@ -84,7 +84,7 @@ namespace Windows.UI.Xaml.Controls
 			UpdateCommonState(useTransitions: false);
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			base.OnLoaded();
 
@@ -108,7 +108,7 @@ namespace Windows.UI.Xaml.Controls
 
 		private bool HasXamlTemplate => _horizontalThumb != null || _verticalThumb != null;
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			base.OnUnloaded();
 

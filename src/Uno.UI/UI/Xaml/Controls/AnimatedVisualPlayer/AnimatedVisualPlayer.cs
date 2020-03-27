@@ -99,7 +99,7 @@ namespace Windows.UI.Xaml.Controls
 			Source?.Stop();
 		}
 
-		protected override void OnLoaded()
+		internal override void OnLoaded()
 		{
 			Source?.Update(this);
 			Source?.Load();
@@ -107,7 +107,7 @@ namespace Windows.UI.Xaml.Controls
 			base.OnLoaded();
 		}
 
-		protected override void OnUnloaded()
+		internal override void OnUnloaded()
 		{
 			Source?.Unload();
 
