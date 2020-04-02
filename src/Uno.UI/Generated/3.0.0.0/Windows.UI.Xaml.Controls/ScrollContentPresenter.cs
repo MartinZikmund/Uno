@@ -265,7 +265,7 @@ namespace Windows.UI.Xaml.Controls
 			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Xaml.Controls.ScrollContentPresenter", "void ScrollContentPresenter.SetVerticalOffset(double offset)");
 		}
 		#endif
-		#if false || false || NET461 || __WASM__ || __MACOS__
+		#if false || false || NET461 || __WASM__ || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.Foundation.Rect MakeVisible( global::Windows.UI.Xaml.UIElement visual,  global::Windows.Foundation.Rect rectangle)
 		{

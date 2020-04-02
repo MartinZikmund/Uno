@@ -3,12 +3,21 @@ using System.Drawing;
 
 #if XAMARIN_IOS_UNIFIED
 using UIKit;
+using NativeScrollView = UIKit.UIScrollView;
+using NativeView = UIKit.UIView;
 using CoreGraphics;
 #elif XAMARIN_IOS
 using MonoTouch.UIKit;
+using NativeScrollView = MonoTouch.UIKit.UIScrollView;
+using NativeView = MonoTouch.UIKit.UIView;
 using CGRect = System.Drawing.RectangleF;
 using nfloat = System.Single;
 using CGPoint = System.Drawing.PointF;
+#else
+using AppKit;
+using NativeScrollView = AppKit.NSScrollView;
+using NativeView = AppKit.NSView;
+using CoreGraphics;
 #endif
 
 namespace Uno.UI.Extensions
@@ -45,8 +54,8 @@ namespace Uno.UI.Extensions
 		/// </param>
 		/// <param name="animationMode">Specifies animation mode to use to animate the scrolling (or not).</param>
 		public static void BringIntoView(
-			this UIScrollView scrollView,
-			UIView view,
+			this NativeScrollView scrollView,
+			NativeView view,
 			BringIntoViewMode mode = BringIntoViewMode.ClosestEdge,
 			int padding = 0,
 			ScrollingMode animationMode = ScrollingMode.Forced)
@@ -119,7 +128,7 @@ namespace Uno.UI.Extensions
 		/// </summary>
 		/// <param name="scrollView"></param>
 		/// <param name="animationMode">Specifies animation mode to use to animate the scrolling (or not).</param>
-		public static void ClearCustomScrollOffset(this UIScrollView scrollView, ScrollingMode animationMode = ScrollingMode.Forced)
+		public static void ClearCustomScrollOffset(this NativeScrollView scrollView, ScrollingMode animationMode = ScrollingMode.Forced)
 		{
 			var viewPort = scrollView.Bounds;
 			var x = scrollView.ContentOffset.X;
