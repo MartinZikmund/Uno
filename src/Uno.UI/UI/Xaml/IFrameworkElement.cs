@@ -264,10 +264,9 @@ namespace Windows.UI.Xaml
 			{
 				return nsControl.SizeThatFits(new CoreGraphics.CGSize(availableSize.Width, availableSize.Height));
 			}
-			else if (element is UnoWKWebView webView)
+			else if (element is IHasSizeThatFits scp)
 			{
-				//TODO: this is not ideal
-				return webView.FittingSize;
+				return scp.SizeThatFits(availableSize);
 			}
 			else if (element is FrameworkElement fe)
 			{
@@ -310,6 +309,10 @@ namespace Windows.UI.Xaml
 			else if (element is IHasSizeThatFits scp)
 			{
 				return scp.SizeThatFits(availableSize);
+			}
+			else if (element is NSView view)
+			{
+				return view.FittingSize;
 			}
 			else
 			{
