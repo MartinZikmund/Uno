@@ -176,7 +176,7 @@ namespace Windows.UI.Xaml.Controls
 						_parentWebView.OnComplete(target, isSuccessful: true, status: WebErrorStatus.Unknown);
 					}
 #else
-					if (NSWorkspace.SharedWorkspace.UrlForApplication(new NSUrl(target.AbsoluteUri)) != null)
+					if (target != null && NSWorkspace.SharedWorkspace.UrlForApplication(new NSUrl(target.AbsoluteUri)) != null)
 					{
 						NSWorkspace.SharedWorkspace.OpenUrl(target);
 						_parentWebView.OnComplete(target, isSuccessful: true, status: WebErrorStatus.Unknown);
@@ -204,7 +204,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		private async void OnRunJavaScriptAlertPanel(WKWebView webview, string message, WKFrameInfo frame, Action completionHandler)
+		private void OnRunJavaScriptAlertPanel(WKWebView webview, string message, WKFrameInfo frame, Action completionHandler)
 		{
 			if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
 			{
@@ -515,10 +515,14 @@ namespace Windows.UI.Xaml.Controls
 
 		void INativeWebView.SetScrollingEnabled(bool isScrollingEnabled)
 		{
-			//scroll view is currently available for iOS only
 #if __IOS__
 			ScrollView.ScrollEnabled = isScrollingEnabled;
 			ScrollView.Bounces = isScrollingEnabled;
+#else
+			if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+			{
+				this.Log().Debug($"ScrollingEnabled cannot is not currently supported on macOS");
+			}
 #endif
 		}
 

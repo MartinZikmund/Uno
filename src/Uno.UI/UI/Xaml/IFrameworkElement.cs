@@ -310,10 +310,6 @@ namespace Windows.UI.Xaml
 			{
 				return scp.SizeThatFits(availableSize);
 			}
-			else if (element is NSView view)
-			{
-				return view.FittingSize;
-			}
 			else
 			{
 				throw new NotSupportedException($"Unsupported measure for {element}");
