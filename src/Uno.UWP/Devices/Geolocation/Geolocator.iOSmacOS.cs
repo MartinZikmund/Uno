@@ -14,8 +14,9 @@ namespace Windows.Devices.Geolocation
 	{
 		private CLLocationManager _locationManager;
 
-		public Geolocator()
+		partial void InitializePlatform()
 		{
+			InitializeCommon();
 			_locationManager = new CLLocationManager
 			{
 				DesiredAccuracy = DesiredAccuracy == PositionAccuracy.Default ? 10 : 1,

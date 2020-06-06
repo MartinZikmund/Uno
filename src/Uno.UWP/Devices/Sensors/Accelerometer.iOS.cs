@@ -13,6 +13,7 @@ namespace Windows.Devices.Sensors
 
 		private Accelerometer(CMMotionManager motionManager)
 		{
+			InitializeCommon();
 			_motionManager = motionManager;
 		}
 
