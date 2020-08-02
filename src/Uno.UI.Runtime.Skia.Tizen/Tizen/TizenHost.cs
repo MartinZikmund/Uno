@@ -18,6 +18,7 @@ namespace Uno.UI.Runtime.Skia
 	{
 		[ThreadStatic] private static TizenHost _current;
 		private readonly Func<Application> _appBuilder;
+		private readonly ElmSharp.Window _window;
 		private readonly string[] _args;
 
 		public static TizenHost Current => _current;
@@ -32,13 +33,14 @@ namespace Uno.UI.Runtime.Skia
 		{
 			_current = this;
 			_appBuilder = appBuilder;
+			_window = window;
 			_args = args;
 
 			_args ??= Environment
 				.GetCommandLineArgs()
 				.Skip(1)
 				.ToArray();
-
+			
 			ApiExtensibility.Register(typeof(Windows.UI.Core.ICoreWindowExtension), o => new TizenUIElementPointersSupport(o));
 			ApiExtensibility.Register(typeof(Windows.UI.ViewManagement.IApplicationViewExtension), o => new TizenApplicationViewExtension(o));
 			ApiExtensibility.Register(typeof(WinUI.IApplicationExtension), o => new TizenApplicationExtension(o));
@@ -70,6 +72,7 @@ namespace Uno.UI.Runtime.Skia
 
 		public void Run(SKCanvasView canvas)
 		{
+			canvas.Resized += Canvas_Resized;
 			canvas.PaintSurface += UnoCanvas_PaintSurface;
 			WUX.Window.InvalidateRender
 				+= () =>
@@ -84,14 +87,41 @@ namespace Uno.UI.Runtime.Skia
 			}
 
 			WinUI.Application.Start(CreateApp, _args);
+
+			WinUI.Window.Current.OnNativeSizeChanged(
+	new Windows.Foundation.Size(
+		360,
+		360
+	)
+);
+		}
+
+		private void Canvas_Resized(object sender, EventArgs e)
+		{
+			var c = (SKCanvasView)sender;
+			
+			var geometry = c.Geometry;
+
+			// control is not yet fully initialized
+			if (geometry.Width <= 0 || geometry.Height <= 0)
+				return;
+
+
+			WinUI.Window.Current.OnNativeSizeChanged(
+new Windows.Foundation.Size(
+geometry.Width,
+geometry.Height
+)
+);
 		}
 
 		private void UnoCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
 		{
-			e.Surface.Canvas.Clear(SKColors.White);
+			e.Surface.Canvas.Clear(SKColors.Blue);
+			var scale = (float)ScalingInfo.ScalingFactor;
+			var scaledSize = new SKSize(e.Info.Width / scale, e.Info.Height / scale);
 
-			e.Surface.Canvas.Scale((float)1f);
-
+			e.Surface.Canvas.Scale(scale);
 			WUX.Window.Current.Compositor.Render(e.Surface, e.Info);
 		}
 	}
