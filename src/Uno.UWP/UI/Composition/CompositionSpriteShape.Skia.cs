@@ -2,6 +2,7 @@
 
 using SkiaSharp;
 using System;
+using Uno.UI.Composition;
 
 namespace Windows.UI.Composition
 {
@@ -18,7 +19,14 @@ namespace Windows.UI.Composition
 				{
 					if(FillBrush != null)
 					{
-						FillBrush.UpdatePaint(TryCreateFillPaint());
+						if(FillBrush is CompositionAcrylicBrush acrylic)
+						{
+							acrylic.UpdatePaint(surface, TryCreateFillPaint());
+						}
+						else
+						{
+							FillBrush.UpdatePaint(TryCreateFillPaint());
+						}
 
 						surface.Canvas.DrawPath(geometrySource.Geometry, _fillPaint);
 					}

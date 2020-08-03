@@ -6,6 +6,16 @@ namespace Windows.UI.Xaml.Shapes
 {
 	public partial class Ellipse : ArbitraryShapeBase
 	{
+		public override void Draw(Android.Graphics.Canvas canvas)
+		{
+			base.Draw(canvas);
+		}
+
+		protected override void OnDraw(Canvas canvas)
+		{
+			base.OnDraw(canvas);
+		}
+
 		protected override Size MeasureOverride(Size availableSize)
 		{
 			base.MeasureOverride(availableSize);

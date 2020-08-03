@@ -12,6 +12,7 @@ using Windows.UI.Composition;
 using System.Numerics;
 using Uno.UI;
 using SkiaSharp;
+using Uno.UI.Composition;
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -133,6 +134,10 @@ namespace Windows.UI.Xaml.Shapes
 				{
 					adjustedArea = CreateImageLayer(compositor, disposables, adjustedStrokeThicknessOffset, adjustedArea, spriteShape, adjustedArea, imgBackground);
 				}
+				else if (background is AcrylicBrush acrylicBrush)
+				{
+					spriteShape.FillBrush = new CompositionAcrylicBrush();
+				}
 				else
 				{
 					spriteShape.FillBrush = null;
@@ -187,6 +192,10 @@ namespace Windows.UI.Xaml.Shapes
 				else if (background is ImageBrush imgBackground)
 				{
 					backgroundArea = CreateImageLayer(compositor, disposables, adjustedStrokeThicknessOffset, adjustedArea, backgroundShape, backgroundArea, imgBackground);
+				}
+				else if (background is AcrylicBrush acrylicBrush)
+				{
+					backgroundShape.FillBrush = new CompositionAcrylicBrush();
 				}
 				else
 				{

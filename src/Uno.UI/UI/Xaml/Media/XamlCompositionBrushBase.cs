@@ -1,10 +1,14 @@
+using Windows.UI.Composition;
+
 namespace Windows.UI.Xaml.Media
 {
 	public partial class XamlCompositionBrushBase : Brush
 	{
 		protected XamlCompositionBrushBase() : base()
-		{			
+		{
 		}
+
+		protected internal CompositionBrush CompositionBrush { get; set; }
 
 		public Color FallbackColor
 		{
@@ -18,18 +22,18 @@ namespace Windows.UI.Xaml.Media
 			}
 		}
 
-		public static DependencyProperty FallbackColorProperty { get; } = 
+		public static DependencyProperty FallbackColorProperty { get; } =
 			DependencyProperty.Register(
-				nameof(FallbackColor), typeof(Color), 
-				typeof(XamlCompositionBrushBase), 
+				nameof(FallbackColor), typeof(Color),
+				typeof(XamlCompositionBrushBase),
 				new FrameworkPropertyMetadata(default(Color)));
-		
+
 		protected virtual void OnConnected()
 		{
 		}
 
 		protected virtual void OnDisconnected()
 		{
-		}		
+		}
 	}
 }
