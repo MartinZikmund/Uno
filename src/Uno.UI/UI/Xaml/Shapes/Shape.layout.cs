@@ -36,41 +36,43 @@ namespace Windows.UI.Xaml.Shapes
 		private protected Size MeasureRelativeShape(Size availableSize)
 		{
 			var stretch = Stretch;
-			var userMinSize = new Size(MinWidth, MinHeight);
-			var userSize = new Size(Width, Height);
 
-			var size = userSize;
+			var feWidth = Width switch
+			{
+				var w when double.IsNaN(w) => MinWidth,
+				var w => w
+			};
 
-			// If no user size defined on a given axis, we try to stretch along this axis
-			if (IsNaN(size.Width))
+			var feHeight = Height switch
 			{
-				size.Width = stretch == Stretch.UniformToFill || HorizontalAlignment == HorizontalAlignment.Stretch
-					? availableSize.Width
-					: 0;
-			}
-			if (IsNaN(size.Height))
+				var h when double.IsNaN(h) => MinHeight,
+				var h => h
+			};
+
+			if (stretch == Stretch.UniformToFill)
 			{
-				size.Height = stretch == Stretch.UniformToFill || VerticalAlignment == VerticalAlignment.Stretch
-					? availableSize.Height
-					: 0;
+				var width = availableSize.Width;
+				var height = availableSize.Height;
+
+				if (double.IsInfinity(width) && double.IsInfinity(height))
+				{
+					return new Size(feWidth, feHeight);
+				}
+				else if (double.IsInfinity(width) || double.IsInfinity(height))
+				{
+					width = Math.Min(width, height);
+				}
+				else
+				{
+					width = Math.Max(width, height);
+				}
+
+				return new Size(width, height);
 			}
 
-			// In case userSize was not defined, we still have to apply the min size
-			size = size
-				.AtLeast(userMinSize)
-				.NumberOrDefault(userMinSize);
-
-			if (IsInfinity(size.Width) || IsInfinity(size.Height))
-			{
-				// The size is invalid (the userSize was not defined and we were not able to stretch), just hide the shape.
-				// Note: This will be overriden by the Layouter that will enforce the MinSize
-				return default;
-			}
-			else
-			{
-				return size;
-			}
+			return new Size(feWidth, feHeight);
 		}
+
 		private protected (Size shapeSize, Rect renderingArea) ArrangeRelativeShape(Size finalSize)
 		{
 			var horizontal = HorizontalAlignment;
@@ -360,10 +362,13 @@ namespace Windows.UI.Xaml.Shapes
 						pathBounds.Y == 0 ? pathBounds.Height + strokeThickness : pathBounds.Bottom + halfStrokeThickness);
 					var (userMinSize, userMaxSize) = GetMinMax(userSize);
 
-					size = pathNaturalSize.AtMost(userMaxSize).AtLeast(userMinSize); // The size defined on the Shape has priority over the size of the geometry itself!
+					var clampedSize = pathNaturalSize.AtMost(userMaxSize).AtLeast(userMinSize); // The size defined on the Shape has priority over the size of the geometry itself!
 					renderScale = (1, 1);
 					renderOrigin = (0, 0);
-					renderOverflow = (size.Width - finalSize.Width, size.Height - finalSize.Height); // We do not add halfStrokeThickness: The stroke is allowed to flow out of container for None
+					renderOverflow = (clampedSize.Width - finalSize.Width, clampedSize.Height - finalSize.Height); // We do not add halfStrokeThickness: The stroke is allowed to flow out of container for None
+
+					// Stretch none forces top/left alignment in the parent.
+					size = finalSize;
 					break;
 
 				case Stretch.Fill:

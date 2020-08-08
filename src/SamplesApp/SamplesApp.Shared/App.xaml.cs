@@ -46,6 +46,10 @@ namespace SamplesApp
 		/// </summary>
 		public App()
 		{
+			// Fix language for UI tests
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+			Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+			
 			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
 			ConfigureFeatureFlags();
 
@@ -94,9 +98,6 @@ namespace SamplesApp
 			Xamarin.Calabash.Start();
 
 			LaunchiOSWatchDog();
-#endif
-#if NETFX_CORE
-			Resources.MergedDictionaries.Add(new Microsoft.UI.Xaml.Controls.XamlControlsResources());
 #endif
 
 			var sw = Stopwatch.StartNew();

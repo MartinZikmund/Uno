@@ -293,6 +293,8 @@ declare namespace Uno.UI {
             */
         resetStyleNative(pParams: number): boolean;
         private resetStyleInternal;
+        isCssPropertySupported(propertyName: string, value: string): boolean;
+        isCssConditionSupported(supportCondition: string): boolean;
         /**
          * Set + Unset CSS classes on an element
          */
@@ -929,6 +931,11 @@ declare namespace Windows.Storage {
          * Gets a key by index in localStorage
          * */
         private static getValueByIndex;
+    }
+}
+declare namespace Windows.Storage.Pickers {
+    class FileSavePicker {
+        static SaveAs(fileName: string, dataPtr: any, size: number): void;
     }
 }
 declare namespace Windows.Storage {
