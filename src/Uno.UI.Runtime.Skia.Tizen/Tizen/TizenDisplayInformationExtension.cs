@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElmSharp;
+﻿using ElmSharp;
+using Tizen.System;
 using Windows.Graphics.Display;
 
 namespace Uno.UI.Runtime.Skia
@@ -12,11 +8,14 @@ namespace Uno.UI.Runtime.Skia
 	{
 		private DisplayInformation _displayInformation;
 		private Window _window;
+		private string _profile;
+		private int? _dpi;
 
 		public TizenDisplayInformationExtension(object owner, Window window)
 		{
 			_displayInformation = (DisplayInformation)owner;
 			_window = window;
+			_profile = Elementary.GetProfile();
 		}
 
 		public DisplayOrientations CurrentOrientation => DisplayOrientations.Portrait;
@@ -25,15 +24,29 @@ namespace Uno.UI.Runtime.Skia
 
 		public uint ScreenWidthInRawPixels => (uint)_window.ScreenSize.Width;
 
-		public float LogicalDpi => 96;
+		public float LogicalDpi => _dpi ??= GetDpi();
 
-		public double RawPixelsPerViewPixel => 1;
+		public double RawPixelsPerViewPixel => 1; //TODO
 
-		public ResolutionScale ResolutionScale => ResolutionScale.Scale100Percent;
+		public ResolutionScale ResolutionScale => (ResolutionScale)(int)(LogicalDpi / 1.60f);
+
+		private int GetDpi()
+		{
+			// TV has fixed DPI value (72)
+			if (_profile == "tv")
+			{
+				return 72;
+			}
+
+#pragma warning disable CS0618 // Type or member is obsolete
+			SystemInfo.TryGetValue("http://tizen.org/feature/screen.dpi", out int dpi);
+#pragma warning restore CS0618 // Type or member is obsolete
+			return dpi;
+		}
 
 		public void StartDpiChanged()
 		{
-			
+
 		}
 
 		public void StopDpiChanged()

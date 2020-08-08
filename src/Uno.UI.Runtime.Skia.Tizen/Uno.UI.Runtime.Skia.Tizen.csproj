@@ -14,7 +14,7 @@
 		<Description>This package provides the platform support for Skia in Uno Platform projects.</Description>
 		<Copyright>Copyright (C) 2015-2020 nventive inc. - all rights reserved</Copyright>
 
-		<PackageId Condition="'$(UNO_UWP_BUILD)'!='true'">Uno.WinUI.Runtime.Skia.Wpf</PackageId>
+		<PackageId Condition="'$(UNO_UWP_BUILD)'!='true'">Uno.WinUI.Runtime.Skia.Tizen</PackageId>
 
 		<RootNamespace>Uno.UI.Runtime.Skia</RootNamespace>
 	</PropertyGroup>
@@ -27,7 +27,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="SkiaSharp.Views" />
-		<PackageReference Include="SkiaSharp" />
 	</ItemGroup>
 	
 	<ItemGroup>

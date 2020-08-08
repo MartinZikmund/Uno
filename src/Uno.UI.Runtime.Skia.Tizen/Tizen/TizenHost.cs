@@ -11,14 +11,20 @@ using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 using WinUI = Windows.UI.Xaml;
 using WUX = Windows.UI.Xaml;
+using TizenWindow = ElmSharp.Window;
+using Tizen.Applications;
+using Uno.UI.Runtime.Skia.Tizen;
 
 namespace Uno.UI.Runtime.Skia
 {
 	public class TizenHost : ISkiaHost
 	{
-		[ThreadStatic] private static TizenHost _current;
-		private readonly Func<Application> _appBuilder;
-		private readonly ElmSharp.Window _window;
+		[ThreadStatic]
+		private static TizenHost _current;
+
+		private readonly TizenApplication _tizenApplication;
+		private readonly Func<WinUI.Application> _appBuilder;
+		private readonly TizenWindow _window;
 		private readonly string[] _args;
 
 		public static TizenHost Current => _current;
@@ -29,23 +35,19 @@ namespace Uno.UI.Runtime.Skia
 		/// <remarks>
 		/// If args are omitted, those from Environment.GetCommandLineArgs() will be used.
 		/// </remarks>
-		public TizenHost(Func<WinUI.Application> appBuilder, ElmSharp.Window window, string[] args = null)
+		public TizenHost(Func<WinUI.Application> appBuilder, string[] args = null)
 		{
 			_current = this;
+
 			_appBuilder = appBuilder;
-			_window = window;
 			_args = args;
+
 
 			_args ??= Environment
 				.GetCommandLineArgs()
 				.Skip(1)
 				.ToArray();
 			
-			ApiExtensibility.Register(typeof(Windows.UI.Core.ICoreWindowExtension), o => new TizenUIElementPointersSupport(o));
-			ApiExtensibility.Register(typeof(Windows.UI.ViewManagement.IApplicationViewExtension), o => new TizenApplicationViewExtension(o));
-			ApiExtensibility.Register(typeof(WinUI.IApplicationExtension), o => new TizenApplicationExtension(o));
-			ApiExtensibility.Register(typeof(IDisplayInformationExtension), o => new TizenDisplayInformationExtension(o, window));
-
 			Windows.UI.Core.CoreDispatcher.DispatchOverride
 				= (d) =>
 				{
@@ -59,70 +61,30 @@ namespace Uno.UI.Runtime.Skia
 					//}
 				};
 
-
-
-			//void CreateApp(WinUI.ApplicationInitializationCallbackParams _)
-			//{
-			//	var app = appBuilder();
-			//	app.Host = this;
-			//}
-
-			//WinUI.Application.Start(CreateApp, args);
+			_tizenApplication = new TizenApplication(this);
+			_tizenApplication.Run(_args);
 		}
 
-		public void Run(SKCanvasView canvas)
-		{
-			canvas.Resized += Canvas_Resized;
-			canvas.PaintSurface += UnoCanvas_PaintSurface;
-			WUX.Window.InvalidateRender
-				+= () =>
-				{
-					canvas.Invalidate();
-				};
+		
 
-			void CreateApp(WinUI.ApplicationInitializationCallbackParams _)
+		public void Run()
+		{
+			ApiExtensibility.Register(typeof(Windows.UI.Core.ICoreWindowExtension), o => new TizenUIElementPointersSupport(o, _tizenApplication.Canvas));
+			ApiExtensibility.Register(typeof(Windows.UI.ViewManagement.IApplicationViewExtension), o => new TizenApplicationViewExtension(o));
+			ApiExtensibility.Register(typeof(IApplicationExtension), o => new TizenApplicationExtension(o));
+			ApiExtensibility.Register(typeof(IDisplayInformationExtension), o => new TizenDisplayInformationExtension(o, _tizenApplication.Window));
+			
+			void CreateApp(ApplicationInitializationCallbackParams _)
 			{
 				var app = _appBuilder();
 				app.Host = this;
 			}
 
+			WUX.Window.Current.OnNativeSizeChanged(
+				new Windows.Foundation.Size(
+					_tizenApplication.Window.ScreenSize.Width,
+					_tizenApplication.Window.ScreenSize.Height));
 			WinUI.Application.Start(CreateApp, _args);
-
-			WinUI.Window.Current.OnNativeSizeChanged(
-	new Windows.Foundation.Size(
-		360,
-		360
-	)
-);
-		}
-
-		private void Canvas_Resized(object sender, EventArgs e)
-		{
-			var c = (SKCanvasView)sender;
-			
-			var geometry = c.Geometry;
-
-			// control is not yet fully initialized
-			if (geometry.Width <= 0 || geometry.Height <= 0)
-				return;
-
-
-			WinUI.Window.Current.OnNativeSizeChanged(
-new Windows.Foundation.Size(
-geometry.Width,
-geometry.Height
-)
-);
-		}
-
-		private void UnoCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
-		{
-			e.Surface.Canvas.Clear(SKColors.Blue);
-			var scale = (float)ScalingInfo.ScalingFactor;
-			var scaledSize = new SKSize(e.Info.Width / scale, e.Info.Height / scale);
-
-			e.Surface.Canvas.Scale(scale);
-			WUX.Window.Current.Compositor.Render(e.Surface, e.Info);
 		}
 	}
 }

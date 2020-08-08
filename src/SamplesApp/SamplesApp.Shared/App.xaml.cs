@@ -57,7 +57,6 @@ namespace SamplesApp
 
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
-
 		}
 
 		/// <summary>
@@ -107,7 +106,7 @@ namespace SamplesApp
 					Console.WriteLine("Done loading " + sw.Elapsed);
 				});
 
-			ProcessEventArgs(e);
+			//ProcessEventArgs(e);
 
 #if DEBUG
 			if (System.Diagnostics.Debugger.IsAttached)
@@ -120,7 +119,7 @@ namespace SamplesApp
 
 			ApplicationView.GetForCurrentView().Title = "Uno Samples";
 
-			DisplayLaunchArguments(e);
+			//DisplayLaunchArguments(e);
 		}
 
 		private static void ProcessEventArgs(LaunchActivatedEventArgs e)

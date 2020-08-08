@@ -18,9 +18,6 @@ namespace Uno.UI.Runtime.Skia
 			_ownerEvents = (IApplicationEvents)owner;
 		}
 
-		public ApplicationTheme GetDefaultSystemTheme()
-		{
-			return ApplicationTheme.Light;
-		}
+		public ApplicationTheme GetDefaultSystemTheme() => ApplicationTheme.Light;
 	}
 }
