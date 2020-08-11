@@ -64,21 +64,21 @@ namespace Uno.UI.Runtime.Skia
 				var modifiers = VirtualKeyModifiers.None;
 				var point = GetPoint(data.X2, data.Y2);
 
-				_ownerEvents.RaisePointerMoved(
-					new PointerEventArgs(
-						new Windows.UI.Input.PointerPoint(
-							frameId: GetNextFrameId(),
-							timestamp: Math.Max(data.VerticalSwipeTimestamp, data.HorizontalSwipeTimestamp),
-							device: PointerDevice.For(PointerDeviceType.Touch),
-							pointerId: 0,
-							rawPosition: point,
-							position: point,
-							isInContact: properties.HasPressedButton,
-							properties: properties
-						),
-						modifiers
-					)
-				);
+				//_ownerEvents.RaisePointerMoved(
+				//	new PointerEventArgs(
+				//		new Windows.UI.Input.PointerPoint(
+				//			frameId: GetNextFrameId(),
+				//			timestamp: Math.Max(data.VerticalSwipeTimestamp, data.HorizontalSwipeTimestamp),
+				//			device: PointerDevice.For(PointerDeviceType.Touch),
+				//			pointerId: 0,
+				//			rawPosition: point,
+				//			position: point,
+				//			isInContact: properties.HasPressedButton,
+				//			properties: properties
+				//		),
+				//		modifiers
+				//	)
+				//);
 			}
 			catch (Exception e)
 			{

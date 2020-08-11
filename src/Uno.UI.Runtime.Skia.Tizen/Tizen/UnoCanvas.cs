@@ -33,11 +33,12 @@ namespace Uno.UI.Runtime.Skia
 			// control is not yet fully initialized
 			if (geometry.Width <= 0 || geometry.Height <= 0)
 				return;
+			var scale = (float)ScalingInfo.ScalingFactor;
 
 			WUX.Window.Current.OnNativeSizeChanged(
 				new Windows.Foundation.Size(
-				geometry.Width,
-				geometry.Height));
+				geometry.Width / scale,
+				geometry.Height / scale));
 		}
 
 		private void UnoCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)

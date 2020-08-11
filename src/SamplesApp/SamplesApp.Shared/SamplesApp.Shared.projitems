@@ -18,6 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\RadialGauge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\RadialProgressBarControl.xaml.cs">
+      <DependentUpon>RadialProgressBarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -27,6 +31,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\RadialGauge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\RadialProgressBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -41,6 +53,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icons\FluentIcon_Medium.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icons\FluentIcon_Medium.scale-150.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icons\FluentIcon_Medium.scale-200.png" />

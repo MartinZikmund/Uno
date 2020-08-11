@@ -18,6 +18,11 @@ namespace Windows.UI.Xaml.Shapes
 		protected override Size ArrangeOverride(Size finalSize)
 			=> ArrangeAbsoluteShape(finalSize, GetPath());
 
+		partial void OnDataChanged()
+		{
+			InvalidateMeasure();
+		}
+
 		private SkiaGeometrySource2D GetPath()
 		{
 			switch (Data)

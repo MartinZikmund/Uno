@@ -5,7 +5,66 @@
 	xmlns:controls="using:Uno.UI.Samples.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d">
+	mc:Ignorable="d" xmlns:local="using:SamplesApp.Controls">
 
-	<controls:SampleChooserControl x:Name="sampleControl" />
+  <Grid Background="Black" PointerPressed="RootTap">
+	<Grid x:Name="TimeFace" VerticalAlignment="Stretch">
+	  <Viewbox Stretch="UniformToFill">
+		<Grid Width="180" Height="180" >
+		  <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
+			<Grid.RowDefinitions>
+			  <RowDefinition Height="Auto" />
+			  <RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<TextBlock Text="11:46" FontSize="30" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" />
+			<TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Hello, Tizen!" />
+		  </Grid>
+		</Grid>
+	  </Viewbox>
+	</Grid>
+	<Viewbox Stretch="UniformToFill" x:Name="StepsFace" Visibility="Collapsed">
+	  <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" Height="140">
+		<local:RadialProgressBarControl
+			Width="120"
+			Height="120"
+			Maximum="100"
+			Thickness="8"
+			Value="85"
+			Foreground="Orange" />
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+		  <TextBlock
+			  FontSize="24"
+			  FontWeight="SemiBold"
+			  Text="7,810"
+		HorizontalAlignment="Center"
+			  TextAlignment="Center" />
+		  <TextBlock
+			  Opacity="0.5"
+			  Text="10,000"
+		HorizontalAlignment="Center"
+			  TextAlignment="Center" />
+		</StackPanel>
+	  </Grid>
+	</Viewbox>
+	<Grid x:Name="HeartRateFace" Visibility="Collapsed" RowSpacing="8">
+	  <Grid.RowDefinitions>
+		<RowDefinition Height="2*" />
+	  </Grid.RowDefinitions>
+	  <Viewbox Margin="10" Stretch="UniformToFill">
+		<Grid Margin="-40,-80,0,0">
+		  <Path Margin="80,80,80,80" Width="300" Height="300" Fill="Red" RenderTransformOrigin="0.5,0.5"  Data="M0 200 v-200 h200 
+    a100,100 90 0,1 0,200
+    a100,100 90 0,1 -200,0
+    z" >
+			<Path.RenderTransform>
+			  <RotateTransform Angle="-135" />
+			</Path.RenderTransform>
+		  </Path>
+		</Grid>
+	  </Viewbox>
+	  <Grid Padding="12" VerticalAlignment="Center" HorizontalAlignment="Center" >
+		<TextBlock Text="89" FontWeight="Normal" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" />
+	  </Grid>
+	</Grid>
+  </Grid>
 </Page>
