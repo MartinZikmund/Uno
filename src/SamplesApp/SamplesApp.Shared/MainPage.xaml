@@ -7,7 +7,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" xmlns:local="using:SamplesApp.Controls">
 
-  <Grid Background="Black" PointerPressed="RootTap">
+  <Grid Background="White" PointerPressed="RootTap">
 	<Grid x:Name="TimeFace" VerticalAlignment="Stretch">
 	  <Viewbox Stretch="UniformToFill">
 		<Grid Width="180" Height="180" >
