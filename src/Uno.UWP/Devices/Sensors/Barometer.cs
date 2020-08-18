@@ -18,13 +18,10 @@ namespace Windows.Devices.Sensors
 		/// </summary>
 		private Barometer()
 		{
-		}
-
-		private void InitializeCommon()
-		{
 			_readingChangedWrapper = new StartStopEventWrapper<TypedEventHandler<Barometer, BarometerReadingChangedEventArgs>>(
-				StartReading,
-				StopReading);
+				() => StartReading(),
+				() => StopReading(),
+				_syncLock);
 		}
 
 		public static Barometer GetDefault()

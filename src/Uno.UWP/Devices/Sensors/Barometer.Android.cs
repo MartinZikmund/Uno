@@ -12,15 +12,10 @@ namespace Windows.Devices.Sensors
 {
 	public partial class Barometer
 	{
-		private readonly Sensor _sensor;
-		private BarometerListener _listener;
+		private Sensor _sensor;
 		private uint _reportInterval = SensorHelpers.UiReportingInterval;
 
-		private Barometer(Sensor barometerSensor)
-		{
-			InitializeCommon();
-			_sensor = barometerSensor;
-		}
+		private BarometerListener _listener;
 
 		public uint ReportInterval
 		{
@@ -47,7 +42,9 @@ namespace Windows.Devices.Sensors
 			var sensor = sensorManager.GetDefaultSensor(Android.Hardware.SensorType.Pressure);
 			if (sensor != null)
 			{
-				return new Barometer(sensor);
+				var barometer = new Barometer();
+				barometer._sensor = sensor;
+				return barometer;
 			}
 			return null;
 		}

@@ -17,15 +17,21 @@ namespace Windows.Devices.Sensors
 		private StartStopEventWrapper<TypedEventHandler<Accelerometer, AccelerometerReadingChangedEventArgs>> _readingChangedWrapper;
 		private StartStopEventWrapper<TypedEventHandler<Accelerometer, AccelerometerShakenEventArgs>> _shakenWrapper;
 
-		private void InitializeCommon()
+		private Accelerometer()
 		{
 			_readingChangedWrapper = new StartStopEventWrapper<TypedEventHandler<Accelerometer, AccelerometerReadingChangedEventArgs>>(
-				StartReadingChanged,
-				StopReadingChanged);
+				() => StartReadingChanged(),
+				() => StopReadingChanged(),
+				_syncLock);
 			_shakenWrapper = new StartStopEventWrapper<TypedEventHandler<Accelerometer, AccelerometerShakenEventArgs>>(
-				StartShaken,
-				StopShaken);
+				() => StartShaken(),
+				() => StopShaken(),
+				_syncLock);
+
+			InitializePlatform();
 		}
+
+		partial void InitializePlatform();
 
 		/// <summary>
 		/// Gets or sets the transformation that needs to be applied to sensor data. Transformations to be applied are tied to the display orientation with which to align the sensor data.

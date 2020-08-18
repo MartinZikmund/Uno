@@ -57,5 +57,7 @@ namespace Uno.Helpers
 				}
 			}
 		}
+
+		public bool IsActive => Event != null;
 	}
 }
