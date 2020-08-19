@@ -27,6 +27,7 @@ using Uno.Logging;
 using Windows.Graphics.Display;
 using System.Globalization;
 using Windows.UI.ViewManagement;
+using Windows.Storage;
 #if HAS_UNO_WINUI
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 #else
@@ -49,7 +50,7 @@ namespace SamplesApp
 			// Fix language for UI tests
 			Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-			
+
 			ConfigureFilters(LogExtensionPoint.AmbientLoggerFactory);
 			ConfigureFeatureFlags();
 
@@ -213,6 +214,20 @@ namespace SamplesApp
 					"Application activated via protocol");
 				await dlg.ShowAsync();
 			}
+		}
+
+		protected override async void OnFileActivated(FileActivatedEventArgs args)
+		{
+			InitializeFrame();
+			Windows.UI.Xaml.Window.Current.Activate();
+
+			var firstFile = args.Files.First();
+			var contents = await FileIO.ReadTextAsync(firstFile as IStorageFile);
+
+			var dlg = new MessageDialog(
+					$"Number of files {args.Files.Count}, first file content: '{contents}'",
+					"Application activated via file");
+			await dlg.ShowAsync();
 		}
 
 		private void InitializeFrame(string arguments = null)
