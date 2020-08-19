@@ -12,6 +12,7 @@ using Windows.Graphics.Display;
 using Uno.UI.Services;
 using Uno.Extensions;
 using Microsoft.Extensions.Logging;
+using Windows.Storage;
 
 #if HAS_UNO_WINUI
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
@@ -61,11 +62,7 @@ namespace Windows.UI.Xaml
 				{
 					_preventSecondaryActivationHandling = true;
 					var url = (NSUrl)urlObject;
-					if (TryParseActivationUri(url, out var uri))
-					{
-						OnActivated(new ProtocolActivatedEventArgs(uri, ApplicationExecutionState.NotRunning));
-						handled = true;
-					}
+					handled = TryHandleUrlActivation(url, ApplicationExecutionState.NotRunning);
 				}
 				else if (launchOptions.TryGetValue(UIApplication.LaunchOptionsShortcutItemKey, out var shortcutItemObject))
 				{
@@ -89,13 +86,29 @@ namespace Windows.UI.Xaml
 			// If the application was not running, URL was already handled by FinishedLaunching
 			if (!_preventSecondaryActivationHandling)
 			{
-				if (TryParseActivationUri(url, out var uri))
-				{
-					OnActivated(new ProtocolActivatedEventArgs(uri, ApplicationExecutionState.Running));
-				}
+				TryHandleUrlActivation(url, ApplicationExecutionState.Running);
 			}
 			_preventSecondaryActivationHandling = false;
 			return true;
+		}
+
+		private bool TryHandleUrlActivation(NSUrl url, ApplicationExecutionState previousState)
+		{
+			if (url.IsFileUrl)
+			{
+				// File activation
+				OnFileActivated(new FileActivatedEventArgs(null, previousState));
+				return true;
+			}
+
+			if (TryParseActivationUri(url, out var uri))
+			{
+				// Protocol activation
+				OnActivated(new ProtocolActivatedEventArgs(uri, previousState));
+				return true;
+			}
+
+			return false;
 		}
 
 		public override void PerformActionForShortcutItem(
