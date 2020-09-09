@@ -1,33 +1,51 @@
-﻿
-#if __ANDROID__
-
+﻿#if __ANDROID__
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Android.Content;
+using Uno.Storage.Pickers.Internal;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 
 namespace Windows.Storage.Pickers
 {
 	public partial class FileOpenPicker
 	{
-		private List<string> _fileTypeFilter = new List<string>();
 		private string _docUri = "";
 
+		public FileOpenPicker()
+		{
+			if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Kitkat)
+			{
+				throw new NotImplementedException("FileOpenPicker requires Android KitKat (API level 19) or newer");
+			}
+			SetDocUri();
+			// check permission: READ_EXTERNAL_STORAGE
+		}
+
 		public PickerLocationId SuggestedStartLocation { get; set; } = PickerLocationId.DocumentsLibrary;
+
 		public string SettingsIdentifier { get; set; } = "";
-		public IList<string> FileTypeFilter => _fileTypeFilter;
+
+		public IList<string> FileTypeFilter { get; } = new NonNullList<string>();
+
+		public IAsyncOperation<StorageFile> PickSingleFileAsync() =>
+			PickSingleFileAsyncTask().AsAsyncOperation();
+
+		public IAsyncOperation<IReadOnlyList<StorageFile>> PickMultipleFilesAsync() =>
+			PickMultipleFilesAsyncTask().AsAsyncOperation();
 
 		private List<string> UWPextension2Mime()
 		{
 			var mimeTypes = new List<string>();
-			if (_fileTypeFilter.Count < 1)
+			if (FileTypeFilter.Count < 1)
 			{
 				mimeTypes.Add("*/*");
 				return mimeTypes;
 			}
 
-			foreach (var extension in _fileTypeFilter)
+			foreach (var extension in FileTypeFilter)
 			{
 				// extension is in form of ".png", but GetMimeTypeFromExtension requires "png"
 				string mimetype = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension.Substring(1));
@@ -51,10 +69,10 @@ namespace Windows.Storage.Pickers
 		{
 			string settName = "_UnoFilePickerSettings" + SettingsIdentifier;
 
-			if (Windows.Storage.ApplicationData.Current.RoamingSettings.Values.ContainsKey(settName))
+			if (ApplicationData.Current.RoamingSettings.Values.ContainsKey(settName))
 			{
 				// string lastFolder = Windows.Storage.ApplicationData.Current.RoamingSettings.Values[settName].ToString();
-				_docUri = Windows.Storage.ApplicationData.Current.RoamingSettings.Values[settName].ToString();
+				_docUri = ApplicationData.Current.RoamingSettings.Values[settName].ToString();
 				//Uri.UnescapeDataString(lastFolder);
 				return;
 			}
@@ -85,26 +103,9 @@ namespace Windows.Storage.Pickers
 					throw new NotImplementedException("FileOpenPicker unimplemented type of initial dir");
 
 			}
-
 		}
 
-		public FileOpenPicker()
-		{
-			if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Kitkat)
-			{
-				throw new NotImplementedException("FileOpenPicker requires Android KitKat (API level 19) or newer");
-			}
-			SetDocUri();
-			// check permission: READ_EXTERNAL_STORAGE
-		}
-
-		public Foundation.IAsyncOperation<Windows.Storage.StorageFile> PickSingleFileAsync()
-			=> PickSingleFileAsyncTask().AsAsyncOperation<Windows.Storage.StorageFile>();
-
-		public Foundation.IAsyncOperation<IReadOnlyList<Windows.Storage.StorageFile>> PickMultipleFilesAsync()
-			=> PickMultipleFilesAsyncTask().AsAsyncOperation();
-
-		public async Task<Windows.Storage.StorageFile> PickSingleFileAsyncTask()
+		public async Task<StorageFile> PickSingleFileAsyncTask()
 		{
 			var pickedFiles = await PickFilesAsync(false);
 			if (pickedFiles is null)
@@ -114,7 +115,7 @@ namespace Windows.Storage.Pickers
 
 			return pickedFiles.ElementAt(0);
 		}
-		public async Task<IReadOnlyList<Windows.Storage.StorageFile>> PickMultipleFilesAsyncTask()
+		public async Task<IReadOnlyList<StorageFile>> PickMultipleFilesAsyncTask()
 		{
 			var pickedFiles = await PickFilesAsync(true);
 			if (pickedFiles is null)
@@ -125,7 +126,7 @@ namespace Windows.Storage.Pickers
 			return pickedFiles.AsReadOnly();
 		}
 
-		private TaskCompletionSource<List<Windows.Storage.StorageFile>> completionSource;
+		private TaskCompletionSource<List<StorageFile>> completionSource;
 
 		private string PathFromUri(Android.Net.Uri fileUri)
 		{
@@ -170,16 +171,16 @@ namespace Windows.Storage.Pickers
 
 		}
 
-		private Task<List<Windows.Storage.StorageFile>> PickFilesAsync(bool multiple)
+		private Task<List<StorageFile>> PickFilesAsync(bool multiple)
 		{
-			var intent = new Android.Content.Intent(Android.App.Application.Context, typeof(FileOpenPickerActivity));
+			var intent = new Intent(Android.App.Application.Context, typeof(FileOpenPickerActivity));
 			// put parameters into Intent
 			intent.PutExtra("multiple", multiple);
 			intent.PutExtra("initialdir", _docUri);
 			intent.PutExtra("mimetypes", UWPextension2Mime().ToArray());
 
 			// wrap it in Task
-			completionSource = new TaskCompletionSource<List<Windows.Storage.StorageFile>>();
+			completionSource = new TaskCompletionSource<List<StorageFile>>();
 			FileOpenPickerActivity.FilePicked += FilePickerHandler;
 
 			Android.App.Application.Context.StartActivity(intent);
@@ -189,12 +190,12 @@ namespace Windows.Storage.Pickers
 				FileOpenPickerActivity.FilePicked -= FilePickerHandler;
 
 				// convert list of Uris tolist of StorageFiles
-				var storageFiles = new List<Windows.Storage.StorageFile>();
+				var storageFiles = new List<StorageFile>();
 
 				if (list.Count > 0)
 				{
 					string settName = "_UnoFilePickerSettings" + SettingsIdentifier;
-					Windows.Storage.ApplicationData.Current.RoamingSettings.Values[settName] = list.ElementAt(0).ToString();
+					ApplicationData.Current.RoamingSettings.Values[settName] = list.ElementAt(0).ToString();
 				}
 
 				foreach (var fileUri in list)
@@ -205,7 +206,7 @@ namespace Windows.Storage.Pickers
 					string filePath = PathFromUri(fileUri);
 					if (!string.IsNullOrEmpty(filePath))
 					{
-						var storageFile = await Windows.Storage.StorageFile.GetFileFromPathAsync(filePath);
+						var storageFile = await StorageFile.GetFileFromPathAsync(filePath);
 						storageFiles.Add(storageFile);
 					}
 
@@ -215,108 +216,7 @@ namespace Windows.Storage.Pickers
 
 			return completionSource.Task;
 		}
-
-	}
-
-
-	[Android.App.Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-	internal class FileOpenPickerActivity : Android.App.Activity
-	{
-		internal static event EventHandler<List<Android.Net.Uri>> FilePicked;
-		private bool _multiple;
-
-		private Android.Content.Intent CreateIntent(bool multiple, List<string> mimeTypes, string initialDir)
-		{
-			var intent = new Android.Content.Intent(Android.Content.Intent.ActionOpenDocument);
-
-			// file ext / mimetypes
-			if (mimeTypes.Count < 1)
-			{
-				intent.SetType("*/*");  // nie mamy nic - to mamy :)
-			}
-			else
-			{
-				if (mimeTypes.Count < 2)
-				{
-					intent.SetType(mimeTypes.ElementAt(0));
-				}
-				else
-				{
-					intent.SetType("*/*");
-					intent.PutExtra(Android.Content.Intent.ExtraMimeTypes, mimeTypes.ToArray());
-				}
-			}
-
-			// multiple selection
-			if (multiple)
-			{
-				intent.PutExtra(Android.Content.Intent.ExtraAllowMultiple, true);
-			}
-
-			// initial dir
-			if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O && !string.IsNullOrEmpty(initialDir))
-			{
-				intent.PutExtra(Android.Provider.DocumentsContract.ExtraInitialUri, initialDir);
-			}
-
-			// chyba takze
-			// intent.AddCategory(Android.Content.Intent.CategoryOpenable);
-			// otwieralne w sensie: ContentResolver#openFileDescriptor(Uri, String) // string: rwt (t:can truncate)
-
-			return intent;
-		}
-		protected override void OnCreate(Android.OS.Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
-
-			var caller = base.Intent.Extras;
-			_multiple = caller.GetBoolean("multiple", false);
-
-			// startpicker
-			var intent = CreateIntent(_multiple,
-				caller.GetStringArray("mimetypes").ToList(),
-				caller.GetString("initialdir", "")
-				);
-			// StartActivityForResult(Android.Content.Intent.CreateChooser(intent, "Select file"),10);
-			StartActivityForResult(intent, 10);
-		}
-
-		protected override void OnActivityResult(int requestCode, Android.App.Result resultCode, Android.Content.Intent data)
-		{
-			base.OnActivityResult(requestCode, resultCode, data);
-
-			var pickedFiles = new List<Android.Net.Uri>();
-
-			if (resultCode != Android.App.Result.Canceled)
-			{
-				if (_multiple)
-				{
-					// multiple files - ClipData
-					if (data?.ClipData != null)
-					{
-						for (int i = 0; i < data.ClipData.ItemCount; i++)
-						{
-							var item = data.ClipData.GetItemAt(i);
-							pickedFiles.Add(item.Uri);
-						}
-					}
-				}
-				else
-				{
-					// single file - Data
-					if (data?.Data != null)
-					{
-						pickedFiles.Add(data.Data);
-					}
-
-				}
-			}
-
-			FilePicked?.Invoke(null, pickedFiles);
-			Finish();
-		}
-
-	}
+	}	
 }
 
 #endif 
