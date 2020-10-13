@@ -38,11 +38,13 @@ namespace Uno.UWPSyncGenerator
 		}
 		private void WriteType(INamedTypeSymbol type, IndentedStringBuilder b)
 		{
-			var kind = type.TypeKind;
-			var partialModifier = type.TypeKind != TypeKind.Enum ? "partial" : "";
+			var kind = type.TypeKind;			
 			var allSymbols = GetAllSymbols(type);
 
-			var staticQualifier = (type.IsAbstract && type.IsSealed) ? "static" : "";
+			var qualifiers = type.IsAbstract && type.TypeKind != TypeKind.Interface ? "abstract " : "";
+			qualifiers += type.IsSealed ? "sealed " : "";
+			qualifiers += type.IsStatic ? "static " : "";
+			qualifiers += type.TypeKind != TypeKind.Enum ? "partial " : "";
 
 			if (SkippedType(type))
 			{
@@ -73,7 +75,7 @@ namespace Uno.UWPSyncGenerator
 				b.AppendLineInvariant($"[global::Uno.NotImplemented]");
 				b.AppendLineInvariant($"#endif");
 
-				using (b.BlockInvariant($"public {staticQualifier} {partialModifier} {kind.ToString().ToLower()} {type.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)} {BuildInterfaces(type)}"))
+				using (b.BlockInvariant($"public {qualifiers}{kind.ToString().ToLower()} {type.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)} {BuildInterfaces(type)}"))
 				{
 					if (type.TypeKind != TypeKind.Enum)
 					{
