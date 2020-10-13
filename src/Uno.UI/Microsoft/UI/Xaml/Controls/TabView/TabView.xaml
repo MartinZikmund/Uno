@@ -142,20 +142,20 @@
                             Grid.Column="1"
                             AutomationProperties.AccessibilityView="Raw"
                             BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
-                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                            HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                            HorizontalScrollBarVisibility="Auto" 
+                            HorizontalScrollMode="Enabled" 
                             IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                             IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
                             IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
                             IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
                             IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
                             TabNavigation="{TemplateBinding TabNavigation}"
-                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                            VerticalScrollBarVisibility="Disabled"
+                            VerticalScrollMode="Disabled"
                             ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
                             Style="{StaticResource TabScrollViewerStyle}">
-
-                            <ItemsPresenter x:Name="TabsItemsPresenter"
+							<!-- TODO Uno Specific - we explicitly set scroll mode and visibility property values here instead of relying on the setter, as this is not yet supported -->
+							<ItemsPresenter x:Name="TabsItemsPresenter"
                                 Padding="{TemplateBinding Padding}" />
 
                         </ScrollViewer>
@@ -195,7 +195,7 @@
                                 Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                                 HighContrastAdjustment="None"
                                 Content="&#xE76B;"/>
-							<!-- TODO:MZ Use Style="{StaticResource RepeatButtonRevealStyle}" -->
+							<!-- TODO Uno Specific - Should use Style="{StaticResource RepeatButtonRevealStyle}" -->
 
                             <ScrollContentPresenter x:Name="ScrollContentPresenter"
                                 Grid.Column="1"
@@ -218,8 +218,8 @@
                                 HighContrastAdjustment="None"
                                 Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                                 Content="&#xE76C;"/>
-
-							<!-- TODO:MZ Use Style="{StaticResource RepeatButtonRevealStyle}" -->
+							<!-- TODO Uno Specific - Should use Style="{StaticResource RepeatButtonRevealStyle}" -->
+							
                         </Grid>
                     </Border>
                 </ControlTemplate>
