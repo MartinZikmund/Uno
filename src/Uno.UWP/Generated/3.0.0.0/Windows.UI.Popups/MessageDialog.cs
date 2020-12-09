@@ -1,5 +1,8 @@
 #pragma warning disable 108 // new keyword hiding
 #pragma warning disable 114 // new keyword hiding
+using System;
+using System.Threading.Tasks;
+
 namespace Windows.UI.Popups
 {
 	#if false || false || false || false || false || false || false
@@ -30,7 +33,8 @@ namespace Windows.UI.Popups
 		[global::Uno.NotImplemented("NET461", "__SKIA__", "__NETSTD_REFERENCE__")]
 		public  global::Windows.Foundation.IAsyncOperation<global::Windows.UI.Popups.IUICommand> ShowAsync()
 		{
-			throw new global::System.NotImplementedException("The member IAsyncOperation<IUICommand> MessageDialog.ShowAsync() is not implemented in Uno.");
+			return Task.FromResult<IUICommand>(null).AsAsyncOperation();
+			//throw new global::System.NotImplementedException("The member IAsyncOperation<IUICommand> MessageDialog.ShowAsync() is not implemented in Uno.");
 		}
 		#endif
 		// Forced skipping of method Windows.UI.Popups.MessageDialog.Options.get

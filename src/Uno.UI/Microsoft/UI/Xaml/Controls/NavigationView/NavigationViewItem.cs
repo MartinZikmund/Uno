@@ -658,6 +658,7 @@ namespace Microsoft.UI.Xaml.Controls
 					{
 						m_flyoutContentGrid.Children.RemoveAt(m_flyoutContentGrid.Children.Count - 1);
 						m_rootGrid.Children.Add(repeater);
+						repeater.SetValue(Grid.RowProperty, 1);
 						m_isRepeaterParentedToFlyout = false;
 
 						PropagateDepthToChildren(1);

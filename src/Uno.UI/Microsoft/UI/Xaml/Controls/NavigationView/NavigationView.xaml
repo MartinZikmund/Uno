@@ -136,6 +136,7 @@
                             Margin="0,0,0,8"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
+							Background="Red"
                             Canvas.ZIndex="100">
 
                             <Grid.RowDefinitions>
@@ -615,7 +616,7 @@
                             Margin="{TemplateBinding Margin}"
                             Padding="{TemplateBinding Padding}"
                             Foreground="{TemplateBinding Foreground}"
-                            Background="{TemplateBinding Background}"
+                            Background="Red"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             UseSystemFocusVisuals="{TemplateBinding UseSystemFocusVisuals}"
@@ -629,7 +630,9 @@
                             IsTabStop="false"
                             Control.IsTemplateFocusTarget="True">
                         </primitives:NavigationViewItemPresenter>
-                        <local:ItemsRepeater
+						<!--<Grid Grid.Row="1" Background="Blue" Height="20" />-->
+
+						<local:ItemsRepeater
                                 Grid.Row="1"
                                 Visibility="Collapsed"
                                 x:Name="NavigationViewItemMenuItemsHost">

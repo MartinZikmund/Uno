@@ -5798,8 +5798,10 @@ namespace Microsoft.UI.Xaml.Controls
 
 		//TODO: Uno specific - remove when #4689 is fixed
 
-		private void OnRepeaterUnoBeforeElementPrepared(ItemsRepeater itemsRepeater, ItemsRepeaterElementPreparedEventArgs args) =>
-			OnRepeaterElementPrepared(itemsRepeater, args);
+		private void OnRepeaterUnoBeforeElementPrepared(ItemsRepeater itemsRepeater, ItemsRepeaterElementPreparedEventArgs args)
+		{
+
+		}
 
 		#endregion
 	}
