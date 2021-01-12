@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:UITests.Resources.ResourcesInTemplate">
+	<SolidColorBrush x:Key="ResourcesInTemplateTestBrush" Color="Red" />
+	<Style TargetType="local:SimpleControl">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:SimpleControl">
+					<Border
+					Width="100"
+					Height="100"
+					Background="{ThemeResource ResourcesInTemplateTestBrush}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}">
+						<TextBlock Text="Test" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

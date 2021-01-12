@@ -225,6 +225,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\ResourcesInTemplate\ResourcesInTemplateTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\ResourcesInTemplate\SimpleControlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resources\StaticResource\StaticResource_Simple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3937,6 +3945,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Msal\MsalLoginAndGraph.xaml.cs">
       <DependentUpon>MsalLoginAndGraph.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ResourcesInTemplate\ResourcesInTemplateTest.xaml.cs">
+      <DependentUpon>ResourcesInTemplateTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ResourcesInTemplate\SimpleControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Toolkit\ElevatedViewTests.xaml.cs">
       <DependentUpon>ElevatedViewTests.xaml</DependentUpon>
     </Compile>

@@ -25,6 +25,7 @@
 
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Windows_UI_Xaml_Controls\ListView\MeasureDetectorControl\MeasureDetectorControl.xaml" />
+				<ResourceDictionary Source="Resources\ResourcesInTemplate\SimpleControlResources.xaml" />
 				<MapResources xmlns="using:Uno.UI.Maps"/>
 			</ResourceDictionary.MergedDictionaries>
 
