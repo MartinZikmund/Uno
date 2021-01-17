@@ -1903,6 +1903,19 @@ namespace Uno.UI {
 			}
 			return "ok";
 		}
+
+		public selectAll(elementId: number) {
+			const element = this.getView(elementId) as HTMLElement;
+			if (window.getSelection) {
+				const selection = window.getSelection();
+				const range = document.createRange();
+				range.selectNodeContents(element);
+				selection.removeAllRanges();
+				selection.addRange(range);
+			} else {
+				console.warn("Browser does not support text selection.");
+			}
+		}
 	}
 
 	if (typeof define === "function") {

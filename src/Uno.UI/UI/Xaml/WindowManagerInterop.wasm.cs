@@ -1224,6 +1224,16 @@ namespace Uno.UI.Xaml
 		}
 		#endregion
 
+		#region ScrollTo
+
+		internal static void SelectAll(IntPtr htmlId)
+		{
+			var command = "Uno.UI.WindowManager.current.selectAll(" + htmlId + ");";
+			WebAssemblyRuntime.InvokeJS(command);
+		}
+
+		#endregion
+
 		#region Pointers
 		[Flags]
 		internal enum HtmlPointerButtonsState

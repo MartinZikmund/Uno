@@ -1,5 +1,6 @@
 ﻿using Uno.Extensions;
 using Uno.UI.UI.Xaml.Documents;
+using Uno.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
@@ -144,5 +145,11 @@ namespace Windows.UI.Xaml.Controls
 				_textBoxView.SelectionEnd = _textBoxView.SelectionStart + value;
 			}
 		}
+
+		public void Select(int start, int length)
+		{
+		}
+
+		public void SelectAll() => WindowManagerInterop.SelectAll(_textBoxView.HtmlId);
 	}
 }

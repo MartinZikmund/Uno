@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Media;
 using Uno.UI;
+using Uno.UI.Xaml;
 
 namespace Windows.UI.Xaml.Controls
 {
@@ -46,7 +47,13 @@ namespace Windows.UI.Xaml.Controls
 			OnTextWrappingChangedPartial();
 			OnIsTextSelectionEnabledChangedPartial();
 			InitializeDefaultValues();
+		}
 
+		public void SelectAll() => WindowManagerInterop.SelectAll(HtmlId);
+
+		public  void Select(TextPointer start,  TextPointer end)
+		{
+			
 		}
 
 		/// <summary>

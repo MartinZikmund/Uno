@@ -187,7 +187,7 @@ namespace Windows.UI.Xaml.Controls
 		// Forced skipping of method Windows.UI.Xaml.Controls.PasswordBox.PasswordChanged.remove
 		// Forced skipping of method Windows.UI.Xaml.Controls.PasswordBox.ContextMenuOpening.add
 		// Forced skipping of method Windows.UI.Xaml.Controls.PasswordBox.ContextMenuOpening.remove
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
+		#if __ANDROID__ || __IOS__ || NET461 || false || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public  void SelectAll()
 		{
