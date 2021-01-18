@@ -3474,7 +3474,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator
 					}
 					else
 					{
-						return "null";
+						return "(Action<object, object>)null";
 					}
 				}
 
@@ -3517,7 +3517,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator
 					}
 					else
 					{
-						return "null";
+						return "(Action<object, object>)null";
 					}
 				}
 
