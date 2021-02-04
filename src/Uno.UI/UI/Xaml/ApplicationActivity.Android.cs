@@ -13,6 +13,8 @@ using Uno.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
 using Windows.Devices.Sensors;
+using Uno.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace Windows.UI.Xaml
 {
@@ -207,11 +209,17 @@ namespace Windows.UI.Xaml
 
 		protected override void OnNewIntent(Intent intent)
 		{
+			this.Log().LogInformation($"New intent received, data: {intent.Data}");
 			base.OnNewIntent(intent);
-			this.Intent = intent;
-			// In case this activity is in SingleTask mode, we try to handle
-			// the intent (for protocol activation scenarios).
-			(Application as NativeApplication)?.TryHandleIntent(intent);
+			if (intent != null)
+			{
+				this.Intent = intent;
+				this.Log().LogInformation($"Activity intent updated, data: {this.Intent.Data}. Attempting to handle intent.");
+				// In case this activity is in SingleTask mode, we try to handle
+				// the intent (for protocol activation scenarios).
+				var handled = (Application as NativeApplication)?.TryHandleIntent(intent);
+				this.Log().LogInformation($"New intent handled = {handled}");
+			}
 		}
 
 		/// <summary>
