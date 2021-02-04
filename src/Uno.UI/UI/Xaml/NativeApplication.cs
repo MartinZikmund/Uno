@@ -11,6 +11,7 @@ using Android.Content;
 using Uno.Extensions;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using Android.Util;
 
 namespace Windows.UI.Xaml
 {
@@ -47,7 +48,7 @@ namespace Windows.UI.Xaml
 		{
 			if (activity is ApplicationActivity)
 			{
-				this.Log().LogInformation($"Application activity started with intent {activity.Intent}");
+				Log.Info("UnoTest", $"Application activity started with intent {activity.Intent}");
 
 				_app.InitializationCompleted();
 
@@ -64,14 +65,14 @@ namespace Windows.UI.Xaml
 
 		internal bool TryHandleIntent(Intent intent)
 		{
-			this.Log().LogInformation($"Trying to handle intent with data: {intent.Data}");
+			Log.Info("UnoTest", $"Trying to handle intent with data: {intent.Data}");
 			var handled = false;
 			if (_lastHandledIntent != intent)
 			{
 				_lastHandledIntent = intent;
 				if (intent?.Extras?.ContainsKey(JumpListItem.ArgumentsExtraKey) == true)
 				{
-					this.Log().LogInformation("Intent contained JumpList extra arguments, calling OnLaunched.");
+					Log.Info("UnoTest", "Intent contained JumpList extra arguments, calling OnLaunched.");
 					_app.OnLaunched(new LaunchActivatedEventArgs(ActivationKind.Launch, intent.GetStringExtra(JumpListItem.ArgumentsExtraKey)));
 					handled = true;
 				}
@@ -79,18 +80,18 @@ namespace Windows.UI.Xaml
 				{
 					if (Uri.TryCreate(intent.Data.ToString(), UriKind.Absolute, out var uri))
 					{
-						this.Log().LogInformation("Intent data parsed, calling OnActivated. App is " + (_app != null ? "not null" : "null"));
+						Log.Info("UnoTest", "Intent data parsed, calling OnActivated. App is " + (_app != null ? "not null" : "null"));
 						_app.OnActivated(new ProtocolActivatedEventArgs(uri, _isRunning ? ApplicationExecutionState.Running : ApplicationExecutionState.NotRunning));
 						handled = true;
 					}
 					else
 					{
 						// log error and fall back to normal launch
-						this.Log().LogError("URI cannot be parsed from Intent.Data, continuing unhandled");
+						Log.Info("UnoTest", "URI cannot be parsed from Intent.Data, continuing unhandled");
 					}
 				}
 			}
-			this.Log().LogInformation($"Intent handled = {handled}");
+			Log.Info("UnoTest", $"Intent handled = {handled}");
 
 			return handled;
 		}
