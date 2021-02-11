@@ -24,7 +24,7 @@ namespace Windows.Storage.Pickers
 		private async Task<IReadOnlyList<StorageFile>> PickMultipleFilesTaskAsync()
 		{
 			var pickedFiles = PickFiles(true);
-			return pickedFiles.Select(url => new StorageFile(url.Path)).ToArray();
+			return pickedFiles.Select(url => StorageFile.GetFileFromPath(url.Path)).ToArray();
 		}
 
 		private NSUrl[] PickFiles(bool pickMultiple)
