@@ -1445,7 +1445,6 @@ var Uno;
                         // Create a temporary element that will contain the input's content
                         var textOnlyElement = document.createElement("p");
                         textOnlyElement.style.cssText = unconstrainedStyleCssText;
-                        textOnlyElement.style.whiteSpace = "pre"; // Make sure to preserve space for measure, especially the ending new line!
                         // If the input is null or empty, add a no-width character to force the paragraph to take up one line height
                         // The trailing new lines are going to be ignored for measure, so we also append no-width char at the end.
                         textOnlyElement.innerText = inputElement.value ? (inputElement.value + "\u200B") : "\u200B";
@@ -3146,25 +3145,19 @@ var Windows;
 (function (Windows) {
     var Storage;
     (function (Storage) {
-        var Pickers;
-        (function (Pickers) {
-            class FileSavePicker {
-                static SaveAs(fileName, dataPtr, size) {
-                    const buffer = new Uint8Array(size);
-                    for (var i = 0; i < size; i++) {
-                        buffer[i] = Module.getValue(dataPtr + i, "i8");
-                    }
-                    const a = window.document.createElement('a');
-                    const blob = new Blob([buffer]);
-                    a.href = window.URL.createObjectURL(blob);
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
+        class StorageFileNative {
+            static AddHandle(guid, handle) {
+                StorageFileNative._fileMap.set(guid, handle);
             }
-            Pickers.FileSavePicker = FileSavePicker;
-        })(Pickers = Storage.Pickers || (Storage.Pickers = {}));
+            static RemoveHandle(guid) {
+                StorageFileNative._fileMap.delete(guid);
+            }
+            static GetHandle(guid) {
+                return StorageFileNative._fileMap.get(guid);
+            }
+        }
+        StorageFileNative._fileMap = new Map();
+        Storage.StorageFileNative = StorageFileNative;
     })(Storage = Windows.Storage || (Windows.Storage = {}));
 })(Windows || (Windows = {}));
 var Windows;
@@ -3795,6 +3788,59 @@ var Windows;
             Connectivity.NetworkInformation = NetworkInformation;
         })(Connectivity = Networking.Connectivity || (Networking.Connectivity = {}));
     })(Networking = Windows.Networking || (Windows.Networking = {}));
+})(Windows || (Windows = {}));
+var Windows;
+(function (Windows) {
+    var Storage;
+    (function (Storage) {
+        var Pickers;
+        (function (Pickers) {
+            class FileOpenPicker {
+                static pickFilesAsync(multiple) {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        if (!showOpenFilePicker) {
+                            return null;
+                        }
+                        const selectedFiles = yield showOpenFilePicker({
+                            multiple: multiple,
+                            excludeAcceptAllOption: false
+                        });
+                        const guid = Uno.Utils.Guid.NewGuid();
+                        for (var i = 0; i < selectedFiles.length; i++) {
+                            Storage.StorageFileNative.AddHandle(guid, selectedFiles[i]);
+                        }
+                        return guid;
+                    });
+                }
+            }
+            Pickers.FileOpenPicker = FileOpenPicker;
+        })(Pickers = Storage.Pickers || (Storage.Pickers = {}));
+    })(Storage = Windows.Storage || (Windows.Storage = {}));
+})(Windows || (Windows = {}));
+var Windows;
+(function (Windows) {
+    var Storage;
+    (function (Storage) {
+        var Pickers;
+        (function (Pickers) {
+            class FileSavePicker {
+                static SaveAs(fileName, dataPtr, size) {
+                    const buffer = new Uint8Array(size);
+                    for (var i = 0; i < size; i++) {
+                        buffer[i] = Module.getValue(dataPtr + i, "i8");
+                    }
+                    const a = window.document.createElement('a');
+                    const blob = new Blob([buffer]);
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            }
+            Pickers.FileSavePicker = FileSavePicker;
+        })(Pickers = Storage.Pickers || (Storage.Pickers = {}));
+    })(Storage = Windows.Storage || (Windows.Storage = {}));
 })(Windows || (Windows = {}));
 var Windows;
 (function (Windows) {
