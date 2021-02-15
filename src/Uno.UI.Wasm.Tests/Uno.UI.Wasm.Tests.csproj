@@ -9,17 +9,13 @@
 
   <ItemGroup>
     <None Remove="tsconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="tsconfig.json" />
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.TypeScript.Compiler" />
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" />
 		<PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
-		<PackageReference Include="Uno.SourceGenerationTasks"/>
+		<PackageReference Include="Uno.SourceGenerationTasks" />
 	</ItemGroup>
 
 	<ItemGroup>
