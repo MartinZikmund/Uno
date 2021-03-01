@@ -32,17 +32,12 @@ namespace Windows.Storage
 
 		private sealed class Local : ImplementationBase
 		{
-			private string _name;
-
 			public Local(string name, string path)
 				: base(path)
 			{
-				_name = name;
 			}
 
 			public override StorageProvider Provider => StorageProviders.Local;
-
-			public override string Name => _name;
 
 			protected override bool IsEqual(ImplementationBase impl) =>
 				impl is Local other && Path.Equals(other.Path);
