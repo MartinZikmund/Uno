@@ -250,7 +250,7 @@ namespace Windows.Storage
 				return items.AsReadOnly();
 			}
 
-			public override async Task DeleteAsync(CancellationToken ct)
+			public override async Task DeleteAsync(StorageDeleteOption options, CancellationToken ct)
 			{
 				await TryInitializeStorage();
 
