@@ -15,9 +15,7 @@ namespace Windows.Storage
 	{
 		internal abstract class ImplementationBase
 		{
-			protected ImplementationBase()
-			{
-			}
+			protected ImplementationBase() { }
 
 			protected ImplementationBase(string path) => Path = path;
 
@@ -27,7 +25,7 @@ namespace Windows.Storage
 
 			public abstract StorageProvider Provider { get; }
 
-			public virtual string Name { get; } = string.Empty;
+			public virtual string Name => global::System.IO.Path.GetDirectoryName(Path);
 
 			public virtual string DisplayName => Name;
 
