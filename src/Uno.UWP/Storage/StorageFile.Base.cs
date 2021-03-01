@@ -19,8 +19,9 @@ namespace Windows.Storage
 			{
 			}
 
-			protected ImplementationBase(string path) => Path = path;
-
+			protected ImplementationBase(string path)
+				=> Path = path;
+			
 			public void InitOwner(StorageFile owner)
 				=> Owner = owner; // Lazy initialized to avoid delegate in StorageFile ctor
 
