@@ -15,9 +15,13 @@ namespace Windows.Storage
 	{
 		internal abstract class ImplementationBase
 		{
+			protected ImplementationBase()
+			{
+			}
+
 			protected ImplementationBase(string path)
 				=> Path = path;
-
+			
 			public void InitOwner(StorageFile owner)
 				=> Owner = owner; // Lazy initialized to avoid delegate in StorageFile ctor
 
@@ -25,7 +29,7 @@ namespace Windows.Storage
 
 			public abstract StorageProvider Provider { get; }
 
-			public virtual string Path { get; protected set; }
+			public virtual string Path { get; protected set; } = string.Empty;
 
 			public virtual string FileType => global::System.IO.Path.GetExtension(Path);
 
