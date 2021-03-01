@@ -15,6 +15,8 @@ namespace Windows.Storage
 	{
 		internal abstract class ImplementationBase
 		{
+			protected ImplementationBase() { }
+
 			protected ImplementationBase(string path) => Path = path;
 
 			public void InitOwner(StorageFolder owner) => Owner = owner; // Lazy initialized to avoid delegate in StorageFolder ctor
@@ -23,9 +25,11 @@ namespace Windows.Storage
 
 			public abstract StorageProvider Provider { get; }
 
-			public virtual string Name { get; } = string.Empty;
+			public virtual string Name => global::System.IO.Path.GetDirectoryName(Path);
 
-			public virtual string Path { get; protected set; }
+			public virtual string DisplayName => Name;
+
+			public virtual string Path { get; protected set; } = string.Empty;
 
 			public bool IsEqual(IStorageItem item) => item is StorageFolder sf && IsEqual(sf.Implementation);
 
