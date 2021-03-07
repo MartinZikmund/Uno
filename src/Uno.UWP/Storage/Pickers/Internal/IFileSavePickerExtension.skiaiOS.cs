@@ -1,4 +1,5 @@
-﻿#nullable enable
+﻿#if __SKIA__ || __IOS__
+#nullable enable
 
 using System.Threading.Tasks;
 using System.Threading;
@@ -11,3 +12,4 @@ namespace Uno.Extensions.Storage.Pickers
 		Task<StorageFile?> PickSaveFileAsync(CancellationToken token);
 	}
 }
+#endif

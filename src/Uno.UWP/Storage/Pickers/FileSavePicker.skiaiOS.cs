@@ -1,4 +1,5 @@
-﻿#nullable enable
+﻿#if __SKIA__ || __IOS__
+#nullable enable
 
 using System;
 using System.Threading;
@@ -25,3 +26,4 @@ namespace Windows.Storage.Pickers
 		}
 	}
 }
+#endif
