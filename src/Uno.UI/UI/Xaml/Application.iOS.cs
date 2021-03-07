@@ -12,6 +12,9 @@ using Windows.Graphics.Display;
 using Uno.UI.Services;
 using Uno.Extensions;
 using Microsoft.Extensions.Logging;
+using Uno.Foundation.Extensibility;
+using Uno.Extensions.Storage.Pickers;
+using Uno.UI.Storage.Pickers;
 
 #if HAS_UNO_WINUI
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
@@ -33,6 +36,7 @@ namespace Windows.UI.Xaml
 		{
 			Current = this;
 			ResourceHelper.ResourcesService = new ResourcesService(new[] { NSBundle.MainBundle });
+			RegisterExtensions();
 		}
 
 		public Application(IntPtr handle) : base(handle)
@@ -160,6 +164,11 @@ namespace Windows.UI.Xaml
 				this.Log().LogError($"Activation URI {url} could not be parsed");
 				return false;
 			}
+		}
+
+		private void RegisterExtensions()
+		{
+			ApiExtensibility.Register(typeof(IFileSavePickerExtension), o => new FolderSavePickerExtension(o));
 		}
 	}
 }
