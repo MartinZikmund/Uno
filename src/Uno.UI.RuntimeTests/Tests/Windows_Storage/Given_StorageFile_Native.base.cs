@@ -80,7 +80,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		public async Task When_CreateFile_ContentType_For_Extension_Upper()
 		{
 			var rootFolder = await GetRootFolderAsync();
-			var fileName = GetRandomTextFileName().Replace(".txt", ".TXT", StringComparison.InvariantCulture);
+			var fileName = GetRandomTextFileName().Replace(".txt", ".TXT");
 			StorageFile? createdFile = null;
 			try
 			{
