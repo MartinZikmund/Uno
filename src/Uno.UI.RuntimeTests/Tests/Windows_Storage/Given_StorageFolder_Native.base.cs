@@ -14,7 +14,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 	{
 		protected abstract Task<StorageFolder> GetRootFolderAsync();
 
-		protected abstract Task CleanupRootFolderAsync();
+		protected virtual Task CleanupRootFolderAsync() => Task.CompletedTask;
 
 		[TestMethod]
 		public async Task When_CreateFolder_Name_Matches()
@@ -1153,6 +1153,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 			}
 		}
 
+#if !WINDOWS_UWP // UWP is unable to handle going up a level for picked folders
 		[TestMethod]
 		public async Task When_GetParent()
 		{
@@ -1175,6 +1176,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 				await CleanupRootFolderAsync();
 			}
 		}
+#endif
 
 		private string GetRandomFolderName() => Guid.NewGuid().ToString();
 
