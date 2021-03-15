@@ -61,6 +61,28 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		}
 
 		[TestMethod]
+		public async Task When_CreateFile_Without_Extension()
+		{
+			var rootFolder = await GetRootFolderAsync();
+			var fileName = Path.GetFileNameWithoutExtension(GetRandomTextFileName());
+			StorageFile? createdFile = null;
+			try
+			{
+				createdFile = await rootFolder.CreateFileAsync(fileName);
+				Assert.AreEqual(fileName, createdFile.Name);
+				Assert.AreEqual(fileName, createdFile.DisplayName);
+			}
+			finally
+			{
+				if (createdFile != null)
+				{
+					await createdFile.DeleteAsync();
+				}
+				await CleanupRootFolderAsync();
+			}
+		}
+
+		[TestMethod]
 		public async Task When_CreateFile_ContentType_Matches()
 		{
 			var rootFolder = await GetRootFolderAsync();

@@ -59,6 +59,28 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		}
 
 		[TestMethod]
+		public async Task When_CreateFolder_With_File_Like_Name()
+		{
+			var rootFolder = await GetRootFolderAsync();
+			var folderName = GetRandomTextFileName();
+			StorageFolder? createdFolder = null;
+			try
+			{
+				createdFolder = await rootFolder.CreateFolderAsync(folderName);
+				Assert.AreEqual(folderName, createdFolder.Name);
+				Assert.AreEqual(folderName, createdFolder.DisplayName);
+			}
+			finally
+			{
+				if (createdFolder != null)
+				{
+					await createdFolder.DeleteAsync();
+				}
+				await CleanupRootFolderAsync();
+			}
+		}
+
+		[TestMethod]
 		public async Task When_CreateFolder_OfType()
 		{
 			var rootFolder = await GetRootFolderAsync();
