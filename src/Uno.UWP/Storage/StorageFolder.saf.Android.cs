@@ -157,7 +157,7 @@ namespace Windows.Storage
 				}, token);
 			}
 
-			public override async Task DeleteAsync(CancellationToken ct)
+			public override async Task DeleteAsync(StorageDeleteOption option, CancellationToken ct)
 			{
 				await Task.Run(() =>
 				{
