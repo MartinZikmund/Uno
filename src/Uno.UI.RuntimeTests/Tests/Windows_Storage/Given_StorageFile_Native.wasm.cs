@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿#nullable enable
+
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Windows.Storage;
 
