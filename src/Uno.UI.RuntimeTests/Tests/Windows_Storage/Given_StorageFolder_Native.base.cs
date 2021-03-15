@@ -198,22 +198,24 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 			var rootFolder = await GetRootFolderAsync();
 			var folderName = Guid.NewGuid().ToString();
 			StorageFile? createdFile = null;
-			StorageFolder? createdFolder = null;
 			try
 			{
 				createdFile = await rootFolder.CreateFileAsync(folderName);
-				await Assert.ThrowsExceptionAsync<Exception>(
-					async () => await rootFolder.CreateFolderAsync(folderName, CreationCollisionOption.ReplaceExisting));
+				try
+				{
+					await rootFolder.CreateFolderAsync(folderName, CreationCollisionOption.ReplaceExisting);
+					Assert.Fail("Expected exception, no exception thrown.");
+				}
+				catch (Exception)
+				{
+					// Empty handling - test should pass in this case.
+				}
 			}
 			finally
 			{
 				if (createdFile != null)
 				{
 					await createdFile.DeleteAsync();
-				}
-				if (createdFolder != null)
-				{
-					await createdFolder.DeleteAsync();
 				}
 				await CleanupRootFolderAsync();
 			}
@@ -225,10 +227,11 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 			var rootFolder = await GetRootFolderAsync();
 			var folderName = Guid.NewGuid().ToString();
 			StorageFolder? createdFolder = null;
+			StorageFolder? uniqueFolder = null;
 			try
 			{
-				createdFolder = await rootFolder.CreateFolderAsync(folderName);				
-				var uniqueFolder = await rootFolder.CreateFolderAsync(folderName, CreationCollisionOption.GenerateUniqueName);
+				createdFolder = await rootFolder.CreateFolderAsync(folderName);
+				uniqueFolder = await rootFolder.CreateFolderAsync(folderName, CreationCollisionOption.GenerateUniqueName);
 				Assert.AreEqual(folderName + " (2)", uniqueFolder.Name);
 			}
 			finally
@@ -236,6 +239,10 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 				if (createdFolder != null)
 				{
 					await createdFolder.DeleteAsync();
+				}
+				if (uniqueFolder != null)
+				{
+					await uniqueFolder.DeleteAsync();
 				}
 				await CleanupRootFolderAsync();
 			}
@@ -326,7 +333,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 				await FileIO.WriteBytesAsync(createdFile, new byte[14]);
 				var duplicate = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
 				var info = await duplicate.GetBasicPropertiesAsync();
-				Assert.AreEqual(14, info.Size);
+				Assert.AreEqual(14UL, info.Size);
 			}
 			finally
 			{
@@ -344,13 +351,14 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 			var rootFolder = await GetRootFolderAsync();
 			var fileName = GetRandomTextFileName();
 			StorageFile? createdFile = null;
+			StorageFile? duplicate = null;
 			try
 			{
 				createdFile = await rootFolder.CreateFileAsync(fileName);
 				await FileIO.WriteBytesAsync(createdFile, new byte[14]);
-				var duplicate = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+				duplicate = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
 				var info = await duplicate.GetBasicPropertiesAsync();
-				Assert.AreEqual(0, info.Size);
+				Assert.AreEqual(0UL, info.Size);
 			}
 			finally
 			{
@@ -367,45 +375,25 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		{
 			var rootFolder = await GetRootFolderAsync();
 			var fileName = GetRandomTextFileName();
-			StorageFile? createdFile = null;
 			StorageFolder? createdFolder = null;
 			try
 			{
 				createdFolder = await rootFolder.CreateFolderAsync(fileName);
-				await Assert.ThrowsExceptionAsync<Exception>(
-					async () => await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting));
+				try
+				{
+					await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+					Assert.Fail("Expected exception, no exception thrown.");
+				}
+				catch (Exception)
+				{
+					// Empty handling - test should pass in this case.
+				}				
 			}
 			finally
 			{
-				if (createdFile != null)
-				{
-					await createdFile.DeleteAsync();
-				}
 				if (createdFolder != null)
 				{
 					await createdFolder.DeleteAsync();
-				}
-				await CleanupRootFolderAsync();
-			}
-		}
-
-		[TestMethod]
-		public async Task When_CreateFile_Duplicate_GenerateUniqueName()
-		{
-			var rootFolder = await GetRootFolderAsync();
-			var fileName = GetRandomTextFileName();
-			StorageFile? createdFile = null;
-			try
-			{
-				createdFile = await rootFolder.CreateFileAsync(fileName);
-				var uniqueFolder = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
-				Assert.AreEqual(fileName + " (2)", uniqueFolder.Name);
-			}
-			finally
-			{
-				if (createdFile != null)
-				{
-					await createdFile.DeleteAsync();
 				}
 				await CleanupRootFolderAsync();
 			}
@@ -416,19 +404,48 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		{
 			var rootFolder = await GetRootFolderAsync();
 			var fileName = GetRandomTextFileName();
+			var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
 			StorageFile? createdFile = null;
-			StorageFolder? createdFolder = null;
+			StorageFile? uniqueFile = null;
 			try
 			{
-				createdFolder = await rootFolder.CreateFolderAsync(fileName);
-				createdFile = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
-				Assert.AreEqual(fileName + " (2)", createdFile.Name);
+				createdFile = await rootFolder.CreateFileAsync(fileName);
+				uniqueFile = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+				Assert.AreEqual(fileNameWithoutExtension + " (2).txt", uniqueFile.Name);
 			}
 			finally
 			{
 				if (createdFile != null)
 				{
 					await createdFile.DeleteAsync();
+				}
+				if (uniqueFile != null)
+				{
+					await uniqueFile.DeleteAsync();
+				}
+				await CleanupRootFolderAsync();
+			}
+		}
+
+		[TestMethod]
+		public async Task When_CreateFile_Duplicate_Folder_GenerateUniqueName()
+		{
+			var rootFolder = await GetRootFolderAsync();
+			var fileName = GetRandomTextFileName();
+			var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+			StorageFile? createdFile = null;
+			StorageFolder? createdFolder = null;
+			try
+			{
+				createdFolder = await rootFolder.CreateFolderAsync(fileName);
+				createdFile = await rootFolder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+				Assert.AreEqual(fileNameWithoutExtension + " (2).txt", createdFile.Name);
+			}
+			finally
+			{
+				if (createdFolder != null)
+				{
+					await createdFolder.DeleteAsync();
 				}
 				if (createdFile != null)
 				{
@@ -442,7 +459,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 		public async Task When_GetFile_File_Does_Not_Exist()
 		{
 			var rootFolder = await GetRootFolderAsync();
-			await Assert.ThrowsExceptionAsync<FileNotFoundException>(async () => await rootFolder.GetFileAsync("a.txt"));			
+			await Assert.ThrowsExceptionAsync<FileNotFoundException>(async () => await rootFolder.GetFileAsync("a.txt"));
 		}
 
 		[TestMethod]
@@ -594,7 +611,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 				}
 				await CleanupRootFolderAsync();
 			}
-		}		
+		}
 
 		[TestMethod]
 		public async Task When_TryGetItem_Folder_Does_Not_Exist()
@@ -1153,8 +1170,10 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 			}
 		}
 
-#if !WINDOWS_UWP // UWP is unable to handle going up a level for picked folders
 		[TestMethod]
+#if WINDOWS_UWP
+		[Ignore("UWP is unable to handle going up a level for picked folders")]
+#endif
 		public async Task When_GetParent()
 		{
 			var rootFolder = await GetRootFolderAsync();
@@ -1176,7 +1195,6 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_Storage
 				await CleanupRootFolderAsync();
 			}
 		}
-#endif
 
 		private string GetRandomFolderName() => Guid.NewGuid().ToString();
 
