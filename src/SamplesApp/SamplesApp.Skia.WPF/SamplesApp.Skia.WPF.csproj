@@ -3,6 +3,10 @@
 		<TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(UnoTargetFrameworkOverride)'!=''">
+		<TargetFrameworks>$(UnoTargetFrameworkOverride)</TargetFrameworks>
+	</PropertyGroup>
+
 	<Import Project="../../netcore-build-windows.props"/>
 
 	<PropertyGroup>
