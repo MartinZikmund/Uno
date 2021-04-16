@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.Devices.Input;
+﻿using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.UI.Input;
 using Uno.UI.Xaml.Input;

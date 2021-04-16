@@ -1,8 +1,8 @@
 namespace Windows.UI.Xaml.Input
 {
-	public  partial class ExecuteRequestedEventArgs 
+	public partial class ExecuteRequestedEventArgs
 	{
-		public  object Parameter
+		public object Parameter
 		{
 			get; internal set;
 		}
