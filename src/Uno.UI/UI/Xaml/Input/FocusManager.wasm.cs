@@ -102,26 +102,6 @@ namespace Windows.UI.Xaml.Input
 				return null;
 			}
 			return UIElement.GetElementFromHandle(handle);
-		}
-
-		private static bool InnerTryMoveFocus(FocusNavigationDirection focusNavigationDirection)
-		{
-			return false;
-		}
-
-		private static UIElement InnerFindNextFocusableElement(FocusNavigationDirection focusNavigationDirection)
-		{
-			return null;
-		}
-
-		private static DependencyObject InnerFindFirstFocusableElement(DependencyObject searchScope)
-		{
-			return null;
-		}
-
-		private static DependencyObject InnerFindLastFocusableElement(DependencyObject searchScope)
-		{
-			return null;
-		}
+		}		
 	}
 }

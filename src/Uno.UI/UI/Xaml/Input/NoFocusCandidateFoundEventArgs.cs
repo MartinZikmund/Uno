@@ -1,9 +1,11 @@
+using Uno.UI.Xaml.Input;
+
 namespace Windows.UI.Xaml.Input
 {
 	/// <summary>
 	/// Provides data for the NoFocusCandidateFound event.
 	/// </summary>
-	public partial class NoFocusCandidateFoundEventArgs : RoutedEventArgs
+	public partial class NoFocusCandidateFoundEventArgs : RoutedEventArgs, IHandleableRoutedEventArgs
 	{
 		internal NoFocusCandidateFoundEventArgs(FocusNavigationDirection direction, FocusInputDeviceKind inputDevice)
 		{

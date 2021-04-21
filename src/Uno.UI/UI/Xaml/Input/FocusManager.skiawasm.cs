@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if __WASM__ || __SKIA__
+using System;
 using Uno.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,3 +59,4 @@ namespace Windows.UI.Xaml.Input
 		private static void FocusNative(object toFocus) { }
 	}
 }
+#endif

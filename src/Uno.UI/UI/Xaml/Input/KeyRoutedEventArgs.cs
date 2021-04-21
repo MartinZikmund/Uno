@@ -5,7 +5,7 @@ using Windows.Foundation.Metadata;
 
 namespace Windows.UI.Xaml.Input
 {
-	public partial class KeyRoutedEventArgs : RoutedEventArgs, ICancellableRoutedEventArgs
+	public partial class KeyRoutedEventArgs : RoutedEventArgs, IHandleableRoutedEventArgs
 	{
 		private readonly CorePhysicalKeyStatus? _keyStatus;
 

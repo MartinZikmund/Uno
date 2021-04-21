@@ -1,3 +1,5 @@
+#nullable enable
+
 using Windows.Foundation;
 
 namespace Windows.UI.Xaml.Input
@@ -24,7 +26,9 @@ namespace Windows.UI.Xaml.Input
 		/// Gets or sets the object that must be the root from which to identify
 		/// the next focus candidate to receive navigation focus.
 		/// </summary>
-		public DependencyObject SearchRoot { get; set; }
+		/// <remarks>In many cases UWP throws when this is null. In non-UWP targets,
+		/// we use the current window as the search root in case of null.</remarks>
+		public DependencyObject? SearchRoot { get; set; }
 
 		/// <summary>
 		/// Gets or sets a bounding rectangle used to identify the focus candidates

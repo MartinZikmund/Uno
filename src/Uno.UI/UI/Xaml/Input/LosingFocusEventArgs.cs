@@ -1,18 +1,20 @@
+#nullable enable
+
 using System;
-using Uno;
+using Uno.UI.Xaml.Input;
 
 namespace Windows.UI.Xaml.Input
 {
 	/// <summary>
 	/// Provides data for the FocusManager.LosingFocus and UIElement.LosingFocus events.
 	/// </summary>
-	public partial class LosingFocusEventArgs : RoutedEventArgs
+	public partial class LosingFocusEventArgs : RoutedEventArgs, IHandleableRoutedEventArgs
 	{
 		internal LosingFocusEventArgs(
 			FocusNavigationDirection direction,
 			FocusState focusState,
 			FocusInputDeviceKind inputDevice,
-			DependencyObject oldFocusedElement,
+			DependencyObject? oldFocusedElement,
 			Guid correlationId)
 		{
 			Direction = direction;
@@ -40,7 +42,7 @@ namespace Windows.UI.Xaml.Input
 		/// <summary>
 		/// Gets the last focused object.
 		/// </summary>
-		public DependencyObject OldFocusedElement { get; }
+		public DependencyObject? OldFocusedElement { get; }
 
 		/// <summary>
 		/// Gets the unique ID generated when a focus movement event is initiated.
@@ -50,7 +52,7 @@ namespace Windows.UI.Xaml.Input
 		/// <summary>
 		/// Gets the most recent focused object.
 		/// </summary>
-		public DependencyObject NewFocusedElement { get; set; }
+		public DependencyObject? NewFocusedElement { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value that marks the routed event as handled.
@@ -64,16 +66,27 @@ namespace Windows.UI.Xaml.Input
 		/// </summary>
 		public bool Cancel { get; set; }
 
-		[NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
+		/// <summary>
+		/// Attempts to cancel the ongoing focus action.
+		/// </summary>
+		/// <returns>True, if the focus action is canceled; otherwise, false.</returns>
 		public bool TryCancel()
 		{
-			throw new NotImplementedException("The member bool LosingFocusEventArgs.TryCancel() is not implemented in Uno.");
+			Cancel = true;
+			// Currently there is no scenario where cancellation would fail.
+			return true;
 		}
 
-		[NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public bool TrySetNewFocusedElement(DependencyObject element)
+		/// <summary>
+		/// Attempts to redirect focus from the targeted element to the specified element.
+		/// </summary>
+		/// <param name="element">The object on which to set focus.</param>
+		/// <returns>True, if the focus action is redirected; otherwise, false.</returns>
+		public bool TrySetNewFocusedElement(DependencyObject? element)
 		{
-			throw new NotImplementedException("The member bool LosingFocusEventArgs.TrySetNewFocusedElement(DependencyObject element) is not implemented in Uno.");
+			NewFocusedElement = element;
+			// Currently there is no scenario where setting new focused element would fail.
+			return true;
 		}
 	}
 }

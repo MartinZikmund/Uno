@@ -778,7 +778,7 @@ namespace Windows.UI.Xaml
 
 		private static bool IsHandled(RoutedEventArgs args)
 		{
-			return args is ICancellableRoutedEventArgs cancellable && cancellable.Handled;
+			return args is IHandleableRoutedEventArgs cancellable && cancellable.Handled;
 		}
 
 		private bool IsBubblingInManagedCode(RoutedEvent routedEvent, RoutedEventArgs args)

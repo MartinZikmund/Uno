@@ -1,3 +1,4 @@
+using Uno.UI.Xaml.Input;
 using Windows.UI.Core;
 
 namespace Windows.UI.Xaml.Input
@@ -5,7 +6,7 @@ namespace Windows.UI.Xaml.Input
 	/// <summary>
 	/// Data for event which occurs when a single, composed character is received by the input queue.
 	/// </summary>
-	public partial class CharacterReceivedRoutedEventArgs : RoutedEventArgs
+	public partial class CharacterReceivedRoutedEventArgs : RoutedEventArgs, IHandleableRoutedEventArgs
 	{
 		internal CharacterReceivedRoutedEventArgs(char character, CorePhysicalKeyStatus keyStatus)
 		{
