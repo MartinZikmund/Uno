@@ -30,7 +30,7 @@ namespace Windows.UI.Xaml.Controls
 		#endif
 		// Skipping already declared property FontSize
 		// Skipping already declared property FontFamily
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
+		#if false
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public  int TabIndex
 		{
@@ -60,7 +60,7 @@ namespace Windows.UI.Xaml.Controls
 		#endif
 		// Skipping already declared property BorderThickness
 		// Skipping already declared property BorderBrush
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
+		#if false
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public  global::Windows.UI.Xaml.Input.KeyboardNavigationMode TabNavigation
 		{
@@ -280,7 +280,7 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property IsEnabledProperty
 		// Skipping already declared property IsTabStopProperty
 		// Skipping already declared property PaddingProperty
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
+		#if false
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public static global::Windows.UI.Xaml.DependencyProperty TabIndexProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -288,7 +288,7 @@ namespace Windows.UI.Xaml.Controls
 			typeof(global::Windows.UI.Xaml.Controls.Control), 
 			new FrameworkPropertyMetadata(default(int)));
 		#endif
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
+		#if false
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public static global::Windows.UI.Xaml.DependencyProperty TabNavigationProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(

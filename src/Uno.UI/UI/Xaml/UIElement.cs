@@ -788,7 +788,41 @@ namespace Windows.UI.Xaml
 			);
 		#endregion
 
+		#region TabIndex DependencyProperty
+
+		public int TabIndex
+		{
+			get => (int)this.GetValue(TabIndexProperty);
+			set => SetValue(TabIndexProperty, value);
+		}
+
+		public static DependencyProperty TabIndexProperty { get; } =
+			DependencyProperty.Register(
+				nameof(TabIndex),
+				typeof(int),
+				typeof(UIElement),
+				new FrameworkPropertyMetadata(int.MaxValue));
+
+		#endregion
+
 		private protected virtual void OnIsTabStopChanged(bool oldValue, bool newValue) { }
 #endif
+
+		#region TabFocusNavigation DependencyProperty
+
+		public KeyboardNavigationMode TabFocusNavigation
+		{
+			get => (KeyboardNavigationMode)GetValue(TabFocusNavigationProperty);
+			set => SetValue(TabFocusNavigationProperty, value);
+		}
+
+		public static DependencyProperty TabFocusNavigationProperty { get; } =
+			DependencyProperty.Register(
+				nameof(TabFocusNavigation),
+				typeof(KeyboardNavigationMode),
+				typeof(UIElement),
+				new FrameworkPropertyMetadata(default(KeyboardNavigationMode)));
+
+		#endregion
 	}
 }

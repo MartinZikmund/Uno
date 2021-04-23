@@ -15,9 +15,9 @@ namespace Uno.UI.Xaml.Controls
 			DefaultStyleKey = typeof(SystemFocusVisual);
 		}
 
-		public FrameworkElement FocusedElement
+		public FrameworkElement? FocusedElement
 		{
-			get => (FrameworkElement)GetValue(FocusedElementProperty);
+			get => (FrameworkElement?)GetValue(FocusedElementProperty);
 			set => SetValue(FocusedElementProperty, value);
 		}
 

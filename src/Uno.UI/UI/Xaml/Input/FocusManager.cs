@@ -80,7 +80,7 @@ namespace Windows.UI.Xaml.Input
 					"Undefined focus navigation direction was used.");
 			}
 
-			return null;
+			return InnerFindNextFocusableElement(focusNavigationDirection) as DependencyObject;
 		}
 
 		/// <summary>
@@ -123,7 +123,7 @@ namespace Windows.UI.Xaml.Input
 				throw new ArgumentNullException(nameof(focusNavigationOptions));
 			}
 
-			return null;
+			return InnerFindNextFocusableElement(focusNavigationDirection) as DependencyObject;
 		}
 
 		/// <summary>
@@ -150,7 +150,7 @@ namespace Windows.UI.Xaml.Input
 		/// <param name="hintRect">A bounding rectangle used to influence which element is most likely to be considered the next to receive focus.</param>
 		/// <returns>Next focusable view depending on FocusNavigationDirection, null if focus cannot be set in the specified direction.</returns>
 		[NotImplemented]
-		public static UIElement FindNextFocusableElement(FocusNavigationDirection focusNavigationDirection, Rect hintRect)
+		public static UIElement? FindNextFocusableElement(FocusNavigationDirection focusNavigationDirection, Rect hintRect)
 		{
 			if (!Enum.IsDefined(typeof(FocusNavigationDirection), focusNavigationDirection))
 			{
@@ -159,7 +159,7 @@ namespace Windows.UI.Xaml.Input
 					"Undefined focus navigation direction was used.");
 			}
 
-			return InnerFindNextFocusableElement(focusNavigationDirection);
+			return InnerFindNextFocusableElement(focusNavigationDirection) as UIElement;
 		}
 
 		/// <summary>
@@ -399,6 +399,8 @@ namespace Windows.UI.Xaml.Input
 
 			return true;
 		}
+
+		static partial void FocusNative(Control? control);
 
 		private static void UpdateFocusVisual(DependencyObject newFocus, FocusState focusState)
 		{

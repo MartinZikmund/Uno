@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Uno.Extensions;
-using Uno;
 using Uno.UI;
-using Uno.UI.DataBinding;
 using System.Linq;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -12,7 +8,6 @@ using Windows.UI.Text;
 using Windows.UI.Xaml.Markup;
 using System.ComponentModel;
 using System.Reflection;
-using Windows.UI.Core;
 using Uno.UI.Xaml;
 #if XAMARIN_ANDROID
 using View = Android.Views.View;
@@ -50,7 +45,8 @@ namespace Windows.UI.Xaml.Controls
 
 			DefaultStyleKey = typeof(Control);
 		}
-		
+
+		// TODO: Should use DefaultStyleKeyProperty DP
 		protected object DefaultStyleKey { get; set; }
 
 		protected override bool IsSimpleLayout => true;
@@ -491,7 +487,7 @@ namespace Windows.UI.Xaml.Controls
 			set { this.SetValue(ForegroundProperty, value); }
 		}
 
-		public static DependencyProperty ForegroundProperty { get ; } =
+		public static DependencyProperty ForegroundProperty { get; } =
 			DependencyProperty.Register(
 				"Foreground",
 				typeof(Brush),
@@ -513,7 +509,7 @@ namespace Windows.UI.Xaml.Controls
 			set { this.SetValue(FontWeightProperty, value); }
 		}
 
-		public static DependencyProperty FontWeightProperty { get ; } =
+		public static DependencyProperty FontWeightProperty { get; } =
 			DependencyProperty.Register(
 				"FontWeight",
 				typeof(FontWeight),
@@ -535,7 +531,7 @@ namespace Windows.UI.Xaml.Controls
 			set { this.SetValue(FontSizeProperty, value); }
 		}
 
-		public static DependencyProperty FontSizeProperty { get ; } =
+		public static DependencyProperty FontSizeProperty { get; } =
 			DependencyProperty.Register(
 				"FontSize",
 				typeof(double),
@@ -557,7 +553,7 @@ namespace Windows.UI.Xaml.Controls
 			set { this.SetValue(FontFamilyProperty, value); }
 		}
 
-		public static DependencyProperty FontFamilyProperty { get ; } =
+		public static DependencyProperty FontFamilyProperty { get; } =
 			DependencyProperty.Register(
 				"FontFamily",
 				typeof(FontFamily),
@@ -578,7 +574,7 @@ namespace Windows.UI.Xaml.Controls
 			set { this.SetValue(FontStyleProperty, value); }
 		}
 
-		public static DependencyProperty FontStyleProperty { get ; } =
+		public static DependencyProperty FontStyleProperty { get; } =
 			DependencyProperty.Register(
 				"FontStyle",
 				typeof(FontStyle),
@@ -600,7 +596,7 @@ namespace Windows.UI.Xaml.Controls
 		}
 
 		// Using a DependencyProperty as the backing store for Padding.  This enables animation, styling, binding, etc...
-		public static DependencyProperty PaddingProperty { get ; } =
+		public static DependencyProperty PaddingProperty { get; } =
 			DependencyProperty.Register(
 				"Padding",
 				typeof(Thickness),
@@ -623,7 +619,7 @@ namespace Windows.UI.Xaml.Controls
 		}
 
 		// Using a DependencyProperty as the backing store for BorderThickness.  This enables animation, styling, binding, etc...
-		public static DependencyProperty BorderThicknessProperty { get ; } =
+		public static DependencyProperty BorderThicknessProperty { get; } =
 			DependencyProperty.Register(
 				"BorderThickness",
 				typeof(Thickness),
@@ -658,7 +654,7 @@ namespace Windows.UI.Xaml.Controls
 		}
 
 		// Using a DependencyProperty as the backing store for BorderBrush.  This enables animation, styling, binding, etc...
-		public static DependencyProperty BorderBrushProperty { get ; } =
+		public static DependencyProperty BorderBrushProperty { get; } =
 			DependencyProperty.Register(
 				"BorderBrush",
 				typeof(Brush),
@@ -712,12 +708,47 @@ namespace Windows.UI.Xaml.Controls
 				)
 			);
 		#endregion
+
+		#region TabIndex DependencyProperty
+
+		public int TabIndex
+		{
+			get => (int)this.GetValue(TabIndexProperty);
+			set => SetValue(TabIndexProperty, value);
+		}
+
+		public static DependencyProperty TabIndexProperty { get; } =
+			DependencyProperty.Register(
+				nameof(TabIndex),
+				typeof(int),
+				typeof(Control),
+				new FrameworkPropertyMetadata(int.MaxValue));
+
+		#endregion
+
 #else
 		private protected override void OnIsTabStopChanged(bool oldValue, bool newValue)
 		{
 			OnIsFocusableChanged();
 		}
 #endif
+
+		#region TabNavigation DependencyProperty
+
+		public KeyboardNavigationMode TabNavigation
+		{
+			get => (KeyboardNavigationMode)GetValue(TabNavigationProperty);
+			set => SetValue(TabNavigationProperty, value);
+		}
+
+		public static DependencyProperty TabNavigationProperty { get; } =
+			DependencyProperty.Register(
+				nameof(TabNavigation),
+				typeof(KeyboardNavigationMode),
+				typeof(Control),
+				new FrameworkPropertyMetadata(default(KeyboardNavigationMode)));
+
+		#endregion
 
 		internal protected override void OnDataContextChanged(DependencyPropertyChangedEventArgs e)
 		{
@@ -1139,24 +1170,24 @@ namespace Windows.UI.Xaml.Controls
 		internal void ConditionallyGetTemplatePartAndUpdateVisibility<T>(
 			string strName,
 			bool visible,
-			ref T element) where T:UIElement
-        {
-            if (element == null && (visible /*|| !DXamlCore::GetCurrent()->GetHandle()->GetDeferredElementIfExists(strName, GetHandle(), Jupiter::NameScoping::NameScopeType::TemplateNameScope))*/))
-            {
-                // If element should be visible or is not deferred, then fetch it.
+			ref T element) where T : UIElement
+		{
+			if (element == null && (visible /*|| !DXamlCore::GetCurrent()->GetHandle()->GetDeferredElementIfExists(strName, GetHandle(), Jupiter::NameScoping::NameScopeType::TemplateNameScope))*/))
+			{
+				// If element should be visible or is not deferred, then fetch it.
 				element = GetTemplateChild(strName) as T;
 			}
 
-            // If element was found then set its Visibility - this is behavior consistent with pre-Threshold releases.
-            if (element != null)
-            {
-                var spElementAsUIE = element as UIElement;
+			// If element was found then set its Visibility - this is behavior consistent with pre-Threshold releases.
+			if (element != null)
+			{
+				var spElementAsUIE = element as UIElement;
 
-                if (spElementAsUIE != null) 
-                {
-                    spElementAsUIE.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-                }
-            }
-        }
+				if (spElementAsUIE != null)
+				{
+					spElementAsUIE.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+				}
+			}
+		}
 	}
 }
