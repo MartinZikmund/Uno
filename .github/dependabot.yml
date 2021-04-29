@@ -1,0 +1,47 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  labels:
+  - kind/dependency
+  - do-not-merge/work-in-progress
+  ignore:
+  - dependency-name: Microsoft.VisualStudio.Telemetry
+    versions:
+    - 16.3.104
+    - 16.3.110
+  - dependency-name: Xamarin.AndroidX.Legacy.Support.v4
+    versions:
+    - 1.0.0.6
+    - 1.0.0.7
+  - dependency-name: Microsoft.Build.Engine
+    versions:
+    - 16.8.0
+  - dependency-name: Microsoft.NETCore.UniversalWindowsPlatform
+    versions:
+    - 6.2.11
+  - dependency-name: Microsoft.VisualStudio.Shell.Framework
+    versions:
+    - 16.7.30329.88
+  - dependency-name: Microsoft.VisualStudio.Imaging
+    versions:
+    - 16.7.30329.63
+  - dependency-name: System.Collections.Immutable
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.CodeAnalysis.Common
+    versions:
+    - 3.8.0
+  - dependency-name: System.Management
+    versions:
+    - 5.0.0
+  - dependency-name: Microsoft.CodeAnalysis.CSharp.Workspaces
+    versions:
+    - 3.8.0
+  commit-message:
+    prefix: chore
+    include: scope
