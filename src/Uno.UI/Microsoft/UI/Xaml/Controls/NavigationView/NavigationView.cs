@@ -93,14 +93,14 @@ namespace Microsoft.UI.Xaml.Controls
 		private const int c_mainMenuBlockIndex = 0;
 		private const int c_footerMenuBlockIndex = 1;
 
+		private const string c_shadowCaster = "ShadowCaster";
+		private const string c_shadowCasterEaseInStoryboard = "ShadowCasterEaseInStoryboard";
+		private const string c_shadowCasterSmallPaneEaseInStoryboard = "ShadowCasterSmallPaneEaseInStoryboard";
+		private const string c_shadowCasterEaseOutStoryboard = "ShadowCasterEaseOutStoryboard";
+
 		private int itemNotFound = -1;
 
 		private static Size c_infSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
-		~NavigationView()
-		{
-			UnhookEventsAndClearFields(true);
-		}
 
 		// UIElement / UIElementOverridesHelper
 		protected override AutomationPeer OnCreateAutomationPeer()
@@ -174,6 +174,7 @@ namespace Microsoft.UI.Xaml.Controls
 			m_topNavItemsRepeaterUnoBeforeElementPreparedRevoker.Disposable = null;
 			m_topNavOverflowItemsRepeaterUnoBeforeElementPreparedRevoker.Disposable = null;
 #endif
+			m_shadowCasterEaseOutStoryboardRevoker.Disposable = null;
 
 			if (isFromDestructor)
 			{
@@ -772,7 +773,17 @@ namespace Microsoft.UI.Xaml.Controls
 				AccessKeyInvoked += OnAccessKeyInvoked;
 				m_accessKeyInvokedRevoker.Disposable = Disposable.Create(() => AccessKeyInvoked -= OnAccessKeyInvoked);
 
-				UpdatePaneShadow();
+				if (SharedHelpers.Is21H1OrHigher())
+				{
+					m_shadowCaster = GetTemplateChild<Grid>(c_shadowCaster);
+					m_shadowCasterEaseInStoryboard = GetTemplateChild<Storyboard>(c_shadowCasterEaseInStoryboard);
+					m_shadowCasterSmallPaneEaseInStoryboard = GetTemplateChild<Storyboard>(c_shadowCasterSmallPaneEaseInStoryboard);
+					m_shadowCasterEaseOutStoryboard = GetTemplateChild<Storyboard>(c_shadowCasterEaseOutStoryboard);
+				}
+				else
+				{
+					UpdatePaneShadow();
+				}
 
 				m_appliedTemplate = true;
 
@@ -4210,7 +4221,11 @@ namespace Microsoft.UI.Xaml.Controls
 			else if (property == CompactPaneLengthProperty)
 			{
 				// Need to update receiver margins when CompactPaneLength changes
-				UpdatePaneShadow();
+				if (!SharedHelpers.Is21H1OrHigher())
+				{
+					// Need to update receiver margins when CompactPaneLength changes
+					UpdatePaneShadow();
+				}
 
 				// Update pane-button-grid width when pane is closed and we are not in minimal
 				UpdatePaneButtonsWidths();
@@ -4269,6 +4284,9 @@ namespace Microsoft.UI.Xaml.Controls
 				coreTitleBar.LayoutMetricsChanged += OnTitleBarMetricsChanged;
 				coreTitleBar.IsVisibleChanged += OnTitleBarIsVisibleChanged;
 			}
+
+			// Uno specific - Unhook events here instead of destructor
+			UnhookEventsAndClearFields(true);
 		}
 
 		private void OnLoaded(object sender, RoutedEventArgs args)
@@ -4323,17 +4341,30 @@ namespace Microsoft.UI.Xaml.Controls
 
 			if (SharedHelpers.IsThemeShadowAvailable())
 			{
-				var splitView = m_rootSplitView;
-				if (splitView != null)
+				// Drop Shadows were only introduced in OS versions 21h1 or higher. Projected Shadows will be used for older versions.
+				if (SharedHelpers.Is21H1OrHigher())
 				{
-					var displayMode = splitView.DisplayMode;
-					var isOverlay = displayMode == SplitViewDisplayMode.Overlay || displayMode == SplitViewDisplayMode.CompactOverlay;
-					var paneRoot = splitView.Pane;
-					if (paneRoot != null)
+					if (IsPaneOpen)
 					{
-						var currentTranslation = paneRoot.Translation;
-						var translation = new Vector3(currentTranslation.X, currentTranslation.Y, IsPaneOpen && isOverlay ? c_paneElevationTranslationZ : 0.0f);
-						paneRoot.Translation = translation;
+						SetDropShadow();
+					}
+					else
+					{
+						UnsetDropShadow();
+					}
+				}
+				else
+				{
+					if (m_rootSplitView is { } splitView)
+					{
+						var displayMode = splitView.DisplayMode;
+						var isOverlay = displayMode == SplitViewDisplayMode.Overlay || displayMode == SplitViewDisplayMode.CompactOverlay;
+						if (splitView.Pane is { } paneRoot)
+						{
+							var currentTranslation = paneRoot.Translation;
+							var translation = new Vector3(currentTranslation.X, currentTranslation.Y, IsPaneOpen && isOverlay ? c_paneElevationTranslationZ : 0.0f);
+							paneRoot.Translation = translation;
+						}
 					}
 				}
 			}
@@ -5015,6 +5046,76 @@ namespace Microsoft.UI.Xaml.Controls
 			bool isTabletMode = m_uiViewSettings.UserInteractionMode == UserInteractionMode.Touch;
 
 			return isFullScreenMode || isTabletMode;
+		}
+
+		private void SetDropShadow()
+		{
+			var displayMode = DisplayMode;
+
+			if (displayMode == NavigationViewDisplayMode.Compact || displayMode == NavigationViewDisplayMode.Minimal)
+			{
+				if (m_shadowCaster is { } shadowCaster)
+				{
+					var rootSplitView = m_rootSplitView;
+					var rootSplitViewActualWidth = rootSplitView.ActualWidth;
+
+					// If the screen real estate is too small, the left pane of SplitView ends up being smaller than OpenPaneLength and takes the width of RootSplitView.
+					// This requires a different storyboard animation than default.
+					if (rootSplitViewActualWidth < rootSplitView.OpenPaneLength)
+					{
+						// Since the width of the NavigationView pane is now different than OpenPaneLength, we need to update its TranslateX animation value to a reflect that.
+						var negativeSplitViewWidthMinusCompactLength = (rootSplitViewActualWidth - rootSplitView.CompactPaneLength) * -1;
+						GetTemplateSettings().NegativeSplitViewWidthMinusCompactLength = negativeSplitViewWidthMinusCompactLength;
+
+						if (m_shadowCasterSmallPaneEaseInStoryboard is { } shadowCasterSmallPaneEaseInStoryboard)
+						{
+							shadowCasterSmallPaneEaseInStoryboard.Begin();
+						}
+					}
+					else
+					{
+						if (m_shadowCasterEaseInStoryboard is { } shadowCasterEaseInStoryboard)
+						{
+							shadowCasterEaseInStoryboard.Begin();
+						}
+					}
+
+					if (shadowCaster is { } shadowCaster_uiElement10)
+					{
+						shadowCaster_uiElement10.Shadow = new ThemeShadow();
+					}
+				}
+			}
+		}
+
+		private void UnsetDropShadow()
+		{
+			var shadowCaster = m_shadowCaster;
+
+			if (m_shadowCasterEaseOutStoryboard is { } shadowCasterEaseOutStoryboard)
+			{
+				shadowCasterEaseOutStoryboard.Begin();
+
+				m_shadowCasterEaseOutStoryboardRevoker.Disposable = Disposable.Create(() =>
+				{
+					//TODO
+				});
+				shadowCasterEaseOutStoryboard.Completed += (s, e) =>
+				{
+					ShadowCasterEaseOutStoryboard_Completed(shadowCaster);
+				}
+			}
+		}
+
+		private void ShadowCasterEaseOutStoryboard_Completed(Grid shadowCaster)
+		{
+			if (shadowCaster is UIElement shadowCaster_uiElement10)
+			{
+				if (shadowCaster_uiElement10.Shadow != null)
+				{
+					shadowCaster_uiElement10.Shadow = null;
+				}
+			}
 		}
 
 		private void UpdatePaneShadow()
@@ -5813,7 +5914,7 @@ namespace Microsoft.UI.Xaml.Controls
 			return IsRootItemsRepeater(GetParentItemsRepeaterForContainer(nvib));
 		}
 
-#region Uno specific
+		#region Uno specific
 
 		//TODO: Uno specific - remove when #4689 is fixed
 
@@ -5833,6 +5934,6 @@ namespace Microsoft.UI.Xaml.Controls
 			}
 		}
 
-#endregion
+		#endregion
 	}
 }

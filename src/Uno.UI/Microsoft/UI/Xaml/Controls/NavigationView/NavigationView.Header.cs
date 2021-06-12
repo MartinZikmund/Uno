@@ -6,6 +6,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Microsoft.UI.Xaml.Controls
 {
@@ -61,6 +62,10 @@ namespace Microsoft.UI.Xaml.Controls
 		private ItemsRepeater m_topNavRepeaterOverflowView;
 		private Grid m_topNavGrid;
 		private Border m_topNavContentOverlayAreaGrid;
+		private Grid m_shadowCaster;
+		private Storyboard m_shadowCasterEaseInStoryboard;
+		private Storyboard m_shadowCasterSmallPaneEaseInStoryboard;
+		private Storyboard m_shadowCasterEaseOutStoryboard;
 
 		// Indicator animations
 		private UIElement m_prevIndicator;
@@ -144,6 +149,8 @@ namespace Microsoft.UI.Xaml.Controls
 		private readonly SerialDisposable m_topNavOverflowItemsCollectionChangedRevoker = new SerialDisposable();
 
 		private readonly SerialDisposable m_flyoutClosingRevoker = new SerialDisposable();
+
+		private readonly SerialDisposable m_shadowCasterEaseOutStoryboardRevoker = new SerialDisposable();
 
 		private bool m_wasForceClosed = false;
 		private bool m_isClosedCompact = false;
