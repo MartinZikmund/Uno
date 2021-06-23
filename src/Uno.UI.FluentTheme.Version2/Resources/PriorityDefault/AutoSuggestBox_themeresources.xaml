@@ -146,7 +146,7 @@
                                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                                 AutomationProperties.AccessibilityView="Raw"
-                                                local:AnimatedIcon.State="Normal">
+                                                >
 
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
@@ -164,9 +164,6 @@
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlButtonForegroundPointerOver}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                             </Storyboard>
-                                                            <VisualState.Setters>
-                                                                <Setter Target="ContentPresenter.(local:AnimatedIcon.State)" Value="PointerOver"/>
-                                                            </VisualState.Setters>
                                                         </VisualState>
 
                                                         <VisualState x:Name="Pressed">
@@ -181,9 +178,6 @@
                                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlButtonForegroundPressed}" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                             </Storyboard>
-                                                            <VisualState.Setters>
-                                                                <Setter Target="ContentPresenter.(local:AnimatedIcon.State)" Value="Pressed"/>
-                                                            </VisualState.Setters>
                                                         </VisualState>
 
                                                         <VisualState x:Name="Disabled">

@@ -11,7 +11,6 @@ namespace SamplesApp
 		{
 			this.InitializeComponent();
 
-			sampleControl.DataContext = new SampleChooserViewModel();
 		}
 	}
 }

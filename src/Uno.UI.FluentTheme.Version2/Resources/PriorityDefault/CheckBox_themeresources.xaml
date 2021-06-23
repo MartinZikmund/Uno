@@ -645,7 +645,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminate}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph"
@@ -678,7 +678,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePointerOver}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph"
@@ -711,7 +711,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePressed}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph"
@@ -744,7 +744,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminateDisabled}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph"
@@ -783,20 +783,11 @@
                                 contract7Present:RadiusY="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}"
                                 contract7NotPresent:RadiusX="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}"
                                 contract7NotPresent:RadiusY="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}"/>
-                            <local:AnimatedIcon x:Name="CheckGlyph"
-                                                Foreground="{ThemeResource CheckBoxCheckGlyphForegroundUnchecked}"
-                                                Margin="4"
-                                                contract7NotPresent:Opacity="0">
-                                <animatedvisuals:AnimatedAcceptVisualSource/>
-                                <local:AnimatedIcon.FallbackIconSource>
-                                    <local:FontIconSource
-                                        x:Name="DownLevelCheckGlyph"
+                            <local:FontIcon
+                                        x:Name="CheckGlyph"
                                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                         Glyph="{StaticResource CheckBoxCheckedGlyph}"
                                         FontSize="{StaticResource CheckBoxGlyphSize}"/>
-                                </local:AnimatedIcon.FallbackIconSource>
-                            </local:AnimatedIcon>
-
                         </Grid>
                         <ContentPresenter
                             x:Name="ContentPresenter"

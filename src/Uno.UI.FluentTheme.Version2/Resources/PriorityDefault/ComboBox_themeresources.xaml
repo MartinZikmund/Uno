@@ -372,10 +372,10 @@
         <Setter Property="Height" Value="{StaticResource ComboBoxItemPillHeight}"/>
         <Setter Property="Width" Value="{StaticResource ComboBoxItemPillWidth}"/>
         <Setter Property="Fill" Value="{ThemeResource ComboBoxItemPillFillBrush}"/>
-        <contract7Present:Setter Property="RadiusX" Value="{Binding Source={StaticResource ComboBoxItemPillCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}"/>
-        <contract7Present:Setter Property="RadiusY" Value="{Binding Source={StaticResource ComboBoxItemPillCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}"/>
-        <contract7NotPresent:Setter Property="RadiusX" Value="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}"/>
-        <contract7NotPresent:Setter Property="RadiusY" Value="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}"/>
+        <contract7Present:Setter Property="RadiusX" Value="4"/>
+        <contract7Present:Setter Property="RadiusY" Value="4"/>
+        <contract7NotPresent:Setter Property="RadiusX" Value="4"/>
+        <contract7NotPresent:Setter Property="RadiusY" Value="4"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
     </Style>
 
@@ -637,7 +637,6 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            contract7Present:Translation="0,0,1"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"

@@ -15,3 +15,4 @@
 [assembly: InternalsVisibleTo("SamplesApp.Wasm")]
 [assembly: InternalsVisibleTo("SamplesApp.Skia")]
 [assembly: InternalsVisibleTo("Uno.UI.FluentTheme")]
+[assembly: InternalsVisibleTo("Uno.UI.FluentTheme.Version2")]

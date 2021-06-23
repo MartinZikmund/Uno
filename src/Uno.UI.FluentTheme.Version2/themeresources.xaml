@@ -10177,7 +10177,7 @@
                 <Setter Property="Template">
                   <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                      <ContentPresenter x:Name="ContentPresenter" Background="{ThemeResource TextControlButtonBackground}" contract7Present:BackgroundSizing="{TemplateBinding BackgroundSizing}" BorderBrush="{ThemeResource TextControlButtonBorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Content="{TemplateBinding Content}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource RightCornerRadiusFilterConverter}}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" FontSize="{ThemeResource AutoSuggestBoxIconFontSize}" Margin="{ThemeResource AutoSuggestBoxInnerButtonMargin}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls">
+                      <ContentPresenter x:Name="ContentPresenter" Background="{ThemeResource TextControlButtonBackground}" contract7Present:BackgroundSizing="{TemplateBinding BackgroundSizing}" BorderBrush="{ThemeResource TextControlButtonBorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Content="{TemplateBinding Content}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource RightCornerRadiusFilterConverter}}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" FontSize="{ThemeResource AutoSuggestBoxIconFontSize}" Margin="{ThemeResource AutoSuggestBoxInnerButtonMargin}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw">
                         <VisualStateManager.VisualStateGroups>
                           <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal" />
@@ -10193,9 +10193,6 @@
                                   <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlButtonForegroundPointerOver}" />
                                 </ObjectAnimationUsingKeyFrames>
                               </Storyboard>
-                              <VisualState.Setters>
-                                <Setter Target="ContentPresenter.(controls:AnimatedIcon.State)" Value="PointerOver" />
-                              </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                               <Storyboard>
@@ -10209,9 +10206,6 @@
                                   <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlButtonForegroundPressed}" />
                                 </ObjectAnimationUsingKeyFrames>
                               </Storyboard>
-                              <VisualState.Setters>
-                                <Setter Target="ContentPresenter.(controls:AnimatedIcon.State)" Value="Pressed" />
-                              </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Disabled">
                               <Storyboard>
@@ -10396,7 +10390,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <ContentPresenter x:Name="ContentPresenter" Background="{TemplateBinding Background}" contract7Present:BackgroundSizing="{TemplateBinding BackgroundSizing}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{ThemeResource ControlCornerRadius}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls">
+          <ContentPresenter x:Name="ContentPresenter" Background="{TemplateBinding Background}" contract7Present:BackgroundSizing="{TemplateBinding BackgroundSizing}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{ThemeResource ControlCornerRadius}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw">
             <contract7Present:ContentPresenter.BackgroundTransition>
               <contract7Present:BrushTransition Duration="0:0:0.083" />
             </contract7Present:ContentPresenter.BackgroundTransition>
@@ -10415,9 +10409,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPointerOver}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ContentPresenter.(controls:AnimatedIcon.State)" Value="PointerOver" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
                   <Storyboard>
@@ -10431,9 +10422,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ContentPresenter.(controls:AnimatedIcon.State)" Value="Pressed" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Disabled">
                   <Storyboard>
@@ -10447,10 +10435,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <!-- DisabledVisual Should be handled by the control, not the animated icon. -->
-                    <Setter Target="ContentPresenter.(controls:AnimatedIcon.State)" Value="Normal" />
-                  </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
@@ -11324,7 +11308,7 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminate}" />
                     </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                     </ObjectAnimationUsingKeyFrames>
                     <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
@@ -11353,7 +11337,7 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePointerOver}" />
                     </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                     </ObjectAnimationUsingKeyFrames>
                     <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
@@ -11382,7 +11366,7 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePressed}" />
                     </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                     </ObjectAnimationUsingKeyFrames>
                     <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
@@ -11411,7 +11395,7 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminateDisabled}" />
                     </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DownLevelCheckGlyph" Storyboard.TargetProperty="Glyph">
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Glyph">
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
                     </ObjectAnimationUsingKeyFrames>
                     <contract7NotPresent:DoubleAnimation Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
@@ -11432,12 +11416,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" VerticalAlignment="Center" Height="{StaticResource CheckBoxSize}" Width="{StaticResource CheckBoxSize}">
               <Rectangle x:Name="NormalRectangle" Fill="{ThemeResource CheckBoxCheckBackgroundFillUnchecked}" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="{StaticResource CheckBoxBorderThickness}" UseLayoutRounding="False" Height="{StaticResource CheckBoxSize}" Width="{StaticResource CheckBoxSize}" contract7Present:RadiusX="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}" contract7Present:RadiusY="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}" contract7NotPresent:RadiusX="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}" contract7NotPresent:RadiusY="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}" />
-              <controls:AnimatedIcon x:Name="CheckGlyph" Foreground="{ThemeResource CheckBoxCheckGlyphForegroundUnchecked}" Margin="4" contract7NotPresent:Opacity="0">
-                <animatedvisuals:AnimatedAcceptVisualSource />
-                <controls:AnimatedIcon.FallbackIconSource>
-                  <controls:FontIconSource x:Name="DownLevelCheckGlyph" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckBoxCheckedGlyph}" FontSize="{StaticResource CheckBoxGlyphSize}" />
-                </controls:AnimatedIcon.FallbackIconSource>
-              </controls:AnimatedIcon>
+              <controls:FontIcon x:Name="CheckGlyph" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckBoxCheckedGlyph}" FontSize="{StaticResource CheckBoxGlyphSize}" />
             </Grid>
             <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw" TextWrapping="Wrap" />
           </Grid>
@@ -11993,10 +11972,10 @@
     <Setter Property="Height" Value="{StaticResource ComboBoxItemPillHeight}" />
     <Setter Property="Width" Value="{StaticResource ComboBoxItemPillWidth}" />
     <Setter Property="Fill" Value="{ThemeResource ComboBoxItemPillFillBrush}" />
-    <contract7Present:Setter Property="RadiusX" Value="{Binding Source={StaticResource ComboBoxItemPillCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}" />
-    <contract7Present:Setter Property="RadiusY" Value="{Binding Source={StaticResource ComboBoxItemPillCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}" />
-    <contract7NotPresent:Setter Property="RadiusX" Value="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource TopLeftCornerRadiusDoubleValueConverter}}" />
-    <contract7NotPresent:Setter Property="RadiusY" Value="{Binding Source={ThemeResource ControlCornerRadius}, Converter={StaticResource BottomRightCornerRadiusDoubleValueConverter}}" />
+    <contract7Present:Setter Property="RadiusX" Value="4" />
+    <contract7Present:Setter Property="RadiusY" Value="4" />
+    <contract7NotPresent:Setter Property="RadiusX" Value="4" />
+    <contract7NotPresent:Setter Property="RadiusY" Value="4" />
     <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
   </Style>
   <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}" />
@@ -12209,7 +12188,7 @@
             </Grid.ColumnDefinitions>
             <ContentPresenter x:Name="HeaderContentPresenter" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" FlowDirection="{TemplateBinding FlowDirection}" Foreground="{ThemeResource ComboBoxHeaderForeground}" FontWeight="{ThemeResource ComboBoxHeaderThemeFontWeight}" Margin="{ThemeResource ComboBoxTopHeaderMargin}" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Collapsed" x:DeferLoadStrategy="Lazy" />
             <Border x:Name="HighlightBackground" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="-4" Background="{ThemeResource ComboBoxBackgroundFocused}" BorderBrush="{ThemeResource ComboBoxBackgroundBorderBrushFocused}" BorderThickness="{StaticResource ComboBoxBackgroundBorderThicknessFocused}" contract7Present:CornerRadius="{StaticResource ComboBoxHiglightBorderCornerRadius}" contract7NotPresent:CornerRadius="{ThemeResource ControlCornerRadius}" Opacity="0" />
-            <Border x:Name="Background" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" contract7Present:Translation="0,0,1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{ThemeResource ControlCornerRadius}" Control.IsTemplateFocusTarget="True" MinWidth="{ThemeResource ComboBoxThemeMinWidth}" />
+            <Border x:Name="Background" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" contract7Present:CornerRadius="{TemplateBinding CornerRadius}" contract7NotPresent:CornerRadius="{ThemeResource ControlCornerRadius}" Control.IsTemplateFocusTarget="True" MinWidth="{ThemeResource ComboBoxThemeMinWidth}" />
             <Rectangle x:Name="Pill" Style="{StaticResource ComboBoxItemPill}" Margin="1,0,0,0" Grid.Row="1" Grid.Column="0" Opacity="0">
               <Rectangle.RenderTransform>
                 <CompositeTransform x:Name="PillTransform" ScaleY="1" />
@@ -14765,9 +14744,27 @@
                   <Rectangle x:Name="FirstPickerSpacing" Fill="{ThemeResource DatePickerFlyoutPresenterSpacerFill}" HorizontalAlignment="Center" Width="{ThemeResource DatePickerSpacerThemeWidth}" Canvas.ZIndex="10000" Grid.Column="1" />
                   <Rectangle x:Name="SecondPickerSpacing" Fill="{ThemeResource DatePickerFlyoutPresenterSpacerFill}" HorizontalAlignment="Center" Width="{ThemeResource DatePickerSpacerThemeWidth}" Canvas.ZIndex="10000" Grid.Column="3" />
                   <Grid x:Name="HighlightRect" Canvas.ZIndex="9999" Background="{ThemeResource DatePickerFlyoutPresenterHighlightFill}" CornerRadius="{TemplateBinding CornerRadius}" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}" Margin="4,2,4,2" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="{Binding ElementName=DayLoopingSelector,Path=(Grid.Column)}" SourceElement="{Binding ElementName=DayLoopingSelector}" ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}" VerticalAlignment="Center" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="{Binding ElementName=MonthLoopingSelector,Path=(Grid.Column)}" SourceElement="{Binding ElementName=MonthLoopingSelector}" ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}" VerticalAlignment="Center" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="{Binding ElementName=YearLoopingSelector,Path=(Grid.Column)}" SourceElement="{Binding ElementName=YearLoopingSelector}" ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}" VerticalAlignment="Center" IsHitTestVisible="false" />
+                  <!-- <primitives:MonochromaticOverlayPresenter
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="{Binding ElementName=DayLoopingSelector,Path=(Grid.Column)}"
+                                        SourceElement="{Binding ElementName=DayLoopingSelector}"
+                                        ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}"
+                                        VerticalAlignment="Center" IsHitTestVisible="false"/>
+                                    <primitives:MonochromaticOverlayPresenter
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="{Binding ElementName=MonthLoopingSelector,Path=(Grid.Column)}"
+                                        SourceElement="{Binding ElementName=MonthLoopingSelector}"
+                                        ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}"
+                                        VerticalAlignment="Center" IsHitTestVisible="false"/>
+                                    <primitives:MonochromaticOverlayPresenter
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="{Binding ElementName=YearLoopingSelector,Path=(Grid.Column)}"
+                                        SourceElement="{Binding ElementName=YearLoopingSelector}"
+                                        ReplacementColor="{ThemeResource DatePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource DatePickerFlyoutPresenterHighlightHeight}"
+                                        VerticalAlignment="Center" IsHitTestVisible="false"/> -->
                 </Grid>
               </Grid>
               <Grid Grid.Row="1" Height="{ThemeResource DatePickerFlyoutPresenterAcceptDismissHostGridHeight}" x:Name="AcceptDismissHostGrid">
@@ -15884,9 +15881,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPointerOverBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
                   <Storyboard>
@@ -15906,9 +15900,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPressedBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Disabled">
                   <Storyboard>
@@ -15948,9 +15939,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="NormalOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedPointerOver">
                   <Storyboard>
@@ -15971,9 +15959,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPointerOverBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PointerOverOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedPressed">
                   <Storyboard>
@@ -15994,9 +15979,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPressedBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PressedOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedDisabled">
                   <Storyboard>
@@ -16017,9 +15999,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="NormalOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Indeterminate" />
                 <VisualState x:Name="IndeterminatePointerOver" />
@@ -16029,15 +16008,7 @@
             </VisualStateManager.VisualStateGroups>
             <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Foreground}" AutomationProperties.AccessibilityView="Raw" />
             <Border x:Name="ExpandCollapseChevronBorder" Grid.Column="1" Width="{ThemeResource ExpanderChevronButtonSize}" Height="{ThemeResource ExpanderChevronButtonSize}" Margin="{ThemeResource ExpanderChevronMargin}" contract7Present:CornerRadius="{ThemeResource ControlCornerRadius}" BorderBrush="{ThemeResource ExpanderChevronBorderBrush}" BorderThickness="{ThemeResource ExpanderChevronBorderThickness}" Background="{ThemeResource ExpanderChevronBackground}">
-              <controls:AnimatedIcon Width="{StaticResource ExpanderChevronGlyphSize}" Height="{StaticResource ExpanderChevronGlyphSize}" x:Name="ExpandCollapseChevron" RenderTransformOrigin="0.5, 0.5" Foreground="{ThemeResource ExpanderChevronForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="NormalOff" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                <animatedvisuals:AnimatedChevronUpDownSmallVisualSource />
-                <controls:AnimatedIcon.FallbackIconSource>
-                  <controls:FontIconSource Glyph="{StaticResource ExpanderChevronDownGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="12" IsTextScaleFactorEnabled="False" />
-                </controls:AnimatedIcon.FallbackIconSource>
-                <controls:AnimatedIcon.RenderTransform>
-                  <contract7NotPresent:RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-                </controls:AnimatedIcon.RenderTransform>
-              </controls:AnimatedIcon>
+              <FontIcon RenderTransformOrigin="0.5, 0.5" Foreground="{ThemeResource ExpanderChevronForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{StaticResource ExpanderChevronGlyphSize}" Height="{StaticResource ExpanderChevronGlyphSize}" x:Name="ExpandCollapseChevron" Glyph="{StaticResource ExpanderChevronDownGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="12" IsTextScaleFactorEnabled="False" />
             </Border>
           </Grid>
         </ControlTemplate>
@@ -16095,9 +16066,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPointerOverBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PointerOverOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
                   <Storyboard>
@@ -16117,9 +16085,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPressedBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PressedOn" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Disabled">
                   <Storyboard>
@@ -16159,9 +16124,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="NormalOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedPointerOver">
                   <Storyboard>
@@ -16182,9 +16144,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPointerOverBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedPressed">
                   <Storyboard>
@@ -16205,9 +16164,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronPressedBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="CheckedDisabled">
                   <Storyboard>
@@ -16228,9 +16184,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ExpanderChevronBackground}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevron.(controls:AnimatedIcon.State)" Value="NormalOff" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Indeterminate" />
                 <VisualState x:Name="IndeterminatePointerOver" />
@@ -16240,15 +16193,7 @@
             </VisualStateManager.VisualStateGroups>
             <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Foreground}" AutomationProperties.AccessibilityView="Raw" />
             <Border x:Name="ExpandCollapseChevronBorder" Grid.Column="1" Width="{ThemeResource ExpanderChevronButtonSize}" Height="{ThemeResource ExpanderChevronButtonSize}" Margin="{ThemeResource ExpanderChevronMargin}" contract7Present:CornerRadius="{ThemeResource ControlCornerRadius}" BorderBrush="{ThemeResource ExpanderChevronBorderBrush}" BorderThickness="{ThemeResource ExpanderChevronBorderThickness}" Background="{ThemeResource ExpanderChevronBackground}">
-              <controls:AnimatedIcon Width="{StaticResource ExpanderChevronGlyphSize}" Height="{StaticResource ExpanderChevronGlyphSize}" x:Name="ExpandCollapseChevron" RenderTransformOrigin="0.5, 0.5" Foreground="{ThemeResource ExpanderChevronForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="NormalOn" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                <animatedvisuals:AnimatedChevronUpDownSmallVisualSource />
-                <controls:AnimatedIcon.FallbackIconSource>
-                  <controls:FontIconSource Glyph="{StaticResource ExpanderChevronUpGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="12" IsTextScaleFactorEnabled="False" />
-                </controls:AnimatedIcon.FallbackIconSource>
-                <controls:AnimatedIcon.RenderTransform>
-                  <contract7NotPresent:RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-                </controls:AnimatedIcon.RenderTransform>
-              </controls:AnimatedIcon>
+              <FontIcon Width="{StaticResource ExpanderChevronGlyphSize}" Height="{StaticResource ExpanderChevronGlyphSize}" x:Name="ExpandCollapseChevron" RenderTransformOrigin="0.5, 0.5" Foreground="{ThemeResource ExpanderChevronForeground}" HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="{StaticResource ExpanderChevronUpGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="12" IsTextScaleFactorEnabled="False" />
             </Border>
           </Grid>
         </ControlTemplate>
@@ -19195,9 +19140,7 @@
                             <TickBar x:Name="BottomTickBar" Visibility="Collapsed" Fill="{ThemeResource SliderTickBarFill}" Height="{ThemeResource SliderOutsideTickBarThemeHeight}" VerticalAlignment="Top" Margin="0,4,0,0" Grid.Row="2" Grid.ColumnSpan="3" />
                             <Thumb x:Name="HorizontalThumb" Style="{StaticResource SliderThumbStyle}" Height="24" Width="24" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" FocusVisualMargin="-14,-6,-14,-6" AutomationProperties.AccessibilityView="Raw">
                               <ToolTipService.ToolTip>
-                                <ToolTip x:Name="ThumbnailTooltip">
-                                  <ContentPresenter Content="{Binding}" />
-                                </ToolTip>
+                                <ToolTip x:Name="ThumbnailTooltip" />
                               </ToolTipService.ToolTip>
                               <Thumb.DataContext>
                                 <Grid Height="112" Width="192">
@@ -19839,9 +19782,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource NavigationViewButtonForegroundPointerOver}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="Content.(AnimatedIcon.State)" Value="PointerOver" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
                   <Storyboard>
@@ -19852,9 +19792,6 @@
                       <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource NavigationViewButtonForegroundPressed}" />
                     </ObjectAnimationUsingKeyFrames>
                   </Storyboard>
-                  <VisualState.Setters>
-                    <Setter Target="Content.(AnimatedIcon.State)" Value="Pressed" />
-                  </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Disabled">
                   <Storyboard>
@@ -19865,12 +19802,7 @@
                 </VisualState>
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <controls:AnimatedIcon x:Name="Content" Height="16" Width="16" local:AnimatedIcon.State="Normal" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-              <animatedvisuals:AnimatedBackVisualSource />
-              <controls:AnimatedIcon.FallbackIconSource>
-                <controls:FontIconSource FontSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontSize}" FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontFamily}" Glyph="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" MirroredWhenRightToLeft="True" />
-              </controls:AnimatedIcon.FallbackIconSource>
-            </controls:AnimatedIcon>
+            <FontIcon Height="16" Width="16" FontSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontSize}" FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontFamily}" Glyph="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" MirroredWhenRightToLeft="True" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -20515,7 +20447,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewButtonBackgroundPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewButtonForegroundPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewButtonForegroundPointerOver}" />
-                    <Setter Target="Icon.(AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -20523,7 +20454,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewButtonBackgroundPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewButtonForegroundPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewButtonForegroundPressed}" />
-                    <Setter Target="Icon.(AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Disabled">
@@ -20535,12 +20465,7 @@
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Border Width="{TemplateBinding MinWidth}">
-              <controls:AnimatedIcon x:Name="Icon" Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-                <controls:AnimatedIcon.FallbackIconSource>
-                  <controls:FontIconSource Glyph="&#xE700;" FontSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontSize }" />
-                </controls:AnimatedIcon.FallbackIconSource>
-              </controls:AnimatedIcon>
+              <FontIcon x:Name="Icon" Width="16" Height="16" Glyph="&#xE700;" HorizontalAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FontSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FontSize }" />
             </Border>
             <ContentPresenter x:Name="ContentPresenter" VerticalContentAlignment="Center" Content="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" Padding="4,0,0,0" Grid.Column="1" />
           </Grid>
@@ -20679,7 +20604,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -20687,7 +20611,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Selected">
@@ -20702,7 +20625,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundSelectedPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundSelectedPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundSelectedPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PressedSelected">
@@ -20710,7 +20632,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundSelectedPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundSelectedPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundSelectedPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
@@ -20748,46 +20669,14 @@
               </VisualStateGroup>
               <VisualStateGroup x:Name="PointerChevronStates">
                 <VisualState x:Name="NormalChevronHidden" />
-                <VisualState x:Name="NormalChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NormalChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
+                <VisualState x:Name="NormalChevronVisibleOpen" />
+                <VisualState x:Name="NormalChevronVisibleClosed" />
+                <VisualState x:Name="PointerOverChevronHidden" />
+                <VisualState x:Name="PointerOverChevronVisibleOpen" />
+                <VisualState x:Name="PointerOverChevronVisibleClosed" />
+                <VisualState x:Name="PressedChevronHidden" />
+                <VisualState x:Name="PressedChevronVisibleOpen" />
+                <VisualState x:Name="PressedChevronVisibleClosed" />
               </VisualStateGroup>
               <VisualStateGroup x:Name="PaneAndTopLevelItemStates">
                 <VisualState x:Name="NotClosedCompactAndTopLevelItem" />
@@ -20811,20 +20700,16 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="IconColumn" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.SmallerIconWidth}">
                   <Viewbox x:Name="IconBox" Height="16" Margin="{ThemeResource NavigationViewItemOnLeftIconBoxMargin}">
-                    <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls" />
+                    <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" />
                   </Viewbox>
                 </Border>
                 <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" Margin="{ThemeResource NavigationViewItemContentPresenterMargin}" ContentTransitions="{TemplateBinding ContentTransitions}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" Padding="{TemplateBinding Padding}" AutomationProperties.AccessibilityView="Raw" />
                 <Grid x:Name="ExpandCollapseChevron" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Right" Width="40" Margin="{ThemeResource NavigationViewItemExpandChevronMargin}" Background="Transparent">
-                  <controls:AnimatedIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="NormalOff" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                    <animatedvisuals:AnimatedChevronUpDownSmallVisualSource />
-                    <controls:AnimatedIcon.FallbackIconSource>
-                      <controls:FontIconSource Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" />
-                    </controls:AnimatedIcon.FallbackIconSource>
-                    <controls:AnimatedIcon.RenderTransform>
+                  <FontIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}">
+                    <FontIcon.RenderTransform>
                       <contract7NotPresent:RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-                    </controls:AnimatedIcon.RenderTransform>
-                  </controls:AnimatedIcon>
+                    </FontIcon.RenderTransform>
+                  </FontIcon>
                 </Grid>
               </Grid>
             </Grid>
@@ -20855,7 +20740,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource TopNavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -20863,7 +20747,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource TopNavigationViewItemBackgroundPressed}" />
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Selected">
@@ -20878,7 +20761,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource TopNavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundSelectedPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PressedSelected">
@@ -20886,7 +20768,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource TopNavigationViewItemBackgroundPressed}" />
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundSelectedPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
@@ -20910,7 +20791,7 @@
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>
               <Viewbox x:Name="IconBox" Grid.Row="1" Grid.Column="1" Height="16" Width="40" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls" />
+                <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" />
               </Viewbox>
             </Grid>
           </Grid>
@@ -20941,7 +20822,6 @@
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -20950,7 +20830,6 @@
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Selected">
@@ -20967,7 +20846,6 @@
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundSelectedPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundSelectedPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundSelectedPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PressedSelected">
@@ -20976,7 +20854,6 @@
                     <Setter Target="PointerRectangle.Fill" Value="{ThemeResource NavigationViewItemBackgroundSelectedPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundSelectedPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TopNavigationViewItemForegroundSelectedPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
@@ -21026,46 +20903,14 @@
               </VisualStateGroup>
               <VisualStateGroup x:Name="PointerChevronStates">
                 <VisualState x:Name="NormalChevronHidden" />
-                <VisualState x:Name="NormalChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NormalChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
+                <VisualState x:Name="NormalChevronVisibleOpen" />
+                <VisualState x:Name="NormalChevronVisibleClosed" />
+                <VisualState x:Name="PointerOverChevronHidden" />
+                <VisualState x:Name="PointerOverChevronVisibleOpen" />
+                <VisualState x:Name="PointerOverChevronVisibleClosed" />
+                <VisualState x:Name="PressedChevronHidden" />
+                <VisualState x:Name="PressedChevronVisibleOpen" />
+                <VisualState x:Name="PressedChevronVisibleClosed" />
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Rectangle x:Name="PointerRectangle" Fill="Transparent" Visibility="Collapsed" />
@@ -21076,19 +20921,15 @@
                 <ColumnDefinition Width="Auto" />
               </Grid.ColumnDefinitions>
               <Viewbox x:Name="IconBox" Height="16" Width="16" Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls" />
+                <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" />
               </Viewbox>
               <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" Margin="{ThemeResource TopNavigationViewItemContentPresenterMargin}" TextWrapping="NoWrap" Foreground="{TemplateBinding Foreground}" ContentTransitions="{TemplateBinding ContentTransitions}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" />
               <Grid x:Name="ExpandCollapseChevron" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Right" Width="40" Margin="{ThemeResource TopNavigationViewItemExpandChevronMargin}" Background="Transparent">
-                <controls:AnimatedIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="NormalOff" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                  <animatedvisuals:AnimatedChevronUpDownSmallVisualSource />
-                  <controls:AnimatedIcon.FallbackIconSource>
-                    <controls:FontIconSource Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" />
-                  </controls:AnimatedIcon.FallbackIconSource>
-                  <controls:AnimatedIcon.RenderTransform>
+                <FontIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}">
+                  <FontIcon.RenderTransform>
                     <contract7NotPresent:RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-                  </controls:AnimatedIcon.RenderTransform>
-                </controls:AnimatedIcon>
+                  </FontIcon.RenderTransform>
+                </FontIcon>
               </Grid>
             </Grid>
             <Grid x:Name="SelectionIndicatorGrid" Margin="16,0,16,4" VerticalAlignment="Bottom" HorizontalAlignment="Center">
@@ -21121,7 +20962,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -21129,7 +20969,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Selected">
@@ -21144,7 +20983,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundSelectedPointerOver}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPointerOver}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="PointerOver" />
                   </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="PressedSelected">
@@ -21152,7 +20990,6 @@
                     <Setter Target="LayoutRoot.Background" Value="{ThemeResource NavigationViewItemBackgroundSelectedPressed}" />
                     <Setter Target="Icon.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
                     <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource NavigationViewItemForegroundPressed}" />
-                    <Setter Target="Icon.(controls:AnimatedIcon.State)" Value="Pressed" />
                   </VisualState.Setters>
                 </VisualState>
               </VisualStateGroup>
@@ -21192,46 +21029,14 @@
               </VisualStateGroup>
               <VisualStateGroup x:Name="PointerChevronStates">
                 <VisualState x:Name="NormalChevronHidden" />
-                <VisualState x:Name="NormalChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="NormalChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="NormalOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PointerOverChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PointerOverOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronHidden">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleOpen">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOn" />
-                  </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="PressedChevronVisibleClosed">
-                  <VisualState.Setters>
-                    <Setter Target="ExpandCollapseChevronIcon.(controls:AnimatedIcon.State)" Value="PressedOff" />
-                  </VisualState.Setters>
-                </VisualState>
+                <VisualState x:Name="NormalChevronVisibleOpen" />
+                <VisualState x:Name="NormalChevronVisibleClosed" />
+                <VisualState x:Name="PointerOverChevronHidden" />
+                <VisualState x:Name="PointerOverChevronVisibleOpen" />
+                <VisualState x:Name="PointerOverChevronVisibleClosed" />
+                <VisualState x:Name="PressedChevronHidden" />
+                <VisualState x:Name="PressedChevronVisibleOpen" />
+                <VisualState x:Name="PressedChevronVisibleClosed" />
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Grid x:Name="PresenterContentRootGrid">
@@ -21246,19 +21051,15 @@
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Viewbox x:Name="IconBox" Height="16" Width="16" Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                  <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" local:AnimatedIcon.State="Normal" xmlns:local="using:Microsoft.UI.Xaml.Controls" />
+                  <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" />
                 </Viewbox>
                 <ContentPresenter x:Name="ContentPresenter" Grid.Column="1" Margin="{ThemeResource TopNavigationViewItemOnOverflowContentPresenterMargin}" Foreground="{TemplateBinding Foreground}" TextWrapping="NoWrap" ContentTransitions="{TemplateBinding ContentTransitions}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" />
                 <Grid x:Name="ExpandCollapseChevron" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Right" Width="40" Margin="{ThemeResource TopNavigationViewItemOnOverflowExpandChevronMargin}" Padding="{ThemeResource TopNavigationViewItemOnOverflowExpandChevronPadding}" Background="Transparent">
-                  <controls:AnimatedIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" local:AnimatedIcon.State="NormalOff" xmlns:local="using:Microsoft.UI.Xaml.Controls">
-                    <animatedvisuals:AnimatedChevronUpDownSmallVisualSource />
-                    <controls:AnimatedIcon.FallbackIconSource>
-                      <controls:FontIconSource Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}" />
-                    </controls:AnimatedIcon.FallbackIconSource>
-                    <controls:AnimatedIcon.RenderTransform>
+                  <FontIcon Width="12" Height="12" RenderTransformOrigin="0.5, 0.5" x:Name="ExpandCollapseChevronIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource NavigationViewItemForeground}" FontSize="{ThemeResource NavigationViewItemExpandedGlyphFontSize}" Glyph="{StaticResource NavigationViewItemExpandedGlyph}" FontFamily="{StaticResource SymbolThemeFontFamily}">
+                    <FontIcon.RenderTransform>
                       <contract7NotPresent:RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-                    </controls:AnimatedIcon.RenderTransform>
-                  </controls:AnimatedIcon>
+                    </FontIcon.RenderTransform>
+                  </FontIcon>
                 </Grid>
               </Grid>
             </Grid>
@@ -23805,7 +23606,6 @@
   <Style x:Name="TabViewButtonStyle" TargetType="Button">
     <Setter Property="Background" Value="{ThemeResource TabViewButtonBackground}" />
     <Setter Property="Foreground" Value="{ThemeResource TabViewButtonForeground}" />
-    <contract7Present:Setter Property="CornerRadius" Value="{Binding Source={ThemeResource OverlayCornerRadius}, Converter={StaticResource TopCornerRadiusFilterConverter}}" />
     <Setter Property="FontSize" Value="11" />
     <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}" />
     <Setter Property="VerticalAlignment" Value="Bottom" />
@@ -24287,9 +24087,36 @@
                     <ColumnDefinition Width="*" x:Name="ThirdPickerHostColumn" />
                   </Grid.ColumnDefinitions>
                   <Grid x:Name="HighlightRect" Canvas.ZIndex="9999" Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}" CornerRadius="{TemplateBinding CornerRadius}" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Center" Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}" Margin="4,2,4,2" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="0" Margin="3,0" SourceElement="{Binding ElementName=FirstPickerHost, Mode=OneTime}" ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}" Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}" CornerRadius="{TemplateBinding CornerRadius}" VerticalAlignment="Center" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="2" Margin="3,0" SourceElement="{Binding ElementName=SecondPickerHost}" ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}" Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}" CornerRadius="{TemplateBinding CornerRadius}" VerticalAlignment="Center" IsHitTestVisible="false" />
-                  <primitives:MonochromaticOverlayPresenter Canvas.ZIndex="10000" Grid.Column="4" Margin="3,0" SourceElement="{Binding ElementName=ThirdPickerHost}" ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}" Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}" Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}" CornerRadius="{TemplateBinding CornerRadius}" VerticalAlignment="Center" IsHitTestVisible="false" />
+                  <!-- <primitives:
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="0"
+                                        Margin="3,0"
+                                        SourceElement="{Binding ElementName=FirstPickerHost, Mode=OneTime}"
+                                        ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}"
+                                        Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                       VerticalAlignment="Center" IsHitTestVisible="false"/> -->
+                  <!-- <primitives:MonochromaticOverlayPresenter
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="2"
+                                        Margin="3,0"
+                                        SourceElement="{Binding ElementName=SecondPickerHost}"
+                                        ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}"
+                                        Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        VerticalAlignment="Center" IsHitTestVisible="false"/>
+                                    <primitives:MonochromaticOverlayPresenter
+                                        Canvas.ZIndex="10000"
+                                        Grid.Column="4"
+                                        Margin="3,0"
+                                        SourceElement="{Binding ElementName=ThirdPickerHost}"
+                                        ReplacementColor="{ThemeResource TimePickerFlyoutPresenterHighlightForegroundColor}"
+                                        Height="{ThemeResource TimePickerFlyoutPresenterHighlightHeight}"
+                                        Background="{ThemeResource TimePickerFlyoutPresenterHighlightFill}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        VerticalAlignment="Center" IsHitTestVisible="false"/> -->
                   <Border x:Name="FirstPickerHost" Grid.Column="0" />
                   <Rectangle x:Name="FirstPickerSpacing" Canvas.ZIndex="10000" Fill="{ThemeResource TimePickerFlyoutPresenterSpacerFill}" HorizontalAlignment="Center" Width="{ThemeResource TimePickerSpacerThemeWidth}" Grid.Column="1" />
                   <Border x:Name="SecondPickerHost" Grid.Column="2" />
