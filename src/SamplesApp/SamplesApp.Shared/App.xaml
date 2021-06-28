@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Uno.UI.Toolkit"
     xmlns:xamarin="http://nventive.com/xamarin"
-    RequestedTheme="Dark"
+    RequestedTheme="Light"
     mc:Ignorable="ios">
     <Application.Resources>
         <ResourceDictionary>

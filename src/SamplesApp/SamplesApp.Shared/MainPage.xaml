@@ -10,11 +10,11 @@
     mc:Ignorable="d">
 
     <StackPanel Padding="20" Spacing="4">
-		<TextBlock Text="Hello" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Center" />
-		<ToggleButton FontSize="40" HorizontalAlignment="Center">Windows 11!</ToggleButton>
-		<RadioButton HorizontalAlignment="Center" Grid.Row="1">We have been expecting you ;-).</RadioButton>
-		<CheckBox HorizontalAlignment="Center" Grid.Row="2">Which is why</CheckBox>
-		<ToggleButton HorizontalAlignment="Center" Content="we are already preparing" />
+		<Button FontSize="40" HorizontalAlignment="Center">Windows 11!</Button>
+		<RadioButton HorizontalAlignment="Center" Grid.Row="1">Welcome to</RadioButton>
+		<TextBox Text="the world." />
+		<CheckBox HorizontalAlignment="Center" Grid.Row="2">We are already</CheckBox>
+		<ToggleButton HorizontalAlignment="Center" CornerRadius="2" Content="preparing" />
         <mux:InfoBar
 			Width="500"
             Title="support"
