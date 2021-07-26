@@ -43,22 +43,53 @@ namespace Uno.UI.Xaml.Controls
 			if (args.NewValue is FrameworkElement element)
 			{
 				element.EnsureFocusVisualBrushDefaults();
-				element.SizeChanged += focusVisual.FocusedElementSizeChanged;
-				element.LayoutUpdated += focusVisual.FocusedElementLayoutUpdated;
-				element.Unloaded += focusVisual.FocusedElementUnloaded;
-
-				var visibilityToken = element.RegisterPropertyChangedCallback(VisibilityProperty, focusVisual.FocusedElementVisibilityChanged);
 
 				focusVisual.SetLayoutProperties();
 
-				focusVisual._focusedElementSubscriptions.Disposable = Disposable.Create(() =>
-				{
-					element.SizeChanged -= focusVisual.FocusedElementSizeChanged;
-					element.LayoutUpdated -= focusVisual.FocusedElementLayoutUpdated;
-					element.UnregisterPropertyChangedCallback(VisibilityProperty, visibilityToken);
-				});
+				focusVisual.SubscribeLayoutChanges(element);
 			}
 		}
+
+		private void SubscribeLayoutChanges(FrameworkElement element)
+		{
+			_focusedElementSubscriptions.Disposable = null;
+
+			if (element == null)
+			{
+				return;
+			}
+
+			var compositeDisposable = new CompositeDisposable();
+
+			element.SizeChanged += FocusedElementSizeChanged;
+			element.LayoutUpdated += FocusedElementLayoutUpdated;
+			element.Unloaded += FocusedElementUnloaded;
+			var visibilityToken = element.RegisterPropertyChangedCallback(VisibilityProperty, FocusedElementVisibilityChanged);
+
+			compositeDisposable.Add(() =>
+			{
+				element.SizeChanged -= FocusedElementSizeChanged;
+				element.LayoutUpdated -= FocusedElementLayoutUpdated;
+				element.UnregisterPropertyChangedCallback(VisibilityProperty, visibilityToken);
+			});
+
+			object parent = element.Parent;
+			while (parent != null)
+			{
+				if (parent is Windows.UI.Xaml.Controls.ScrollViewer scroller)
+				{
+					scroller.ViewChanged += ScrollViewerViewChanged;
+
+					compositeDisposable.Add(() => scroller.ViewChanged -= ScrollViewerViewChanged);
+				}
+
+				parent = parent.GetParent();
+			}
+
+			_focusedElementSubscriptions.Disposable = compositeDisposable;
+		}
+
+		private void ScrollViewerViewChanged(object? sender, ScrollViewerViewChangedEventArgs e) => SetLayoutProperties();
 
 		private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e) => SetLayoutProperties();
 
