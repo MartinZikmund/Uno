@@ -299,7 +299,7 @@ namespace SamplesApp
 				var category = pathParts[0];
 				var sampleName = pathParts[1];
 
-				await SampleControl.Presentation.SampleChooserViewModel.Instance.SetSelectedSample(CancellationToken.None, category, sampleName);
+				//await SampleControl.Presentation.SampleChooserViewModel.Instance.SetSelectedSample(CancellationToken.None, category, sampleName);
 				return true;
 			}
 			catch (Exception ex)
@@ -417,7 +417,7 @@ namespace SamplesApp
 		private static int _testIdCounter = 0;
 
 		public static string GetAllTests()
-			=> SampleControl.Presentation.SampleChooserViewModel.Instance.GetAllSamplesNames();
+			=> "";//SampleControl.Presentation.SampleChooserViewModel.Instance.GetAllSamplesNames();
 
 		public static string GetDisplayScreenScaling(string displayId)
 			=> (DisplayInformation.GetForCurrentView().LogicalDpi * 100f / 96f).ToString(CultureInfo.InvariantCulture);
@@ -457,7 +457,7 @@ namespace SamplesApp
 							Uno.UI.FeatureConfiguration.TextBox.HideCaret = true;
 #endif
 
-							var t = SampleControl.Presentation.SampleChooserViewModel.Instance.SetSelectedSample(CancellationToken.None, metadataName);
+							var t = Task.CompletedTask;//SampleControl.Presentation.SampleChooserViewModel.Instance.SetSelectedSample(CancellationToken.None, metadataName);
 							var timeout = Task.Delay(30000);
 
 							await Task.WhenAny(t, timeout);

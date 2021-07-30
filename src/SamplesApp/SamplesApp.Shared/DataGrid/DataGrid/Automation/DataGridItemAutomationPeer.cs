@@ -230,7 +230,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Automation.Peers
                 }
             }
 
-            string name = Controls.DG.Properties.Resources.DataGridRowAutomationPeer_ItemType;
+            string name = "Item type";
 #if DEBUG_AUTOMATION
             System.Diagnostics.Debug.WriteLine("DataGridItemAutomationPeer.GetNameCore returns " + name);
 #endif

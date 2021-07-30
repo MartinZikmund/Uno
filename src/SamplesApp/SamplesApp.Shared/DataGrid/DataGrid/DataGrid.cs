@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Uwp.UI.Automation.Peers;
 using Microsoft.Toolkit.Uwp.UI.Controls.DataGridInternals;
 using Microsoft.Toolkit.Uwp.UI.Controls.Primitives;
@@ -19,6 +20,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls.Utilities;
 using Microsoft.Toolkit.Uwp.UI.Data.Utilities;
 using Microsoft.Toolkit.Uwp.UI.Utilities;
 using Microsoft.Toolkit.Uwp.Utilities;
+using Uno.Extensions;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Devices.Input;
 using Windows.Foundation;
@@ -409,7 +411,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             _loadedRows = new List<DataGridRow>();
             _lostFocusActions = new Queue<Action>();
             _selectedItems = new DataGridSelectedItemsCollection(this);
-            _rowGroupHeaderPropertyNameAlternative = Controls.DG.Properties.Resources.DefaultRowGroupHeaderPropertyNameAlternative;
+            _rowGroupHeaderPropertyNameAlternative = "Alt";
             _rowGroupHeaderStyles = new ObservableCollection<Style>();
             _rowGroupHeaderStyles.CollectionChanged += RowGroupHeaderStyles_CollectionChanged;
             _rowGroupHeaderStylesOld = new List<Style>();
@@ -4051,12 +4053,17 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         internal bool ProcessDownKey()
         {
+			this.Log().LogError("ProcessDownKey started");
+			global::System.Diagnostics.Debug.WriteLine("ProcessDownKey started");
             bool shift, ctrl;
             KeyboardHelper.GetMetaKeyState(out ctrl, out shift);
-            return ProcessDownKeyInternal(shift, ctrl);
-        }
+            var result = ProcessDownKeyInternal(shift, ctrl);
+			this.Log().LogError("ProcessDownKey ended");
+			global::System.Diagnostics.Debug.WriteLine("ProcessDownKey ended");
+			return result;
+		}
 
-        internal bool ProcessEndKey()
+		internal bool ProcessEndKey()
         {
             bool ctrl;
             bool shift;
@@ -4709,22 +4716,25 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         /// <returns>True if the editing element had focus and the action was cached away; false otherwise</returns>
         internal bool WaitForLostFocus(Action action)
         {
-            if (this.EditingRow != null && this.EditingColumnIndex != -1 && !_executingLostFocusActions)
-            {
-                DataGridColumn editingColumn = this.ColumnsItemsInternal[this.EditingColumnIndex];
-                FrameworkElement editingElement = editingColumn.GetCellContent(this.EditingRow);
-                if (editingElement != null && editingElement.ContainsChild(_focusedObject))
-                {
-                    DiagnosticsDebug.Assert(_lostFocusActions != null, "Expected non-null _lostFocusActions.");
-                    _lostFocusActions.Enqueue(action);
-                    editingElement.LostFocus += new RoutedEventHandler(EditingElement_LostFocus);
-                    this.IsTabStop = true;
-                    this.Focus(FocusState.Programmatic);
-                    return true;
-                }
-            }
+			if (this.EditingRow != null && this.EditingColumnIndex != -1 && !_executingLostFocusActions)
+			{
+				DataGridColumn editingColumn = this.ColumnsItemsInternal[this.EditingColumnIndex];
+				FrameworkElement editingElement = editingColumn.GetCellContent(this.EditingRow);
+				if (editingElement != null && editingElement.ContainsChild(_focusedObject))
+				{
+					DiagnosticsDebug.Assert(_lostFocusActions != null, "Expected non-null _lostFocusActions.");
+					_lostFocusActions.Enqueue(action);
+					this.Log().LogError("Attaching editingElement lostFocus (type " + editingElement.GetType() + ")");
+					global::System.Diagnostics.Debug.WriteLine("Attaching editingElement lostFocus (type " + editingElement.GetType() + ")");
+					//editingElement.GotFocus += new RoutedEventHandler(EditingElement_LostFocus);
+					this.IsTabStop = true;
+					this.Focus(FocusState.Programmatic);
+					action();
+					return true;
+				}
+			}
 
-            return false;
+			return false;
         }
 
         // Applies the given Style to the Row if it's supposed to use DataGrid.RowStyle
@@ -6925,13 +6935,14 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             {
                 return false;
             }
-
-            if (this.WaitForLostFocus(() => { this.ProcessDownKeyInternal(shift, ctrl); }))
+			if (this.WaitForLostFocus(() => { this.ProcessDownKeyInternal(shift, ctrl); }))
             {
+				this.Log().LogError("Waiting for lost focus");
                 return true;
-            }
+			}
+			this.Log().LogError("After waiting for lost focus");
 
-            int nextSlot = -1;
+			int nextSlot = -1;
             if (this.CurrentSlot != -1)
             {
                 nextSlot = this.GetNextVisibleSlot(this.CurrentSlot);

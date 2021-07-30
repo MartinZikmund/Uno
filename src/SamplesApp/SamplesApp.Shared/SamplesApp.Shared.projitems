@@ -18,24 +18,91 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\CollectionViews\CollectionView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\CollectionViews\CollectionViewsError.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\CollectionViews\EnumerableCollectionView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\CollectionViews\ListCollectionView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridCellAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridColumnHeaderAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridColumnHeadersPresenterAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridDetailsPresenterAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridGroupItemAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridItemAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridRowAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridRowGroupHeaderAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridRowHeaderAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\Automation\DataGridRowsPresenterAutomationPeer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridAutoGeneratingColumnEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridBeginningEditEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridBoundColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellCoordinates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellEditEndedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellEditEndingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCellsPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridCheckBoxColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridClipboardCellContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnHeaderInteractionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnHeadersPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumnReorderingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridColumns.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridComboBoxColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridDataConnection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridDetailsPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridDisplayData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridEnumerations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridError.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridFillerColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridFrozenGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridInteractionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridLength.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridPreparingCellForEditEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowClipboardEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowDetailsEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowEditEndedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowEditEndingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowGroupHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowGroupHeaderEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowGroupInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridRowsPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridSelectedItemsCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridTemplateColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridTextColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGridValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\BindingInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\DoubleUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\IndexToValueTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\KeyboardHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\Range.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\TypeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\UISettingsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\ValidationUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\VisualStates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataGrid\Utilities\WeakEventListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\UnitTests\HttpUnitTests.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\UnitTests\UnitTestsPage.xaml.cs">
-      <DependentUpon>UnitTestsPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)TestControl.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)DataGrid\DataGrid\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Samples\UnitTests\HttpUnitTests.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Samples\UnitTests\UnitTestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

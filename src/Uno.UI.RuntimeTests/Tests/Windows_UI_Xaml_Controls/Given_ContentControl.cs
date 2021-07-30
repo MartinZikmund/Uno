@@ -134,27 +134,27 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			}
 		}
 
-		[TestMethod]
-		public async Task When_Template_Applied_On_Loading_DataContext_Propagation()
-		{
-			var page = new Template_Loading_DataContext_Page();
-			WindowHelper.WindowContent = page;
-			await WindowHelper.WaitForLoaded(page);
-			var comboBox = page.SpawnedButtonHost.PseudoContent as ComboBox;
+		//[TestMethod]
+		//public async Task When_Template_Applied_On_Loading_DataContext_Propagation()
+		//{
+		//	var page = new Template_Loading_DataContext_Page();
+		//	WindowHelper.WindowContent = page;
+		//	await WindowHelper.WaitForLoaded(page);
+		//	var comboBox = page.SpawnedButtonHost.PseudoContent as ComboBox;
 
-			var dataContextChangedCounter = 0;
-			var itemsSourceChangedCounter = 0;
-			comboBox.DataContextChanged += (_, __) => dataContextChangedCounter++;
-			comboBox.RegisterPropertyChangedCallback(ItemsControl.ItemsSourceProperty, (_, __) => itemsSourceChangedCounter++);
+		//	var dataContextChangedCounter = 0;
+		//	var itemsSourceChangedCounter = 0;
+		//	comboBox.DataContextChanged += (_, __) => dataContextChangedCounter++;
+		//	comboBox.RegisterPropertyChangedCallback(ItemsControl.ItemsSourceProperty, (_, __) => itemsSourceChangedCounter++);
 
-			page.SpawnedButtonHost.SpawnButton();
-			Assert.IsNotNull(comboBox);
+		//	page.SpawnedButtonHost.SpawnButton();
+		//	Assert.IsNotNull(comboBox);
 
-			await WindowHelper.WaitForLoaded(comboBox);
-			Assert.AreEqual("Froot", comboBox.SelectedItem);
-			Assert.AreEqual(1, dataContextChangedCounter);
-			Assert.AreEqual(1, itemsSourceChangedCounter);
-		}
+		//	await WindowHelper.WaitForLoaded(comboBox);
+		//	Assert.AreEqual("Froot", comboBox.SelectedItem);
+		//	Assert.AreEqual(1, dataContextChangedCounter);
+		//	Assert.AreEqual(1, itemsSourceChangedCounter);
+		//}
 
 		private class SignInViewModel
 		{

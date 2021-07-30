@@ -21,9 +21,9 @@ namespace Windows.UI.Xaml.Input
 
 		internal static void ProcessControlFocused(Control control)
 		{
-			if (_log.Value.IsEnabled(LogLevel.Debug))
+			if (_log.Value.IsEnabled(LogLevel.Error))
 			{
-				_log.Value.LogDebug($"{nameof(ProcessControlFocused)}() focusedElement={GetFocusedElement()}, control={control}");
+				_log.Value.LogError($"{nameof(ProcessControlFocused)}() focusedElement={GetFocusedElement()}, control={control}");
 			}
 
 			if (FocusProperties.IsFocusable(control))
@@ -35,9 +35,9 @@ namespace Windows.UI.Xaml.Input
 
 		internal static void ProcessElementFocused(UIElement element)
 		{
-			if (_log.Value.IsEnabled(LogLevel.Debug))
+			if (_log.Value.IsEnabled(LogLevel.Error))
 			{
-				_log.Value.LogDebug($"{nameof(ProcessElementFocused)}() focusedElement={GetFocusedElement()}, element={element}, searching for focusable parent control");
+				_log.Value.LogError($"{nameof(ProcessElementFocused)}() focusedElement={GetFocusedElement()}, element={element}, searching for focusable parent control");
 			}
 
 			// Try to find the first focusable parent and set it as focused, otherwise just keep it for reference (GetFocusedElement())
@@ -47,9 +47,9 @@ namespace Windows.UI.Xaml.Input
 
 		internal static bool FocusNative(UIElement element)
 		{
-			if (_log.Value.IsEnabled(LogLevel.Debug))
+			if (_log.Value.IsEnabled(LogLevel.Error))
 			{
-				_log.Value.LogDebug($"{nameof(FocusNative)}(element: {element})");
+				_log.Value.LogError($"{nameof(FocusNative)}(element: {element})");
 			}
 
 			if (element == null)
@@ -79,9 +79,9 @@ namespace Windows.UI.Xaml.Input
 				return;
 			}
 			var focused = GetFocusElementFromHandle(handle);
-			if (_log.Value.IsEnabled(LogLevel.Debug))
+			if (_log.Value.IsEnabled(LogLevel.Error))
 			{
-				_log.Value.LogDebug($"{nameof(ReceiveFocusNative)}({focused?.ToString() ?? "[null]"})");
+				_log.Value.LogError($"{nameof(ReceiveFocusNative)}({focused?.ToString() ?? "[null]"})");
 			}
 
 			if (focused is Control control)

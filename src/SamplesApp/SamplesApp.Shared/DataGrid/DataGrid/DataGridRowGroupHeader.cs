@@ -656,7 +656,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
                 if (!string.IsNullOrEmpty(propertyName) && hasPropertyValue)
                 {
-                    propertyName = string.Format(CultureInfo.CurrentCulture, Controls.DG.Properties.Resources.DataGridRowGroupHeader_PropertyName, propertyName);
+                    propertyName = string.Format(CultureInfo.CurrentCulture, "Group header", propertyName);
                 }
 
                 if (!string.IsNullOrEmpty(propertyName))
@@ -674,7 +674,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             {
                 _itemCountElement.Text = string.Format(
                     CultureInfo.CurrentCulture,
-                    this.RowGroupInfo.CollectionViewGroup.GroupItems.Count == 1 ? Controls.DG.Properties.Resources.DataGridRowGroupHeader_ItemCountSingular : DG.Properties.Resources.DataGridRowGroupHeader_ItemCountPlural,
+                    this.RowGroupInfo.CollectionViewGroup.GroupItems.Count == 1 ? "Item count" : "Items count",
                     this.RowGroupInfo.CollectionViewGroup.GroupItems.Count);
             }
         }

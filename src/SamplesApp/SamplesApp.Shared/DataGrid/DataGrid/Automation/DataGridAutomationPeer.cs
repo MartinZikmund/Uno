@@ -490,11 +490,11 @@ namespace Microsoft.Toolkit.Uwp.UI.Automation.Peers
             }
         }
 
-        RowOrColumnMajor ITableProvider.RowOrColumnMajor
+        Windows.UI.Xaml.Automation.RowOrColumnMajor ITableProvider.RowOrColumnMajor
         {
             get
             {
-                return RowOrColumnMajor.RowMajor;
+                return Windows.UI.Xaml.Automation.RowOrColumnMajor.RowMajor;
             }
         }
 

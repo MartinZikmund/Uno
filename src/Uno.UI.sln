@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31410.414
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Uno.UI", "Uno.UI", "{416684CF-A4E3-4079-B380-3FF0B00E433C}"
 EndProject
@@ -269,10 +269,7 @@ Global
 		SamplesApp\UITests.Shared\UITests.Shared.projitems*{3fdf0f2d-cc11-49be-8634-f81638d595c6}*SharedItemsImports = 4
 		SolutionTemplate\UnoSolutionTemplate.VSIX\UnoSolutionTemplate.VSIX.projitems*{6138cce5-b02c-4ea5-bf76-1491dd47cd6c}*SharedItemsImports = 4
 		SamplesApp\SamplesApp.Shared\SamplesApp.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		SamplesApp\Benchmarks.Shared\Benchmarks.Shared.projitems*{6c25beb3-e332-48d3-b4de-20a0b71935cd}*SharedItemsImports = 4
 		SamplesApp\SamplesApp.Shared\SamplesApp.Shared.projitems*{6c25beb3-e332-48d3-b4de-20a0b71935cd}*SharedItemsImports = 4
-		SamplesApp\SamplesApp.UnitTests.Shared\SamplesApp.UnitTests.Shared.projitems*{6c25beb3-e332-48d3-b4de-20a0b71935cd}*SharedItemsImports = 4
-		SamplesApp\UITests.Shared\UITests.Shared.projitems*{6c25beb3-e332-48d3-b4de-20a0b71935cd}*SharedItemsImports = 4
 		SamplesApp\Benchmarks.Shared\Benchmarks.Shared.projitems*{b71ae380-558c-4d6c-81d8-9c043b50262c}*SharedItemsImports = 4
 		SamplesApp\SamplesApp.Shared\SamplesApp.Shared.projitems*{b71ae380-558c-4d6c-81d8-9c043b50262c}*SharedItemsImports = 4
 		SamplesApp\SamplesApp.UnitTests.Shared\SamplesApp.UnitTests.Shared.projitems*{b71ae380-558c-4d6c-81d8-9c043b50262c}*SharedItemsImports = 4
