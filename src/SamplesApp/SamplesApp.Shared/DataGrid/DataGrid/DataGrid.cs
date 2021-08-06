@@ -4718,18 +4718,19 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         {
 			if (this.EditingRow != null && this.EditingColumnIndex != -1 && !_executingLostFocusActions)
 			{
+				this.Log().LogError("Needs to wait for remove focus.");
 				DataGridColumn editingColumn = this.ColumnsItemsInternal[this.EditingColumnIndex];
 				FrameworkElement editingElement = editingColumn.GetCellContent(this.EditingRow);
+				this.Log().LogError($"Checking if {editingElement?.GetType().Name} contains {_focusedObject?.GetType().Name}");
 				if (editingElement != null && editingElement.ContainsChild(_focusedObject))
 				{
 					DiagnosticsDebug.Assert(_lostFocusActions != null, "Expected non-null _lostFocusActions.");
 					_lostFocusActions.Enqueue(action);
 					this.Log().LogError("Attaching editingElement lostFocus (type " + editingElement.GetType() + ")");
 					global::System.Diagnostics.Debug.WriteLine("Attaching editingElement lostFocus (type " + editingElement.GetType() + ")");
-					//editingElement.GotFocus += new RoutedEventHandler(EditingElement_LostFocus);
+					editingElement.LostFocus += new RoutedEventHandler(EditingElement_LostFocus);
 					this.IsTabStop = true;
 					this.Focus(FocusState.Programmatic);
-					action();
 					return true;
 				}
 			}
@@ -5644,7 +5645,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         private void DataGrid_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (!this.ContainsFocus)
+			this.Log().LogError("DataGrid got focus.");
+			if (!this.ContainsFocus)
             {
                 this.ContainsFocus = true;
                 ApplyDisplayedRowsState(this.DisplayData.FirstScrollingSlot, this.DisplayData.LastScrollingSlot);
@@ -5697,7 +5699,8 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
 
         private void DataGrid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (!e.Handled)
+			this.Log().LogError($"Key down on DataGrid. Handled {e.Handled}");
+			if (!e.Handled)
             {
                 e.Handled = ProcessDataGridKey(e);
                 this.LastHandledKeyDown = e.Handled ? e.Key : VirtualKey.None;
@@ -6354,7 +6357,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             for (int cellIndex = 0; cellIndex < e.ClipboardRowContent.Count; cellIndex++)
             {
                 DataGridClipboardCellContent cellContent = e.ClipboardRowContent[cellIndex];
-                if (cellContent != null)
+                if (cellContent.Content != null)
                 {
                     text.Append(cellContent.Content);
                 }

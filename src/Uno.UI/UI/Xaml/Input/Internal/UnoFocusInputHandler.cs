@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using Microsoft.Extensions.Logging;
+using Uno.Extensions;
 using Uno.UI.Xaml.Core;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -32,6 +34,7 @@ namespace Uno.UI.Xaml.Input
 
 		private void OnKeyDown(object sender, KeyRoutedEventArgs e)
 		{
+			this.Log().LogError("Uno Focus KeyDown started");
 			if (e.OriginalKey == VirtualKey.Shift ||
 				e.OriginalKey == VirtualKey.LeftShift ||
 				e.OriginalKey == VirtualKey.RightShift)
@@ -41,12 +44,16 @@ namespace Uno.UI.Xaml.Input
 
 			if (e.Handled)
 			{
+				this.Log().LogError("Uno Focus short circuit");
 				return;
 			}
 
+			var handled = e.Handled;
+
 			if (e.OriginalKey == VirtualKey.Tab)
 			{
-				e.Handled = TryHandleTabFocus(_isShiftDown);
+				this.Log().LogError("Uno Focus Handling Tab");
+				handled = TryHandleTabFocus(_isShiftDown);
 			}
 
 			if (e.OriginalKey == VirtualKey.Up ||
@@ -54,8 +61,12 @@ namespace Uno.UI.Xaml.Input
 				e.OriginalKey == VirtualKey.Left ||
 				e.OriginalKey == VirtualKey.Right)
 			{
-				e.Handled = TryHandleDirectionalFocus(e.OriginalKey);
+				this.Log().LogError("Uno Focus Handling Arrows");
+				handled = TryHandleDirectionalFocus(e.OriginalKey);
 			}
+
+			this.Log().LogError($"Uno Focus Handling result: {handled}");
+			e.Handled = handled;
 		}
 
 		internal bool TryHandleTabFocus(bool isShiftDown)

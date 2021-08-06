@@ -1675,6 +1675,7 @@ var Uno;
                 if (!(element instanceof HTMLElement)) {
                     throw `Element id ${elementId} is not focusable.`;
                 }
+                console.log("Focusing on " + elementId);
                 element.focus();
                 return "ok";
             }

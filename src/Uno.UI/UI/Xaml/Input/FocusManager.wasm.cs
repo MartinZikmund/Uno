@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Uno;
@@ -49,6 +50,10 @@ namespace Windows.UI.Xaml.Input
 		{
 			if (_log.Value.IsEnabled(LogLevel.Error))
 			{
+				if (element is TextBoxView)
+				{
+					_log.Value.LogError(Environment.StackTrace);
+				}
 				_log.Value.LogError($"{nameof(FocusNative)}(element: {element})");
 			}
 

@@ -288,13 +288,13 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
         }
 
-        private bool IsPointerOver
+        private new bool IsPointerOver
         {
             get;
             set;
         }
 
-        private bool IsPressed
+        private new bool IsPressed
         {
             get;
             set;

@@ -138,7 +138,7 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
         }
 
-        internal bool IsPointerOver
+        internal new bool IsPointerOver
         {
             get
             {
