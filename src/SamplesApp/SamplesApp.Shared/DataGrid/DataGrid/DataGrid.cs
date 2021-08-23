@@ -6747,7 +6747,18 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             }
 
             dataGridCell.Content = element;
-        }
+
+#if HAS_UNO
+			// Uno specific: Moving the edited element to the cell causes it to lose the native focus
+			// while the managed focus remains. In UWP this does not happen, as the Loaded event for the
+			// element is called *after* this method ends. Uno's control lifecycle is different, so
+			// we need to use this approach instead.
+			if (isCellEdited && EditingRow != null)
+			{
+				FocusEditingCell(this.ContainsFocus || _focusEditingControl /*setFocus*/);
+			}
+#endif
+		}
 
         private void PreparingCellForEditPrivate(FrameworkElement editingElement)
         {
@@ -6766,7 +6777,9 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
             DiagnosticsDebug.Assert(_editingColumnIndex < this.ColumnsItemsInternal.Count, "Expected _editingColumnIndex smaller than this.ColumnsItemsInternal.Count.");
             DiagnosticsDebug.Assert(_editingColumnIndex == this.CurrentColumnIndex, "Expected _editingColumnIndex equals CurrentColumnIndex.");
 
+#if !HAS_UNO
             FocusEditingCell(this.ContainsFocus || _focusEditingControl /*setFocus*/);
+#endif
 
             // Prepare the cell for editing and raise the PreparingCellForEdit event for all columns
             DataGridColumn dataGridColumn = this.CurrentColumn;
