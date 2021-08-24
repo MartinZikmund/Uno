@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Windows.Foundation;
+using Uno.Disposables;
 using Uno.Extensions;
+using Windows.Foundation;
+using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Wasm;
 
 namespace Windows.UI.Xaml.Media
@@ -34,13 +36,13 @@ namespace Windows.UI.Xaml.Media
 		/// <summary>
 		/// Generates a linearGradient element that can be used inside SVG-based views (Path, etc)
 		/// </summary>
-		internal override UIElement ToSvgElement()
+		internal override (UIElement, IDisposable) ToSvgElement(Shape target, Action invalidate)
 		{
 			var linearGradient = new SvgElement("linearGradient");
 
-			if (MappingMode != BrushMappingMode.RelativeToBoundingBox)
+			if (MappingMode == BrushMappingMode.Absolute)
 			{
-				// Not supported yet
+				linearGradient.SetAttribute("gradientUnits", "userSpaceOnUse");
 			}
 
 			linearGradient.SetAttribute(
@@ -50,11 +52,30 @@ namespace Windows.UI.Xaml.Media
 				("y2", EndPoint.Y.ToStringInvariant())
 			);
 
+			var disposable = new CompositeDisposable();
+
+			if (RelativeTransform != null)
+			{
+				var size = target.RenderSize;
+				var matrix = RelativeTransform.ToMatrix(Foundation.Point.Zero, size);
+				matrix.M31 *= (float)size.Width;
+				matrix.M32 *= (float)size.Height;
+				linearGradient.SetAttribute("gradientTransform", $"matrix({matrix.M11.ToStringInvariant()}, {matrix.M12.ToStringInvariant()}, {matrix.M21.ToStringInvariant()}, {matrix.M22.ToStringInvariant()}, {matrix.M31.ToStringInvariant()}, {matrix.M32.ToStringInvariant()})");
+
+				target.SizeChanged += OnSizeChanged;
+				disposable.Add(Disposable.Create(() => target.SizeChanged -= OnSizeChanged));
+
+				void OnSizeChanged(object sender, object e)
+				{
+					invalidate?.Invoke(); // TOOD: MZ: Change this to only update the properties of the transform, not invalidate completely!
+				}
+			}
+
 			var stops = GradientStops.Select(stop => $"<stop offset=\"{stop.Offset.ToStringInvariant()}\" style=\"stop-color:{stop.Color.ToHexString()}\" />");
 
 			linearGradient.SetHtmlContent(string.Join(Environment.NewLine, stops));
 
-			return linearGradient;
+			return (linearGradient, disposable);
 		}
 	}
 }

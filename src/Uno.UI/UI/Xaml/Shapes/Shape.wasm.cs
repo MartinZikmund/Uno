@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Collections.Specialized;
-using System.Globalization;
+﻿using System.Collections.Specialized;
 using System.Linq;
-using System.Threading;
-using Windows.Foundation;
+using Uno;
+using Uno.Disposables;
+using Uno.Extensions;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Wasm;
-using Uno.Extensions;
-using Uno.Foundation;
-using Uno.Disposables;
-using Uno;
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -38,8 +31,8 @@ namespace Windows.UI.Xaml.Shapes
 		{
 			// Initialize
 			OnFillUpdatedPartial(); // Required to properly update the HitTest
-			// Don't OnStrokeUpdatedPartial(); => Stroke is still at its default value in the ctor, and it will always results to ResetStyle("stroke")
-			// Don't OnStrokeThicknessUpdatedPartial(); => The default value is set in Uno.UI.css
+									// Don't OnStrokeUpdatedPartial(); => Stroke is still at its default value in the ctor, and it will always results to ResetStyle("stroke")
+									// Don't OnStrokeThicknessUpdatedPartial(); => The default value is set in Uno.UI.css
 		}
 
 		protected abstract SvgElement GetMainSvgElement();
@@ -84,21 +77,20 @@ namespace Windows.UI.Xaml.Shapes
 					_fillBrushSubscription.Disposable = null;
 					break;
 				case ImageBrush ib:
-					var (imageFill, subscription) = ib.ToSvgElement(this);
+					var (imageFill, imageSubscription) = ib.ToSvgElement(this);
 					var imageFillId = imageFill.HtmlId;
 					GetDefs().Add(imageFill);
 					svgElement.SetStyle("fill", $"url(#{imageFillId})");
-					var removeDef = new DisposableAction(() => GetDefs().Remove(imageFill));
-					_fillBrushSubscription.Disposable = new CompositeDisposable(removeDef, subscription);
+					var removeImageDef = new DisposableAction(() => GetDefs().Remove(imageFill));
+					_fillBrushSubscription.Disposable = new CompositeDisposable(removeImageDef, imageSubscription);
 					break;
 				case GradientBrush gb:
-					var gradient = gb.ToSvgElement();
-					var gradientId = gradient.HtmlId;
-					GetDefs().Add(gradient);
+					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this, OnFillUpdatedPartial);
+					var gradientId = gradientFill.HtmlId;
+					GetDefs().Add(gradientFill);
 					svgElement.SetStyle("fill", $"url(#{gradientId})");
-					_fillBrushSubscription.Disposable = new DisposableAction(
-						() => GetDefs().Remove(gradient)
-					);
+					var removeGradientDef = new DisposableAction(() => GetDefs().Remove(gradientFill));
+					_fillBrushSubscription.Disposable = new CompositeDisposable(removeGradientDef, gradientSubscription);
 					break;
 				case AcrylicBrush ab:
 					svgElement.SetStyle("fill", ab.FallbackColorWithOpacity.ToHexString());
@@ -128,21 +120,20 @@ namespace Windows.UI.Xaml.Shapes
 					_strokeBrushSubscription.Disposable = null;
 					break;
 				case ImageBrush ib:
-					var (imageFill, subscription) = ib.ToSvgElement(this);
+					var (imageFill, imageSubscription) = ib.ToSvgElement(this);
 					var imageFillId = imageFill.HtmlId;
 					GetDefs().Add(imageFill);
 					svgElement.SetStyle("stroke", $"url(#{imageFillId})");
 					var removeDef = new DisposableAction(() => GetDefs().Remove(imageFill));
-					_fillBrushSubscription.Disposable = new CompositeDisposable(removeDef, subscription);
+					_strokeBrushSubscription.Disposable = new CompositeDisposable(removeDef, imageSubscription);
 					break;
 				case GradientBrush gb:
-					var gradient = gb.ToSvgElement();
-					var gradientId = gradient.HtmlId;
-					GetDefs().Add(gradient);
+					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this, OnStrokeUpdatedPartial);
+					var gradientId = gradientFill.HtmlId;
+					GetDefs().Add(gradientFill);
 					svgElement.SetStyle("stroke", $"url(#{gradientId})");
-					_strokeBrushSubscription.Disposable = new DisposableAction(
-						() => GetDefs().Remove(gradient)
-					);
+					var removeGradientDef = new DisposableAction(() => GetDefs().Remove(gradientFill));					
+					_strokeBrushSubscription.Disposable = new CompositeDisposable(removeGradientDef, gradientSubscription);
 					break;
 				case AcrylicBrush ab:
 					svgElement.SetStyle("stroke", ab.FallbackColorWithOpacity.ToHexString());

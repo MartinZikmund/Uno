@@ -35,6 +35,9 @@ body {
   -webkit-box-sizing: border-box !important;
   -moz-box-sizing: border-box !important;
   box-sizing: border-box !important;
+}
+
+.uno-uielement:not(.uno-svgelement) {
   /*
     Force all element to have a transform, to allow correct measure of text and images.
     See WindowManager.ts on measureViewInternal() for more details.

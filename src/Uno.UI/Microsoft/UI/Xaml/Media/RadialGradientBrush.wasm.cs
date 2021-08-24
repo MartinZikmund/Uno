@@ -6,6 +6,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Wasm;
 using Uno.Extensions;
+using Uno.Disposables;
+using Windows.UI.Xaml.Shapes;
 
 namespace Microsoft.UI.Xaml.Media
 {
@@ -31,7 +33,7 @@ namespace Microsoft.UI.Xaml.Media
 			return $"radial-gradient(ellipse farthest-side at {radiusX * 100d}% {radiusY * 100d}%, {stops})";
 		}
 
-		internal override UIElement ToSvgElement()
+		internal override (UIElement, IDisposable) ToSvgElement(Shape target, Action invalidate)
 		{
 			var center = Center;
 
@@ -59,7 +61,7 @@ namespace Microsoft.UI.Xaml.Media
 
 			linearGradient.SetHtmlContent(string.Join(Environment.NewLine, stops));
 
-			return linearGradient;
+			return (linearGradient, Disposable.Empty);
 		}
 	}
 }
