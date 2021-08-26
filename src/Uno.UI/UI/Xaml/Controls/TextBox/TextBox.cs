@@ -180,6 +180,8 @@ namespace Windows.UI.Xaml.Controls
 
 		protected virtual void OnTextChanged(DependencyPropertyChangedEventArgs e)
 		{
+			this.Log().LogError("OnTextChanged " + e.NewValue);
+
 			_hasTextChangedThisFocusSession = true;
 
 			if (!_isInvokingTextChanged)
@@ -248,6 +250,8 @@ namespace Windows.UI.Xaml.Controls
 
 		private object CoerceText(object baseValue)
 		{
+			this.Log().LogError("CoerceText baseValue " + baseValue + " Text " + Text);
+
 			if (!(baseValue is string baseString))
 			{
 				return ""; //Pushing null to the binding resets the text. (Setting null to the Text property directly throws an exception.)
@@ -262,6 +266,7 @@ namespace Windows.UI.Xaml.Controls
 			BeforeTextChanging?.Invoke(this, args);
 			if (args.Cancel)
 			{
+				this.Log().LogError("CoerceText " + baseValue);
 				return DependencyProperty.UnsetValue;
 			}
 

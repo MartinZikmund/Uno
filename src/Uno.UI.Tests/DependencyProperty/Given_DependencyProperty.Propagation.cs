@@ -1,25 +1,9 @@
-﻿using CommonServiceLocator;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Uno.Logging;
-using Uno.Extensions;
-using Uno.Presentation.Resources;
-using Uno.UI.DataBinding;
-using Windows.UI.Xaml.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-using Uno.Disposables;
-using System.ComponentModel;
-using Uno.UI;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Windows.UI.Xaml;
-using Uno.UI.Converters;
-using Microsoft.Extensions.Logging;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Uno.UI.Tests.BinderTests.Propagation
@@ -269,8 +253,6 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 			Assert.AreEqual(77, o2.MyProperty);
 		}
 
-
-
 		[TestMethod]
 		public void When_ValidBinding_And_Then_InvalidBinding_Inherited_Different_Binding()
 		{
@@ -350,7 +332,7 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 			Assert.AreEqual(77, o1.MyProperty);
 			Assert.AreEqual(78, o2.MyProperty);
 		}
-		
+
 		[TestMethod]
 		public void When_DependencyObject_Bindable_Removed()
 		{
@@ -453,7 +435,8 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 			var SUT = new ContentControl() { Tag = 42 };
 			DoubleAnimation anim = null;
 
-			var template = new ControlTemplate(() => {
+			var template = new ControlTemplate(() =>
+			{
 				var g = new Grid();
 
 				var vg = new VisualStateGroup();
@@ -475,13 +458,32 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 
 			Assert.IsNotNull(anim);
 		}
+
+		[TestMethod]
+		public void When_Same_Type_Inherited()
+		{
+			var sameNameOwner = new SameNameOwner1();
+			sameNameOwner.SameName = 1;
+			var sameNameChild = new SameNameOwner1();
+			sameNameChild.SetParent(sameNameOwner);
+			Assert.AreEqual(1, sameNameChild.SameName);
+		}
+
+		[TestMethod]
+		public void When_Different_Type_Same_Name_Inherited()
+		{
+			var sameNameOwner = new SameNameOwner1();
+			sameNameOwner.SameName = 1;
+			var sameNameChild = new SameNameOwner2();
+			sameNameChild.SetParent(sameNameOwner);
+			Assert.AreEqual(1, sameNameChild.SameName);
+		}
 	}
 
 	public partial class MyObject : DependencyObject
 	{
 		public MyObject()
 		{
-
 		}
 
 		public DependencyObject SelfTest
@@ -535,7 +537,7 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 		private static void OnPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
 		{
 
-			if(dependencyObject is SubObject so)
+			if (dependencyObject is SubObject so)
 			{
 				so.MyPropertyCounter++;
 			}
@@ -564,6 +566,37 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 		}
 	}
 
+	public partial class SameNameOwner1 : DependencyObject
+	{
+		public int SameName
+		{
+			get => (int)GetValue(SameNameProperty);
+			set => SetValue(SameNameProperty, value);
+		}
+
+		public static DependencyProperty SameNameProperty { get; } =
+			DependencyProperty.Register("SameName", typeof(int), typeof(SameNameOwner1), new FrameworkPropertyMetadata(
+				defaultValue: 0,
+				options: FrameworkPropertyMetadataOptions.Inherits
+			));
+	}
+
+	public partial class SameNameOwner2 : DependencyObject
+	{
+		public int SameName
+		{
+			get => (int)GetValue(SameNameProperty);
+			set => SetValue(SameNameProperty, value);
+		}
+
+		public static DependencyProperty SameNameProperty { get; } =
+			DependencyProperty.Register("SameName", typeof(int), typeof(SameNameOwner2), new FrameworkPropertyMetadata(
+				defaultValue: 0,
+				options: FrameworkPropertyMetadataOptions.Inherits
+			));
+	}
+
+
 	public partial class MyObjectWithExplicitDefaultValue : DependencyObject
 	{
 
@@ -582,7 +615,7 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 				propertyType: typeof(MyObjectWithExplicitDefaultValue),
 				ownerType: typeof(MyObjectWithExplicitDefaultValue),
 				typeMetadata: new FrameworkPropertyMetadata(
-					defaultValue: null, 
+					defaultValue: null,
 					propertyChangedCallback: (s, e) => ((MyObjectWithExplicitDefaultValue)s)?.OnSameTypeObjectChanged(e)
 				)
 		);
@@ -612,7 +645,7 @@ namespace Uno.UI.Tests.BinderTests.Propagation
 				propertyType: typeof(int),
 				ownerType: typeof(MyObjectWithExplicitDefaultValue),
 				typeMetadata: new FrameworkPropertyMetadata(
-					defaultValue: 77, 
+					defaultValue: 77,
 					options: FrameworkPropertyMetadataOptions.Inherits,
 					propertyChangedCallback: (s, e) => ((MyObjectWithExplicitDefaultValue)s)?.OnMyPropertyChanged(e)
 				)

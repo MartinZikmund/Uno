@@ -335,6 +335,7 @@ namespace Windows.UI.Xaml.Controls.Primitives
 
 		private void SynchronizePropertyToPopup(DependencyProperty property, object value)
 		{
+			this.Log().LogError($"Synchronizing property {property.Name} to popup {_popup} with value {value}");
 			// This is present to force properties to be propagated to the popup of the flyout
 			// since it is not directly a child in the visual tree of the flyout.
 			_popup?.SetValue(property, value, precedence: DependencyPropertyValuePrecedences.Local);
