@@ -8,6 +8,6 @@ namespace Windows.UI.Xaml.Media
 	{
 		internal abstract string ToCssString(Size size);
 
-		internal abstract (UIElement, IDisposable) ToSvgElement(Shape target, Action invalidate);
+		internal abstract (UIElement, IDisposable) ToSvgElement(Shape target);
 	}
 }

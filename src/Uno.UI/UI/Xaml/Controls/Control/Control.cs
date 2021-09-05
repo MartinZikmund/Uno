@@ -13,6 +13,7 @@ using Windows.Foundation;
 using Uno;
 using Uno.UI.Xaml.Core;
 using Uno.UI.Xaml.Input;
+using Uno.UI.Xaml.Controls.Border;
 #if XAMARIN_ANDROID
 using View = Android.Views.View;
 using ViewGroup = Android.Views.ViewGroup;
@@ -36,7 +37,7 @@ using View = Windows.UI.Xaml.UIElement;
 
 namespace Windows.UI.Xaml.Controls
 {
-	public partial class Control : FrameworkElement
+	public partial class Control : FrameworkElement, IBorderElement
 	{
 		private View _templatedRoot;
 		private bool _updateTemplate;

@@ -11,6 +11,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Controls;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
 #if XAMARIN_ANDROID
 using View = Android.Views.View;
 #elif XAMARIN_IOS_UNIFIED
@@ -22,7 +23,7 @@ using View = MonoTouch.UIKit.UIView;
 namespace Windows.UI.Xaml.Controls
 {
 	[Markup.ContentProperty(Name = "Children")]
-	public partial class Panel : FrameworkElement, ICustomClippingElement, IPanel
+	public partial class Panel : FrameworkElement, ICustomClippingElement, IPanel, IBorderElement
 	{
 #if NET461 || UNO_REFERENCE_API
 		private new UIElementCollection _children;

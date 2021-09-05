@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Media;
 using Uno.Disposables;
 using Uno.Extensions;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -13,6 +14,8 @@ namespace Windows.UI.Xaml.Shapes
 		private Brush _background;
 		private (Brush, Thickness) _border;
 		private CornerRadius _cornerRadius;
+
+		private Shape _borderShape;
 
 		private SerialDisposable _backgroundSubscription;
 
@@ -37,7 +40,7 @@ namespace Windows.UI.Xaml.Shapes
 			if (_border != (borderBrush, borderThickness))
 			{
 				_border = (borderBrush, borderThickness);
-				SetBorder(element, borderThickness, borderBrush);
+				SetBorder(element, borderThickness, borderBrush, cornerRadius);
 			}
 
 			if (_cornerRadius != cornerRadius)
@@ -59,6 +62,12 @@ namespace Windows.UI.Xaml.Shapes
 				element.SetStyle(
 					("border-radius", borderRadiusCssString),
 					("overflow", "hidden")); // overflow: hidden is required here because the clipping can't do its job when it's non-rectangular.
+			}
+
+			if (RequiresSvgBasedGradientBorder(element))
+			{				
+				// We also need to adjust the border radius of the SVG element.
+				//TODO:	
 			}
 		}
 
@@ -85,12 +94,19 @@ namespace Windows.UI.Xaml.Shapes
 							("border-width", borderWidth));
 						break;
 					case GradientBrush gradientBrush:
-						var border = gradientBrush.ToCssString(element.RenderSize); // TODO: Reevaluate when size is changing
-						element.SetStyle(
-							("border-style", "solid"),
-							("border-color", ""),
-							("border-image", border),
-							("border-width", borderWidth));
+						if (!RequiresSvgBasedGradientBorder(element))
+						{
+							var border = gradientBrush.ToCssString(element.RenderSize); // TODO: Reevaluate when size is changing
+							element.SetStyle(
+								("border-style", "solid"),
+								("border-color", ""),
+								("border-image", border),
+								("border-width", borderWidth));
+						}
+						else
+						{
+							
+						}
 						break;
 					case AcrylicBrush acrylicBrush:
 						var acrylicFallbackColor = acrylicBrush.FallbackColorWithOpacity;
@@ -105,6 +121,18 @@ namespace Windows.UI.Xaml.Shapes
 						break;
 				}
 			}
+		}
+
+		private static void UpdateSvgBorder(UIElement element)
+		{
+			var borderElement = (IBorderElement)element;
+			var rectangle = new Rectangle();
+
+			// TODO: We currently only support uniform radius scenario.
+			// A better solution would be to generate appropriate SVG shape
+			// and apply radius according to corner radius.
+			rectangle.RadiusX = borderElement.CornerRadius.TopLeft;
+			rectangle.RadiusY = borderElement.CornerRadius.TopLeft;
 		}
 
 		public static IDisposable SetAndObserveBackgroundBrush(FrameworkElement element, Brush brush)
@@ -190,5 +218,21 @@ namespace Windows.UI.Xaml.Shapes
 				element.SizeChanged -= _onSizeChangedForBrushCalculation;
 			}
 		}
+
+		/// <summary>
+		/// Checks whether the current brush/corner radius setup requires SVG-based border instead of CSS.
+		/// </summary>
+		/// <param name="element">UIElement to check.</param>
+		/// <returns>True if SVG-based border is required.</returns>
+		/// <remarks>
+		/// We require SVG-based border if it is LinearGradientBrush and
+		/// either has rounded corners (which is not possible to achieve in CSS)
+		/// or uses RelativeTransform (which is not currently supported in our CSS implementation)
+		/// </remarks>
+		private static bool RequiresSvgBasedGradientBorder(UIElement element) =>
+			element is IBorderElement borderElement &&
+			borderElement.BorderBrush is LinearGradientBrush &&
+			(borderElement.CornerRadius != CornerRadius.None || borderElement.BorderBrush.RelativeTransform != null);
+
 	}
 }

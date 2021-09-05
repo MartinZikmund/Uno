@@ -36,7 +36,7 @@ namespace Windows.UI.Xaml.Media
 		/// <summary>
 		/// Generates a linearGradient element that can be used inside SVG-based views (Path, etc)
 		/// </summary>
-		internal override (UIElement, IDisposable) ToSvgElement(Shape target, Action invalidate)
+		internal override (UIElement, IDisposable) ToSvgElement(Shape target)
 		{
 			var linearGradient = new SvgElement("linearGradient");
 
@@ -56,19 +56,21 @@ namespace Windows.UI.Xaml.Media
 
 			if (RelativeTransform != null)
 			{
-				var size = target.RenderSize;
-				var matrix = RelativeTransform.ToMatrix(Foundation.Point.Zero, size);
-				matrix.M31 *= (float)size.Width;
-				matrix.M32 *= (float)size.Height;
-				linearGradient.SetAttribute("gradientTransform", $"matrix({matrix.M11.ToStringInvariant()}, {matrix.M12.ToStringInvariant()}, {matrix.M21.ToStringInvariant()}, {matrix.M22.ToStringInvariant()}, {matrix.M31.ToStringInvariant()}, {matrix.M32.ToStringInvariant()})");
+				void UpdateTransform()
+				{
+					var size = target.RenderSize;
+					var matrix = RelativeTransform.ToMatrix(Foundation.Point.Zero, size);
+					matrix.M31 *= (float)size.Width;
+					matrix.M32 *= (float)size.Height;
+					linearGradient.SetAttribute("gradientTransform", $"matrix({matrix.M11.ToStringInvariant()}, {matrix.M12.ToStringInvariant()}, {matrix.M21.ToStringInvariant()}, {matrix.M22.ToStringInvariant()}, {matrix.M31.ToStringInvariant()}, {matrix.M32.ToStringInvariant()})");
+				}
+
+				UpdateTransform();
 
 				target.SizeChanged += OnSizeChanged;
 				disposable.Add(Disposable.Create(() => target.SizeChanged -= OnSizeChanged));
 
-				void OnSizeChanged(object sender, object e)
-				{
-					invalidate?.Invoke(); // TOOD: MZ: Change this to only update the properties of the transform, not invalidate completely!
-				}
+				void OnSizeChanged(object sender, object e) => UpdateTransform();
 			}
 
 			var stops = GradientStops.Select(stop => $"<stop offset=\"{stop.Offset.ToStringInvariant()}\" style=\"stop-color:{stop.Color.ToHexString()}\" />");

@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Text;
 using Microsoft.Extensions.Logging;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
 #if XAMARIN_ANDROID
 using View = Android.Views.View;
 using ViewGroup = Android.Views.ViewGroup;
@@ -40,7 +41,7 @@ using ViewGroup = Windows.UI.Xaml.UIElement;
 namespace Windows.UI.Xaml.Controls
 {
 	[ContentProperty(Name = "Content")]
-	public partial class ContentPresenter : FrameworkElement, ICustomClippingElement
+	public partial class ContentPresenter : FrameworkElement, ICustomClippingElement, IBorderElement
 	{
 		private bool _firstLoadResetDone;
 		private View _contentTemplateRoot;
