@@ -1,15 +1,15 @@
-#pragma warning disable 108 // new keyword hiding
-#pragma warning disable 114 // new keyword hiding
 namespace Windows.Globalization.NumberFormatting
 {
-	#if false
-	[global::Uno.NotImplemented]
-	#endif
-	public  partial class DecimalFormatter : global::Windows.Globalization.NumberFormatting.INumberFormatterOptions,global::Windows.Globalization.NumberFormatting.INumberFormatter,global::Windows.Globalization.NumberFormatting.INumberFormatter2,global::Windows.Globalization.NumberFormatting.INumberParser,global::Windows.Globalization.NumberFormatting.ISignificantDigitsOption,global::Windows.Globalization.NumberFormatting.INumberRounderOption,global::Windows.Globalization.NumberFormatting.ISignedZeroOption
+	public partial class DecimalFormatter :
+		INumberFormatterOptions,
+		INumberFormatter,
+		INumberFormatter2,
+		INumberParser,
+		ISignificantDigitsOption,
+		INumberRounderOption,
+		ISignedZeroOption
 	{
-		#if false
-		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  bool IsDecimalPointAlwaysDisplayed
+		public bool IsDecimalPointAlwaysDisplayed
 		{
 			get
 			{
@@ -20,10 +20,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "bool DecimalFormatter.IsDecimalPointAlwaysDisplayed");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  int IntegerDigits
+		public int IntegerDigits
 		{
 			get
 			{
@@ -34,10 +34,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "int DecimalFormatter.IntegerDigits");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  bool IsGrouped
+		public bool IsGrouped
 		{
 			get
 			{
@@ -48,10 +48,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "bool DecimalFormatter.IsGrouped");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string NumeralSystem
+		public string NumeralSystem
 		{
 			get
 			{
@@ -62,10 +62,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "string DecimalFormatter.NumeralSystem");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  int FractionDigits
+		public int FractionDigits
 		{
 			get
 			{
@@ -76,50 +76,50 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "int DecimalFormatter.FractionDigits");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string GeographicRegion
+		public string GeographicRegion
 		{
 			get
 			{
 				throw new global::System.NotImplementedException("The member string DecimalFormatter.GeographicRegion is not implemented in Uno.");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  global::System.Collections.Generic.IReadOnlyList<string> Languages
+		public global::System.Collections.Generic.IReadOnlyList<string> Languages
 		{
 			get
 			{
 				throw new global::System.NotImplementedException("The member IReadOnlyList<string> DecimalFormatter.Languages is not implemented in Uno.");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string ResolvedGeographicRegion
+		public string ResolvedGeographicRegion
 		{
 			get
 			{
 				throw new global::System.NotImplementedException("The member string DecimalFormatter.ResolvedGeographicRegion is not implemented in Uno.");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string ResolvedLanguage
+		public string ResolvedLanguage
 		{
 			get
 			{
 				throw new global::System.NotImplementedException("The member string DecimalFormatter.ResolvedLanguage is not implemented in Uno.");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  global::Windows.Globalization.NumberFormatting.INumberRounder NumberRounder
+		public global::Windows.Globalization.NumberFormatting.INumberRounder NumberRounder
 		{
 			get
 			{
@@ -130,10 +130,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "INumberRounder DecimalFormatter.NumberRounder");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  bool IsZeroSigned
+		public bool IsZeroSigned
 		{
 			get
 			{
@@ -144,10 +144,10 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "bool DecimalFormatter.IsZeroSigned");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  int SignificantDigits
+		public int SignificantDigits
 		{
 			get
 			{
@@ -158,22 +158,22 @@ namespace Windows.Globalization.NumberFormatting
 				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "int DecimalFormatter.SignificantDigits");
 			}
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public DecimalFormatter( global::System.Collections.Generic.IEnumerable<string> languages,  string geographicRegion) 
+		public DecimalFormatter(global::System.Collections.Generic.IEnumerable<string> languages, string geographicRegion)
 		{
 			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "DecimalFormatter.DecimalFormatter(IEnumerable<string> languages, string geographicRegion)");
 		}
-		#endif
+#endif
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.DecimalFormatter(System.Collections.Generic.IEnumerable<string>, string)
-		#if false
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public DecimalFormatter() 
+		public DecimalFormatter()
 		{
 			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Globalization.NumberFormatting.DecimalFormatter", "DecimalFormatter.DecimalFormatter()");
 		}
-		#endif
+#endif
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.DecimalFormatter()
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.Languages.get
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.GeographicRegion.get
@@ -189,69 +189,69 @@ namespace Windows.Globalization.NumberFormatting
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.NumeralSystem.set
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.ResolvedLanguage.get
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.ResolvedGeographicRegion.get
-		#if false
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string Format( long value)
+		public string Format(long value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.Format(long value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string Format( ulong value)
+		public string Format(ulong value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.Format(ulong value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string Format( double value)
+		public string Format(double value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.Format(double value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string FormatInt( long value)
+		public string FormatInt(long value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.FormatInt(long value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string FormatUInt( ulong value)
+		public string FormatUInt(ulong value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.FormatUInt(ulong value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  string FormatDouble( double value)
+		public string FormatDouble(double value)
 		{
 			throw new global::System.NotImplementedException("The member string DecimalFormatter.FormatDouble(double value) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  long? ParseInt( string text)
+		public long? ParseInt(string text)
 		{
 			throw new global::System.NotImplementedException("The member long? DecimalFormatter.ParseInt(string text) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  ulong? ParseUInt( string text)
+		public ulong? ParseUInt(string text)
 		{
 			throw new global::System.NotImplementedException("The member ulong? DecimalFormatter.ParseUInt(string text) is not implemented in Uno.");
 		}
-		#endif
-		#if false
+#endif
+#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "NET461", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public  double? ParseDouble( string text)
+		public double? ParseDouble(string text)
 		{
 			throw new global::System.NotImplementedException("The member double? DecimalFormatter.ParseDouble(string text) is not implemented in Uno.");
 		}
-		#endif
+#endif
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.SignificantDigits.get
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.SignificantDigits.set
 		// Forced skipping of method Windows.Globalization.NumberFormatting.DecimalFormatter.NumberRounder.get
