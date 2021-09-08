@@ -33,7 +33,7 @@ namespace Microsoft.UI.Xaml.Media
 			return $"radial-gradient(ellipse farthest-side at {radiusX * 100d}% {radiusY * 100d}%, {stops})";
 		}
 
-		internal override (UIElement, IDisposable) ToSvgElement(Shape target, Action invalidate)
+		internal override (UIElement, IDisposable) ToSvgElement(Shape target)
 		{
 			var center = Center;
 

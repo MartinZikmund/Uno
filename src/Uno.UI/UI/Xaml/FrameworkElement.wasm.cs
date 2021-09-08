@@ -202,7 +202,17 @@ namespace Windows.UI.Xaml
 			=> BorderLayerRenderer.SetCornerRadius(this, cornerRadius);
 
 		protected void SetBorder(Thickness thickness, Brush brush)
-			=> BorderLayerRenderer.SetBorder(this, thickness, brush);
+			=> SetAndObserveBorder(thickness, brush);
+
+		private SerialDisposable _borderSubscription = null;
+
+		private void SetAndObserveBorder(Thickness thickness, Brush brush)
+		{
+			var subscription = _borderSubscription ??= new SerialDisposable();
+
+			subscription.Disposable = null;
+			subscription.Disposable = BorderLayerRenderer.SetAndObserveBorder(this, thickness, brush);
+		}
 
 		partial void OnBackgroundSizingChangedPartial(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
 		{

@@ -3,6 +3,7 @@ using System.Drawing;
 using Uno.Extensions;
 using Uno.UI;
 using Uno.UI.DataBinding;
+using Uno.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -15,7 +16,7 @@ namespace Windows.UI.Xaml.Controls
 	/// The content presenter is used for compatibility with WPF concepts,
 	/// but the ContentSource property is not available, because there are ControlTemplates for now.
 	/// </remarks>
-	public partial class ContentPresenter : FrameworkElement
+	public partial class ContentPresenter : FrameworkElement, ISupportSvgBorder
 	{
 		public ContentPresenter()
 		{

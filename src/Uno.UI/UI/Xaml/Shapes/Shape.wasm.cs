@@ -85,7 +85,7 @@ namespace Windows.UI.Xaml.Shapes
 					_fillBrushSubscription.Disposable = new CompositeDisposable(removeImageDef, imageSubscription);
 					break;
 				case GradientBrush gb:
-					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this, OnFillUpdatedPartial);
+					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this);
 					var gradientId = gradientFill.HtmlId;
 					GetDefs().Add(gradientFill);
 					svgElement.SetStyle("fill", $"url(#{gradientId})");
@@ -128,7 +128,7 @@ namespace Windows.UI.Xaml.Shapes
 					_strokeBrushSubscription.Disposable = new CompositeDisposable(removeDef, imageSubscription);
 					break;
 				case GradientBrush gb:
-					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this, OnStrokeUpdatedPartial);
+					var (gradientFill, gradientSubscription) = gb.ToSvgElement(this);
 					var gradientId = gradientFill.HtmlId;
 					GetDefs().Add(gradientFill);
 					svgElement.SetStyle("stroke", $"url(#{gradientId})");

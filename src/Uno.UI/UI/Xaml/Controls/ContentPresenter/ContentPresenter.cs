@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Text;
 using Microsoft.Extensions.Logging;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
 #if XAMARIN_ANDROID
 using View = Android.Views.View;
 using ViewGroup = Android.Views.ViewGroup;

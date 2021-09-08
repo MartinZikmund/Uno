@@ -5,6 +5,8 @@ using Windows.UI.Xaml.Media;
 using Uno.Disposables;
 using Uno.Extensions;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
+using Uno.UI.Xaml.Controls;
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -15,6 +17,7 @@ namespace Windows.UI.Xaml.Shapes
 		private CornerRadius _cornerRadius;
 
 		private SerialDisposable _backgroundSubscription;
+		private SerialDisposable _borderSubscription;
 
 		public void UpdateLayer(
 			UIElement element,
@@ -37,7 +40,11 @@ namespace Windows.UI.Xaml.Shapes
 			if (_border != (borderBrush, borderThickness))
 			{
 				_border = (borderBrush, borderThickness);
-				SetBorder(element, borderThickness, borderBrush);
+
+				var subscription = _borderSubscription ??= new SerialDisposable();
+
+				subscription.Disposable = null;
+				subscription.Disposable = SetAndObserveBorder(element, borderThickness, borderBrush);
 			}
 
 			if (_cornerRadius != cornerRadius)
@@ -62,7 +69,7 @@ namespace Windows.UI.Xaml.Shapes
 			}
 		}
 
-		public static void SetBorder(UIElement element, Thickness thickness, Brush brush)
+		public static IDisposable SetAndObserveBorder(UIElement element, Thickness thickness, Brush brush)
 		{
 			if (thickness == Thickness.Empty)
 			{
@@ -70,6 +77,7 @@ namespace Windows.UI.Xaml.Shapes
 					("border-style", "none"),
 					("border-color", ""),
 					("border-width", ""));
+				return null;
 			}
 			else
 			{
@@ -83,15 +91,29 @@ namespace Windows.UI.Xaml.Shapes
 							("border-style", "solid"),
 							("border-color", borderColor.ToHexString()),
 							("border-width", borderWidth));
-						break;
+						return null;
 					case GradientBrush gradientBrush:
-						var border = gradientBrush.ToCssString(element.RenderSize); // TODO: Reevaluate when size is changing
-						element.SetStyle(
-							("border-style", "solid"),
-							("border-color", ""),
-							("border-image", border),
-							("border-width", borderWidth));
-						break;
+						//todo:if (!RequiresSvgBasedGradientBorder(element))
+						{
+							var border = gradientBrush.ToCssString(element.RenderSize); // TODO: Reevaluate when size is changing
+							element.SetStyle(
+								("border-style", "solid"),
+								("border-color", "transparent"));
+								//todo:("border-image", border),
+								//todo:("border-width", borderWidth));
+							//todo:return null;
+						}
+						//else
+						{
+							var rectangle = new Rectangle();
+							element.SetStyle("padding", borderWidth);
+							rectangle.Margin = new Thickness(-thickness.Left, -thickness.Top);
+							rectangle.Width = rectangle.RenderSize.Width;
+							rectangle.Height= rectangle.RenderSize.Height;
+							rectangle.Fill = new SolidColorBrush(Colors.Red);
+							element.AddChild(rectangle);
+							return Disposable.Create(() => element.RemoveChild(rectangle));
+						}
 					case AcrylicBrush acrylicBrush:
 						var acrylicFallbackColor = acrylicBrush.FallbackColorWithOpacity;
 						element.SetStyle(
@@ -99,13 +121,33 @@ namespace Windows.UI.Xaml.Shapes
 							("border-style", "solid"),
 							("border-color", acrylicFallbackColor.ToHexString()),
 							("border-width", borderWidth));
-						break;
+						return null;
 					default:
 						element.ResetStyle("border-style", "border-color", "border-image", "border-width");
-						break;
+						return null;
 				}
 			}
 		}
+
+		private static void UpdateSvgBorder(ISupportSvgBorder element)
+		{
+			var svgBorder = GetCurrentSvgBorder(element);
+			if (svgBorder is Rectangle rectangle)
+			{
+				// TODO: We currently only support uniform radius scenario.
+				// A better solution would be to generate appropriate SVG shape
+				// and apply radius according to corner radius.
+				rectangle.RadiusX = element.CornerRadius.TopLeft;
+				rectangle.RadiusY = element.CornerRadius.TopLeft;
+			}
+		}
+
+		private static Shape GetCurrentSvgBorder(ISupportSvgBorder element) =>
+			element switch
+			{
+				Border border => border.SvgBorder,
+				_ => null
+			};
 
 		public static IDisposable SetAndObserveBackgroundBrush(FrameworkElement element, Brush brush)
 		{
@@ -190,5 +232,21 @@ namespace Windows.UI.Xaml.Shapes
 				element.SizeChanged -= _onSizeChangedForBrushCalculation;
 			}
 		}
+
+		/// <summary>
+		/// Checks whether the current brush/corner radius setup requires SVG-based border instead of CSS.
+		/// </summary>
+		/// <param name="element">UIElement to check.</param>
+		/// <returns>True if SVG-based border is required.</returns>
+		/// <remarks>
+		/// We require SVG-based border if it is LinearGradientBrush and
+		/// either has rounded corners (which is not possible to achieve in CSS)
+		/// or uses RelativeTransform (which is not currently supported in our CSS implementation)
+		/// </remarks>
+		private static bool RequiresSvgBasedGradientBorder(UIElement element) =>
+			element is ISupportSvgBorder borderElement &&
+			borderElement.BorderBrush is LinearGradientBrush &&
+			(borderElement.CornerRadius != CornerRadius.None || borderElement.BorderBrush.RelativeTransform != null);
+
 	}
 }

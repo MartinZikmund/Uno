@@ -2205,6 +2205,7 @@ var Windows;
                                 throw new Error("A DragDropExtension has already been enabled");
                             }
                             DragDropExtension._dispatchDragDropArgs = pArgs;
+                            DragDropExtension._nextDropId = 1;
                             DragDropExtension._current = new DragDropExtension();
                         }
                         static disable(pArgs) {

@@ -8,6 +8,7 @@ using Uno.UI.DataBinding;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Markup;
 using Uno.UI.Xaml;
+using Uno.UI.Xaml.Controls.Border;
 #if XAMARIN_ANDROID
 using Android.Views;
 using Android.Graphics;
@@ -36,7 +37,6 @@ namespace Windows.UI.Xaml.Controls
 	[ContentProperty(Name = nameof(Child))]
 	public partial class Border : FrameworkElement
 	{
-
 		/// <summary>        
 		/// Support for the C# collection initializer style.
 		/// Allows items to be added like this 

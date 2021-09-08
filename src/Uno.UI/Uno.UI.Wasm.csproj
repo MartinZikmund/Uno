@@ -152,6 +152,12 @@
 
 	<ItemGroup>
 	  <None Remove="tsconfig.json" />
+	  <None Remove="UI\Xaml\Controls\Border\ISupportSvgBorder.wasm.cs" />
+	  <None Remove="UI\Xaml\Controls\Border\SvgBorder.wasm.cs" />
+	  <None Remove="UI\Xaml\Controls\Border\SvgBorderManager.wasm.cs" />
+	  <UpToDateCheckInput Remove="UI\Xaml\Controls\Border\ISupportSvgBorder.wasm.cs" />
+	  <UpToDateCheckInput Remove="UI\Xaml\Controls\Border\SvgBorder.wasm.cs" />
+	  <UpToDateCheckInput Remove="UI\Xaml\Controls\Border\SvgBorderManager.wasm.cs" />
 	  <Content Include="tsconfig.json" />
 	</ItemGroup>
 

@@ -283,7 +283,7 @@
 			</StackPanel>
 			<TextBlock FontSize="15">Linear Gradient as border/stroke with relative transform / with single stop</TextBlock>
 			<StackPanel Orientation="Horizontal" Spacing="10">
-				<Border Width="100" Height="100" BorderThickness="40" CornerRadius="8">
+				<Border Width="100" Height="100" Padding="5" BorderThickness="40" CornerRadius="8">
 					<Border.BorderBrush>
 						<LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,40">
 							<LinearGradientBrush.RelativeTransform>
@@ -295,6 +295,7 @@
 							</LinearGradientBrush.GradientStops>
 						</LinearGradientBrush>
 					</Border.BorderBrush>
+					<Border Background="Violet" Width="10" Height="10" />
 				</Border>
 				<Rectangle Width="100" Height="100" StrokeThickness="40" RadiusX="8" RadiusY="8">
 					<Rectangle.Stroke>
