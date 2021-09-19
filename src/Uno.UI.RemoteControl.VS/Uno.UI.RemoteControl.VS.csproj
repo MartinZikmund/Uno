@@ -68,4 +68,6 @@
 		</ItemGroup>
 	</Target>
 
+	<Target Name="GetTargetPath" />
+
 </Project>
