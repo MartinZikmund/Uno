@@ -8,6 +8,12 @@ using Uno.Extensions;
 using Uno.Logging;
 using Microsoft.Extensions.Logging;
 using Foundation;
+using System.Threading.Tasks;
+using System.Threading;
+using Windows.System;
+using Windows.UI.Core;
+using CoreFoundation;
+using StoreKit;
 
 namespace Windows.Services.Store
 {
@@ -51,6 +57,23 @@ namespace Windows.Services.Store
 					};
 				}
 			});
+		}
+
+		private async Task<StoreRateAndReviewResult> RequestRateAndReviewAppTaskAsync(CancellationToken cancellationToken)
+		{
+			try
+			{
+				await CoreDispatcher.Main.RunAsync(CoreDispatcherPriority.Normal, (cancellationToken) =>
+				{
+					SKStoreReviewController.RequestReview(UIApplication.SharedApplication.KeyWindow.WindowScene);
+				});
+
+				return new StoreRateAndReviewResult(StoreRateAndReviewStatus.Succeeded);
+			}
+			catch (Exception ex)
+			{
+				return new StoreRateAndReviewResult(StoreRateAndReviewStatus.Error, ex);
+			}
 		}
 	}
 }
