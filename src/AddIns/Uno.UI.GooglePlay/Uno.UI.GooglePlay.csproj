@@ -1,38 +1,38 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="15.0">
-  <PropertyGroup>
+	<PropertyGroup>
 		<TargetFrameworks>MonoAndroid11.0</TargetFrameworks>
 		<TargetFrameworksCI>MonoAndroid11.0;MonoAndroid10.0</TargetFrameworksCI>
 		<!--<GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>-->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-		<PackageId Condition="'$(UNO_UWP_BUILD)'!='true'">Uno.WinUI.DualScreen</PackageId>
+		<PackageId Condition="'$(UNO_UWP_BUILD)'!='true'">Uno.WinUI.GooglePlay</PackageId>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="'$(UnoTargetFrameworkOverride)'!=''">
 		<TargetFrameworks>$(UnoTargetFrameworkOverride)</TargetFrameworks>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
-    <Authors>nventive</Authors>
-    <PackageProjectUrl>https://github.com/unoplatform/uno</PackageProjectUrl>
-    <PackageIconUrl>https://nv-assets.azurewebsites.net/logos/uno.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/unoplatform/uno</RepositoryUrl>
-    <Description>This package provides the ability for Uno Platform based apps to use dual screen devices such as the Surface Duo or Neo</Description>
-    <Copyright>Copyright (C) 2015-2020 nventive inc. - all rights reserved</Copyright>
-  </PropertyGroup>
+		<Authors>nventive</Authors>
+		<PackageProjectUrl>https://github.com/unoplatform/uno</PackageProjectUrl>
+		<PackageIconUrl>https://nv-assets.azurewebsites.net/logos/uno.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/unoplatform/uno</RepositoryUrl>
+		<Description>This package provides Google Play specific extensions for Android.</Description>
+		<Copyright>Copyright (C) 2015-2021 nventive inc. - all rights reserved</Copyright>
+	</PropertyGroup>
 
 	<PropertyGroup>
 		<NoWarn>$(NoWarn);NU1701</NoWarn>
-		
+
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Uno.UI\Uno.UI.csproj" />
-		<ProjectReference Include="..\Uno.UWP\Uno.csproj" TreatAsPackageReference="false" PrivateAssets="all" />
-		<ProjectReference Include="..\Uno.Foundation\Uno.Foundation.csproj" TreatAsPackageReference="false" PrivateAssets="all" />
-		<ProjectReference Include="..\Uno.UI.BindingHelper.Android\Uno.UI.BindingHelper.Android.csproj" Condition="$(IsMonoAndroid)" TreatAsPackageReference="false" PrivateAssets="all" />
+		<ProjectReference Include="..\..\Uno.UI\Uno.UI.csproj" />
+		<ProjectReference Include="..\..\Uno.UWP\Uno.csproj" TreatAsPackageReference="false" PrivateAssets="all" />
+		<ProjectReference Include="..\..\Uno.Foundation\Uno.Foundation.csproj" TreatAsPackageReference="false" PrivateAssets="all" />
+		<ProjectReference Include="..\..\Uno.UI.BindingHelper.Android\Uno.UI.BindingHelper.Android.csproj" Condition="$(IsMonoAndroid)" TreatAsPackageReference="false" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,10 +41,10 @@
 		<PackageReference Include="Uno.Core.Build" />
 	</ItemGroup>
 
-	<Import Project="..\Uno.CrossTargetting.props" />
+	<Import Project="..\..\Uno.CrossTargetting.props" />
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid11.0' or '$(TargetFramework)' == 'MonoAndroid10.0'">
-		<PackageReference Include="Xamarin.DuoSdk" />
+		<PackageReference Include="Xamarin.Google.Android.Play.Core" Version="1.10.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(IsMonoAndroid) or $(IsXamarinIOS) or $(IsXamarinMac)">
@@ -53,13 +53,13 @@
 		<Reference Include="System.json" />
 	</ItemGroup>
 
-	<Import Project="..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />
+	<Import Project="..\..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />
 
-	<Target Name="_UnoDualScreenOverrideNuget" AfterTargets="AfterBuild" DependsOnTargets="BuiltProjectOutputGroup" Condition="'$(UnoNugetOverrideVersion)'!=''">
+	<Target Name="_UnoGooglePlayOverrideNuget" AfterTargets="AfterBuild" DependsOnTargets="BuiltProjectOutputGroup" Condition="'$(UnoNugetOverrideVersion)'!=''">
 
 		<PropertyGroup>
 			<_OverrideTargetFramework>$(TargetFramework)</_OverrideTargetFramework>
-			<_TargetNugetFolder>$(USERPROFILE)\.nuget\packages\Uno.UI.DualScreen\$(UnoNugetOverrideVersion)\lib\$(_OverrideTargetFramework)</_TargetNugetFolder>
+			<_TargetNugetFolder>$(USERPROFILE)\.nuget\packages\Uno.UI.GooglePlay\$(UnoNugetOverrideVersion)\lib\$(_OverrideTargetFramework)</_TargetNugetFolder>
 		</PropertyGroup>
 		<ItemGroup>
 			<_OutputFiles Include="$(TargetDir)**" />
