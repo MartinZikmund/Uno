@@ -7756,7 +7756,6 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)UITestsStrings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Microsoft_UI_Xaml_Controls\InfoBarTests\" />
     <Folder Include="$(MSBuildThisFileDirectory)Windows_UI_Xaml_Controls\ChatBox\" />
     <Folder Include="$(MSBuildThisFileDirectory)Windows_UI_Xaml_Controls\DatePicker\Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Windows_UI_Xaml_Controls\PersonPictureTests\" />
