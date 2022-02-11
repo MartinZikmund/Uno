@@ -43,7 +43,7 @@
 	<PackageReference Update="Uno.UITest.Helpers" Version="1.1.0-dev.24" />
 	<PackageReference Update="System.ValueTuple" Version="4.5.0" />
 	<PackageReference Update="Xamarin.DuoSdk" Version="0.0.3.4" />
-	<PackageReference Update="Xamarin.UITest" Version="3.0.15" />
+	<PackageReference Update="Xamarin.UITest" Version="3.2.5" />
 	<PackageReference Update="System.Numerics.Vectors" Version="4.5.0" />
 	<PackageReference Update="SkiaSharp.Views" Version="2.80.3" />
 	<PackageReference Update="SkiaSharp.Views.WPF" Version="2.80.3" />
@@ -51,7 +51,7 @@
 	<PackageReference Update="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
 	<PackageReference Update="GtkSharp" Version="3.24.24.34" />
 	<PackageReference Update="System.Json" Version="4.7.1" />
-	<PackageReference Update="FluentAssertions" Version="5.10.3" />
+	<PackageReference Update="FluentAssertions" Version="6.5.0" />
 	<PackageReference Update="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
 	<PackageReference Update="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
 	<PackageReference Update="Microsoft.Extensions.Logging.Filter" Version="1.1.2" />
