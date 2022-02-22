@@ -303,6 +303,11 @@ declare namespace Uno.UI {
         *
         */
         setStyleDoubleNative(pParams: number): boolean;
+        setBorderRadius(htmlId: number, topLeft: string, topRight: string, bottomRight: string, bottomLeft: string): boolean;
+        /**
+        * Set border radius and overflow.
+        */
+        setBorderRadiusNative(pParams: number): boolean;
         setSolidColorBorder(htmlId: number, color: number, width: string): boolean;
         /**
         * Set border to solid color brush.
@@ -1382,6 +1387,14 @@ declare class WindowManagerSetAttributesParams {
     Pairs_Length: number;
     Pairs: Array<string>;
     static unmarshal(pData: number): WindowManagerSetAttributesParams;
+}
+declare class WindowManagerSetBorderRadiusParams {
+    HtmlId: number;
+    TopLeft: number;
+    TopRight: number;
+    BottomLeft: number;
+    BottomRight: number;
+    static unmarshal(pData: number): WindowManagerSetBorderRadiusParams;
 }
 declare class WindowManagerSetClassesParams {
     HtmlId: number;

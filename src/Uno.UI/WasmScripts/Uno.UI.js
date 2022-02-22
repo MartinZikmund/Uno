@@ -765,6 +765,20 @@ var Uno;
                 element.style.setProperty(params.Name, this.handleToString(params.Value));
                 return true;
             }
+            setBorderRadius(htmlId, topLeft, topRight, bottomRight, bottomLeft) {
+                const element = this.getView(htmlId);
+                const elementStyle = element.style;
+                elementStyle.setProperty("border-radius", topLeft + "px " + topRight + "px " + bottomRight + "px " + bottomLeft + "px");
+                elementStyle.setProperty("overflow", "hidden"); // overflow: hidden is required here because the clipping can't do its job when it's non-rectangular.
+                return true;
+            }
+            /**
+            * Set border radius and overflow.
+            */
+            setBorderRadiusNative(pParams) {
+                const params = WindowManagerSetBorderRadiusParams.unmarshal(pParams);
+                return this.setBorderRadius(params.HtmlId, params.TopLeft.toFixed(2).toString(), params.TopRight.toFixed(2).toString(), params.BottomRight.toFixed(2).toString(), params.BottomLeft.toFixed(2).toString());
+            }
             setSolidColorBorder(htmlId, color, width) {
                 const element = this.getView(htmlId);
                 const elementStyle = element.style;
@@ -5040,6 +5054,28 @@ class WindowManagerSetAttributesParams {
             else {
                 ret.Pairs = null;
             }
+        }
+        return ret;
+    }
+}
+/* TSBindingsGenerator Generated code -- this code is regenerated on each build */
+class WindowManagerSetBorderRadiusParams {
+    static unmarshal(pData) {
+        const ret = new WindowManagerSetBorderRadiusParams();
+        {
+            ret.HtmlId = Number(Module.getValue(pData + 0, "*"));
+        }
+        {
+            ret.TopLeft = Number(Module.getValue(pData + 8, "double"));
+        }
+        {
+            ret.TopRight = Number(Module.getValue(pData + 16, "double"));
+        }
+        {
+            ret.BottomLeft = Number(Module.getValue(pData + 24, "double"));
+        }
+        {
+            ret.BottomRight = Number(Module.getValue(pData + 32, "double"));
         }
         return ret;
     }
