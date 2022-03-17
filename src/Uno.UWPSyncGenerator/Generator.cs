@@ -107,6 +107,8 @@ namespace Uno.UWPSyncGenerator
 
 			var unoUINamespaces = new[] {
 				"Windows.UI.Xaml",
+				"Windows.UI.Composition",
+				"Windows.UI.Dispatching",
 #if HAS_UNO_WINUI
 				"Microsoft.Foundation",
 				"Microsoft.UI.Xaml",
@@ -132,6 +134,15 @@ namespace Uno.UWPSyncGenerator
 						(baseName == "Uno.UI" || baseName == "Uno.UI.Dispatching" || baseName == "Uno.UI.Composition")
 						&& unoUINamespaces.Any(n => targetType.ContainingNamespace.ToString().StartsWith(n))
 					)
+#if !HAS_UNO_WINUI
+					where (
+						(baseName != "Uno.UI.Composition" && baseName != "Uno.UI.Dispatching") ||
+						(
+							(targetType.ContainingNamespace.ToString().StartsWith("Windows.UI.Composition") && baseName == "Uno.UI.Composition") ||
+							(targetType.ContainingNamespace.ToString().StartsWith("Windows.UI.Dispatching") && baseName == "Uno.UI.Dispatching")
+						)
+					)
+#endif
 					group targetType by targetType.ContainingNamespace into namespaces
 					orderby namespaces.Key.MetadataName
 					select new
