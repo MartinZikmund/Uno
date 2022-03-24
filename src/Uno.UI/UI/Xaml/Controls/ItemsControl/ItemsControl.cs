@@ -1352,12 +1352,20 @@ namespace Windows.UI.Xaml.Controls
 				}
 
 				var container = item as DependencyObject;
+				if (container is UIElement { IsLoaded: false })
+				{
+					return null;
+				}
 				EnsureContainerItemsControlProperty(container);
 				return container;
 			}
 
 			var index = IndexFromItem(item);
 			var containerFromIndex = index == -1 ? null : MaterializedContainers.FirstOrDefault(materializedContainer => Equals(IndexFromContainer(materializedContainer), index));
+			if (containerFromIndex is UIElement { IsLoaded: false })
+			{
+				return null;
+			}
 			EnsureContainerItemsControlProperty(containerFromIndex);
 			return containerFromIndex;
 		}
@@ -1422,6 +1430,10 @@ namespace Windows.UI.Xaml.Controls
 			if (IsItemItsOwnContainer(item))
 			{
 				var itemContainer = item as DependencyObject;
+				if (itemContainer is UIElement { IsLoaded: false })
+				{
+					return null;
+				}
 				EnsureContainerItemsControlProperty(itemContainer);
 				return itemContainer;
 			}
@@ -1434,6 +1446,10 @@ namespace Windows.UI.Xaml.Controls
 			}
 
 			var containerFromIndex = ContainerFromIndexInner(adjustedIndex);
+			if (containerFromIndex is UIElement { IsLoaded: false })
+			{
+				return null;
+			}
 			EnsureContainerItemsControlProperty(containerFromIndex);
 			return containerFromIndex;
 		}
