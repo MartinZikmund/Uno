@@ -1458,7 +1458,7 @@ var Uno;
                 const opts = ({
                     left: params.HasLeft ? params.Left : undefined,
                     top: params.HasTop ? params.Top : undefined,
-                    behavior: (params.DisableAnimation ? "auto" : "smooth")
+                    behavior: (params.DisableAnimation ? "instant" : "smooth")
                 });
                 elt.scrollTo(opts);
                 return true;
@@ -3490,6 +3490,14 @@ var Windows;
                 for (var i = 0; i < params.Paths.length; i++) {
                     this.setupStorage(params.Paths[i]);
                 }
+                // Ensure to sync pseudo file system on unload (and periodically for safety)
+                if (!this._isInitialized) {
+                    // Request an initial sync to populate the file system
+                    StorageFolder.synchronizeFileSystem(true, () => StorageFolder.onStorageInitialized());
+                    window.addEventListener("beforeunload", () => this.synchronizeFileSystem(false));
+                    setInterval(() => this.synchronizeFileSystem(false), 10000);
+                    this._isInitialized = true;
+                }
             }
             /**
              * Setup the storage persistence of a given path.
@@ -3513,14 +3521,6 @@ var Windows;
                 console.debug("Making persistent: " + path);
                 FS.mkdir(path);
                 FS.mount(IDBFS, {}, path);
-                // Ensure to sync pseudo file system on unload (and periodically for safety)
-                if (!this._isInitialized) {
-                    // Request an initial sync to populate the file system
-                    StorageFolder.synchronizeFileSystem(true, () => StorageFolder.onStorageInitialized());
-                    window.addEventListener("beforeunload", () => this.synchronizeFileSystem(false));
-                    setInterval(this.synchronizeFileSystem, 10000);
-                    this._isInitialized = true;
-                }
             }
             static onStorageInitialized() {
                 if (!StorageFolder.dispatchStorageInitialized) {
@@ -4633,6 +4633,51 @@ var Windows;
                     Animation.RenderingLoopAnimator = RenderingLoopAnimator;
                 })(Animation = Media.Animation || (Media.Animation = {}));
             })(Media = Xaml.Media || (Xaml.Media = {}));
+        })(Xaml = UI.Xaml || (UI.Xaml = {}));
+    })(UI = Windows.UI || (Windows.UI = {}));
+})(Windows || (Windows = {}));
+var Windows;
+(function (Windows) {
+    var UI;
+    (function (UI) {
+        var Xaml;
+        (function (Xaml) {
+            var Input;
+            (function (Input) {
+                class FocusVisual {
+                    static attachVisual(focusVisualId, focusedElementId) {
+                        FocusVisual.focusVisualId = focusVisualId;
+                        FocusVisual.focusVisual = Uno.UI.WindowManager.current.getView(focusVisualId);
+                        FocusVisual.focusedElement = Uno.UI.WindowManager.current.getView(focusedElementId);
+                        document.addEventListener("scroll", FocusVisual.onDocumentScroll, true);
+                    }
+                    static detachVisual() {
+                        document.removeEventListener("scroll", FocusVisual.onDocumentScroll, true);
+                        FocusVisual.focusVisualId = null;
+                    }
+                    static onDocumentScroll() {
+                        if (!FocusVisual.dispatchPositionChange) {
+                            FocusVisual.dispatchPositionChange = Module.mono_bind_static_method("[Uno.UI] Uno.UI.Xaml.Controls.SystemFocusVisual:DispatchNativePositionChange");
+                        }
+                        FocusVisual.updatePosition();
+                        // Throttle managed notification while actively scrolling
+                        if (FocusVisual.currentDispatchTimeout) {
+                            clearTimeout(FocusVisual.currentDispatchTimeout);
+                        }
+                        FocusVisual.currentDispatchTimeout = setTimeout(() => FocusVisual.dispatchPositionChange(FocusVisual.focusVisualId), 100);
+                    }
+                    static updatePosition() {
+                        const focusVisual = FocusVisual.focusVisual;
+                        const focusedElement = FocusVisual.focusedElement;
+                        const boundingRect = focusedElement.getBoundingClientRect();
+                        const centerX = boundingRect.x + boundingRect.width / 2;
+                        const centerY = boundingRect.y + boundingRect.height / 2;
+                        focusVisual.style.setProperty("left", boundingRect.x + "px");
+                        focusVisual.style.setProperty("top", boundingRect.y + "px");
+                    }
+                }
+                Input.FocusVisual = FocusVisual;
+            })(Input = Xaml.Input || (Xaml.Input = {}));
         })(Xaml = UI.Xaml || (UI.Xaml = {}));
     })(UI = Windows.UI || (Windows.UI = {}));
 })(Windows || (Windows = {}));
