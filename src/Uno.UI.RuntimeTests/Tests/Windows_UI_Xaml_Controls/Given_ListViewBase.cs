@@ -282,7 +282,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			WindowHelper.WindowContent = SUT;
 			await WindowHelper.WaitForIdle();
 
-			var source = new[] {
+			var source = new[]
+			{
 				new ListViewItem(){ Content = "item 1" },
 				new ListViewItem(){ Content = "item 2" },
 				new ListViewItem(){ Content = "item 3" },
@@ -293,8 +294,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 
 			SelectorItem si = null;
 			await WindowHelper.WaitFor(() => (si = SUT.ContainerFromItem(source[0]) as SelectorItem) != null);
+			await WindowHelper.WaitFor(() => source.All(i => i.IsLoaded));
 
-			Assert.IsNull(si.Parent);
 			var parent = VisualTreeHelper.GetParent(si);
 			while (parent is not null && parent is not ListView listView)
 			{
@@ -784,16 +785,18 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 		public async Task When_SmallExtent_And_Large_List_Scroll_To_End_Full_Size()
 		{
 			var materialized = 0;
-			var container = new Grid { Height = 100, Width=100 };
+			var container = new Grid { Height = 100, Width = 100 };
 
 			var list = new ListView
 			{
 				ItemContainerStyle = NoSpaceContainerStyle,
-				ItemTemplate = new DataTemplate(() => {
+				ItemTemplate = new DataTemplate(() =>
+				{
 
 					var tb = new TextBlock();
 					tb.SetBinding(TextBlock.TextProperty, new Binding());
-					var border = new Border() {
+					var border = new Border()
+					{
 						Height = 100,
 						Child = tb
 					};
@@ -831,7 +834,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			var list = new ListView
 			{
 				ItemContainerStyle = NoSpaceContainerStyle,
-				ItemTemplate = new DataTemplate(() => {
+				ItemTemplate = new DataTemplate(() =>
+				{
 
 					var tb = new TextBlock();
 					tb.SetBinding(TextBlock.TextProperty, new Binding());
@@ -875,7 +879,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			var list = new ListView
 			{
 				ItemContainerStyle = NoSpaceContainerStyle,
-				ItemTemplate = new DataTemplate(() => {
+				ItemTemplate = new DataTemplate(() =>
+				{
 
 					var tb = new TextBlock();
 					tb.SetBinding(TextBlock.TextProperty, new Binding());
@@ -934,7 +939,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			var list = new ListView
 			{
 				ItemContainerStyle = NoSpaceContainerStyle,
-				ItemTemplate = new DataTemplate(() => {
+				ItemTemplate = new DataTemplate(() =>
+				{
 
 					var tb = new TextBlock();
 					tb.SetBinding(TextBlock.TextProperty, new Binding());
@@ -991,7 +997,8 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			var list = new ListView
 			{
 				ItemContainerStyle = NoSpaceContainerStyle,
-				ItemTemplate = new DataTemplate(() => {
+				ItemTemplate = new DataTemplate(() =>
+				{
 
 					var tb = new TextBlock();
 					tb.SetBinding(TextBlock.TextProperty, new Binding());
@@ -1259,46 +1266,53 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			WindowHelper.WindowContent = list;
 			await WindowHelper.WaitForLoaded(list);
 			await WindowHelper.WaitFor(() => GetPanelChildren(list).Length == 4);
+			await WindowHelper.WaitFor(() => items.All(i => i.IsLoaded));
 
-			// Item removal
-
+			// Item addition
+			bool itemsChanged = false;
 			var addedItem = new ListViewItem();
 			list.ItemsChangedAction = () =>
 			{
-				using var _ = new AssertionScope();
-
-				// Test container/index/item before added
-				Assert.AreEqual(items[0], list.ContainerFromItem(items[0]));
-				Assert.AreEqual(items[0], list.ContainerFromIndex(0));
-				Assert.AreEqual(items[0], list.ItemFromContainer(items[0]));
-				Assert.AreEqual(0, list.IndexFromContainer(items[0]));
-
-				// Test added container/index/item
-#if HAS_UNO
-				// UWP returns null/-1 here, which differs from "the same"
-				// situation in case of collection change. For simplicity
-				// we return the correct values here too. It should not have
-				// any adverse impact.
-				Assert.AreEqual(addedItem, list.ContainerFromItem(addedItem));
-				Assert.AreEqual(addedItem, list.ContainerFromIndex(1));
-				Assert.AreEqual(addedItem, list.ItemFromContainer(addedItem));
-				Assert.AreEqual(1, list.IndexFromContainer(addedItem));
-#endif
-
-				// Test container/index/item right after added
-				Assert.AreEqual(items[2], list.ContainerFromItem(items[2]));
-				Assert.AreEqual(items[2], list.ContainerFromIndex(2));
-				Assert.AreEqual(items[2], list.ItemFromContainer(items[2]));
-				Assert.AreEqual(2, list.IndexFromContainer(items[2]));
-
-				// Test container/index/item after removed
-				Assert.AreEqual(items[3], list.ContainerFromItem(items[3]));
-				Assert.AreEqual(items[3], list.ContainerFromIndex(3));
-				Assert.AreEqual(items[3], list.ItemFromContainer(items[3]));
-				Assert.AreEqual(3, list.IndexFromContainer(items[3]));
+				itemsChanged = true;
 			};
 
 			items.Insert(1, addedItem);
+
+			await WindowHelper.WaitFor(() => itemsChanged);
+			await WindowHelper.WaitFor(() => addedItem.IsLoaded);
+
+			using var _ = new AssertionScope();
+
+			// Test container/index/item before added
+			Assert.AreEqual(items[0], list.ContainerFromItem(items[0]));
+			Assert.AreEqual(items[0], list.ContainerFromIndex(0));
+			Assert.AreEqual(items[0], list.ItemFromContainer(items[0]));
+			Assert.AreEqual(0, list.IndexFromContainer(items[0]));
+
+			// Test added container/index/item
+#if HAS_UNO
+			// UWP returns null/-1 here, which differs from "the same"
+			// situation in case of collection change. For simplicity
+			// we return the correct values here too. It should not have
+			// any adverse impact.
+			Assert.AreEqual(addedItem, list.ContainerFromItem(addedItem));
+			Assert.AreEqual(addedItem, list.ContainerFromIndex(1));
+			Assert.AreEqual(addedItem, list.ItemFromContainer(addedItem));
+			Assert.AreEqual(1, list.IndexFromContainer(addedItem));
+#endif
+
+			// Test container/index/item right after added
+			Assert.AreEqual(items[2], list.ContainerFromItem(items[2]));
+			Assert.AreEqual(items[2], list.ContainerFromIndex(2));
+			Assert.AreEqual(items[2], list.ItemFromContainer(items[2]));
+			Assert.AreEqual(2, list.IndexFromContainer(items[2]));
+
+			// Test container/index/item after removed
+			Assert.AreEqual(items[3], list.ContainerFromItem(items[3]));
+			Assert.AreEqual(items[3], list.ContainerFromIndex(3));
+			Assert.AreEqual(items[3], list.ItemFromContainer(items[3]));
+			Assert.AreEqual(3, list.IndexFromContainer(items[3]));
+
 		}
 
 		[TestMethod]
@@ -1318,6 +1332,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			WindowHelper.WindowContent = list;
 			await WindowHelper.WaitForLoaded(list);
 			await WindowHelper.WaitFor(() => GetPanelChildren(list).Length == 4);
+			await WindowHelper.WaitFor(() => items.All(i => i.IsLoaded));
 
 			// Item change
 			var oldItem = items[1];
@@ -1377,6 +1392,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 			WindowHelper.WindowContent = list;
 			await WindowHelper.WaitForLoaded(list);
 			await WindowHelper.WaitFor(() => GetPanelChildren(list).Length == 4);
+			await WindowHelper.WaitFor(() => items.All(i => i.IsLoaded));
 
 			// Item change
 			var newItems = new ObservableCollection<ListViewItem>()
@@ -1387,29 +1403,36 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 				new ListViewItem(),
 			};
 
-			list.ItemsChangedAction = () =>
+			bool itemsChanged = false;
+
+			list.ItemsChangedAction = async () =>
 			{
-				using var _ = new AssertionScope();
-
-				// Test container/index/item from old source
-				Assert.AreEqual(null, list.ContainerFromItem(items[1]));
-				Assert.AreEqual(null, list.ItemFromContainer(items[1]));
-				Assert.AreEqual(-1, list.IndexFromContainer(items[1]));
-
-				// Test container/index/item from new source
-#if HAS_UNO
-				// UWP returns null/-1 here, which differs from "the same"
-				// situation in case of collection change. For simplicity
-				// we return the correct values here too. It should not have
-				// any adverse impact.
-				Assert.AreEqual(newItems[1], list.ContainerFromItem(newItems[1]));
-				Assert.AreEqual(newItems[1], list.ContainerFromIndex(1));
-				Assert.AreEqual(newItems[1], list.ItemFromContainer(newItems[1]));
-				Assert.AreEqual(1, list.IndexFromContainer(newItems[1]));
-#endif
+				itemsChanged = true;
 			};
 
 			list.ItemsSource = newItems;
+
+			await WindowHelper.WaitFor(() => itemsChanged);
+			await WindowHelper.WaitFor(() => newItems.All(i => i.IsLoaded));
+
+			using var _ = new AssertionScope();
+
+			// Test container/index/item from old source
+			Assert.AreEqual(null, list.ContainerFromItem(items[1]));
+			Assert.AreEqual(null, list.ItemFromContainer(items[1]));
+			Assert.AreEqual(-1, list.IndexFromContainer(items[1]));
+
+			// Test container/index/item from new source
+#if HAS_UNO
+			// UWP returns null/-1 here, which differs from "the same"
+			// situation in case of collection change. For simplicity
+			// we return the correct values here too. It should not have
+			// any adverse impact.
+			Assert.AreEqual(newItems[1], list.ContainerFromItem(newItems[1]));
+			Assert.AreEqual(newItems[1], list.ContainerFromIndex(1));
+			Assert.AreEqual(newItems[1], list.ItemFromContainer(newItems[1]));
+			Assert.AreEqual(1, list.IndexFromContainer(newItems[1]));
+#endif
 		}
 
 		[TestMethod]
@@ -2444,7 +2467,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 
 		private bool ApproxEquals(double value1, double value2) => Math.Abs(value1 - value2) <= 2;
 
-#region Helper classes
+		#region Helper classes
 		private class When_Removed_From_Tree_And_Selection_TwoWay_Bound_DataContext : System.ComponentModel.INotifyPropertyChanged
 		{
 			public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -2471,23 +2494,23 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 		{
 			public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
-#region SelectedItem
+			#region SelectedItem
 			private object _selectedItem;
 			public object SelectedItem
 			{
 				get => _selectedItem;
 				set => RaiseAndSetIfChanged(ref _selectedItem, value);
 			}
-#endregion
-#region SelectedValue
+			#endregion
+			#region SelectedValue
 			private object _selectedValue;
 			public object SelectedValue
 			{
 				get => _selectedValue;
 				set => RaiseAndSetIfChanged(ref _selectedValue, value);
 			}
-#endregion
-#region SelectedIndex
+			#endregion
+			#region SelectedIndex
 			private int _selectedIndex;
 
 			public int SelectedIndex
@@ -2495,7 +2518,7 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 				get => _selectedIndex;
 				set => RaiseAndSetIfChanged(ref _selectedIndex, value);
 			}
-#endregion
+			#endregion
 
 			protected void RaiseAndSetIfChanged<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)
 			{
@@ -2526,10 +2549,10 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 				}
 			}
 		}
-#endregion
+		#endregion
 	}
 
-#region Helper classes
+	#region Helper classes
 	public partial class OnItemsChangedListView : ListView
 	{
 		public Action ItemsChangedAction = null;
@@ -2725,5 +2748,5 @@ namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Controls
 
 		public int LastIndex => _start;
 	}
-#endregion
+	#endregion
 }
