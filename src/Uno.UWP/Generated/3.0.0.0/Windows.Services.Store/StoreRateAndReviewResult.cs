@@ -27,7 +27,7 @@ namespace Windows.Services.Store
 			}
 		}
 		#endif
-		#if __ANDROID__ || __IOS__ || NET461 || __WASM__ || __MACOS__
+		#if false
 		[global::Uno.NotImplemented]
 		public  global::Windows.Services.Store.StoreRateAndReviewStatus Status
 		{
