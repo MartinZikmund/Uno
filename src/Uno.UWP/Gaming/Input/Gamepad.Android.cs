@@ -236,7 +236,9 @@ public partial class Gamepad
 	}
 
 	private static bool IsGamepad(InputDevice? inputDevice) =>
-		inputDevice?.Sources.HasFlag(InputSourceType.Gamepad) == true;
+		inputDevice is not null &&
+		(inputDevice.Sources.HasFlag(InputSourceType.Gamepad) ||
+		inputDevice.Sources.HasFlag(InputSourceType.Dpad));
 
 	private static bool TryGetOrCreateGamepad(int deviceId, [NotNullWhen(true)] out Gamepad? gamepad)
 	{
