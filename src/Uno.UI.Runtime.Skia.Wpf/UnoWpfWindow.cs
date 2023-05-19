@@ -72,7 +72,16 @@ internal class UnoWpfWindow : WpfWindow, IWpfWindowHost
 		UpdateWindowPropertiesFromPackage();
 	}
 
-	private void OnShown(object? sender, EventArgs e) => Show();
+	private void UnoWpfWindow_SizeChanged(object sender, WinUI.SizeChangedEventArgs e)
+	{
+		global::System.Diagnostics.Debug.WriteLine("RootElement size changed to " + e.NewSize.Width);
+	}
+	private void OnShown(object? sender, EventArgs e)
+	{
+		((RootVisual)_window.RootElement).SizeChanged += UnoWpfWindow_SizeChanged;
+		Show();
+		global::System.Diagnostics.Debug.WriteLine("Shown");
+	}
 
 	WinUI.UIElement? IWpfXamlRootHost.RootElement => _window.RootElement;
 
@@ -103,7 +112,7 @@ internal class UnoWpfWindow : WpfWindow, IWpfWindowHost
 
 	private void WpfHost_Loaded(object sender, RoutedEventArgs e)
 	{
-		WinUI.Window.Current.OnNativeSizeChanged(new Windows.Foundation.Size(ActualWidth, ActualHeight));
+		WinUI.Window.Current.OnNativeSizeChanged(new Windows.Foundation.Size(_nativeOverlayLayer!.ActualWidth, _nativeOverlayLayer.ActualHeight));
 
 		// Avoid dotted border on focus.
 		if (Parent is WpfControl control)
@@ -212,8 +221,8 @@ internal class UnoWpfWindow : WpfWindow, IWpfWindowHost
 		// TODO:MZ: Use Content.Size!
 		WinUI.Window.Current.OnNativeSizeChanged(
 			new Windows.Foundation.Size(
-				e.NewSize.Width,
-				e.NewSize.Height
+				_nativeOverlayLayer!.ActualWidth,
+				_nativeOverlayLayer.ActualHeight
 			)
 		);
 	}
@@ -252,6 +261,7 @@ internal class UnoWpfWindow : WpfWindow, IWpfWindowHost
 		{
 			InitializeRenderer();
 		}
+		global::System.Diagnostics.Debug.WriteLine("OnRender");
 		_renderer?.Render(drawingContext);
 	}
 
