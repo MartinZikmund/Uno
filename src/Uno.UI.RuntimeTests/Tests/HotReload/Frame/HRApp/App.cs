@@ -1,4 +1,4 @@
-using Windows.ApplicationModel.Activation;
+﻿using Windows.ApplicationModel.Activation;
 
 namespace UnoApp50
 {
@@ -11,7 +11,7 @@ namespace UnoApp50
 #if NET6_0_OR_GREATER && WINDOWS && !HAS_UNO
 			_window = new Window();
 #else
-			_window = Windows.UI.Xaml.Window.Current;
+			_window = Microsoft.UI.Xaml.Window.Current;
 #endif
 
 			// Do not repeat app initialization when the Window already has content,

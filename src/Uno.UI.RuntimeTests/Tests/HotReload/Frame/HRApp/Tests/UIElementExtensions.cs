@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Uno.UI;
 using Uno.UI.Extensions;
 using System.Diagnostics;
@@ -14,10 +14,10 @@ namespace Uno.UI.RuntimeTests.Tests.HotReload.Frame
 {
 	public static class UIElementExtensions
 	{
-		public static async Task ValidateFirstTextBlockOnCurrentPageText(this Windows.UI.Xaml.UIElement element, string expectedText)
+		public static async Task ValidateFirstTextBlockOnCurrentPageText(this Microsoft.UI.Xaml.UIElement element, string expectedText)
 			=> await element.ValidateTextBlockOnCurrentPageText(expectedText);
 
-		public static async Task ValidateTextBlockOnCurrentPageText(this Windows.UI.Xaml.UIElement element, string expectedText, int index = 0, TimeSpan? timeout = null)
+		public static async Task ValidateTextBlockOnCurrentPageText(this Microsoft.UI.Xaml.UIElement element, string expectedText, int index = 0, TimeSpan? timeout = null)
 		{
 			timeout ??= TimeSpan.FromSeconds(3);
 
@@ -49,7 +49,7 @@ namespace Uno.UI.RuntimeTests.Tests.HotReload.Frame
 			}
 		}
 
-		public static async Task ValidateElementOnCurrentPageText<TElement>(this Windows.UI.Xaml.UIElement element, Func<TElement, Task> validation, int index = 0)
+		public static async Task ValidateElementOnCurrentPageText<TElement>(this Microsoft.UI.Xaml.UIElement element, Func<TElement, Task> validation, int index = 0)
 			where TElement : FrameworkElement
 		{
 			if (element is FrameworkElement fe)

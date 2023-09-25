@@ -9,7 +9,7 @@ using Uno.UI.RemoteControl;
 using Uno.UI.RemoteControl.HotReload.Messages;
 using Uno.UI.RemoteControl.HotReload.MetadataUpdater;
 using Uno.UI.RuntimeTests.Tests.HotReload.Frame.Pages;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
 
 namespace Uno.UI.RuntimeTests.Tests.HotReload;
 

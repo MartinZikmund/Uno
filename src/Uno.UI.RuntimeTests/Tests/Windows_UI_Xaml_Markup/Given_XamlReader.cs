@@ -3,8 +3,8 @@ using System.Linq;
 using Uno.UI.Extensions;
 using Uno.UI.Helpers;
 using Uno.Xaml;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Uno.UI.RuntimeTests.Tests.Windows_UI_Xaml_Markup
 {
