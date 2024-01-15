@@ -3,7 +3,5 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.System.RemoteDesktop.Input
 {
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-	public delegate bool RemoteTextConnectionDataHandler(byte[] pduData);
-#endif
+	// Skipping already declared delegate Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler
 }

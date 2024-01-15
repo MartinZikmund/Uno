@@ -11,7 +11,13 @@ namespace Windows.ApplicationModel.Contacts
 		// Skipping already declared property Kind
 		// Skipping already declared property Description
 		// Skipping already declared property Address
-		// Skipping already declared method Windows.ApplicationModel.Contacts.ContactEmail.ContactEmail()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public ContactEmail()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.Contacts.ContactEmail", "ContactEmail.ContactEmail()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactEmail.ContactEmail()
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactEmail.Address.get
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactEmail.Address.set

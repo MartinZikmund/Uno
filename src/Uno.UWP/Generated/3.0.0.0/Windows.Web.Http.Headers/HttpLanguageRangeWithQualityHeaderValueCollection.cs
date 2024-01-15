@@ -3,16 +3,11 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.Web.Http.Headers
 {
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-	[global::Uno.NotImplemented]
+#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || false
+	[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__")]
 #endif
 	public partial class HttpLanguageRangeWithQualityHeaderValueCollection : global::System.Collections.Generic.IList<global::Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue>, global::System.Collections.Generic.IEnumerable<global::Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue>, global::Windows.Foundation.IStringable
 	{
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-		internal HttpLanguageRangeWithQualityHeaderValueCollection()
-		{
-		}
-#endif
 #if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public uint Size
@@ -50,13 +45,7 @@ namespace Windows.Web.Http.Headers
 		// Forced skipping of method Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.GetMany(uint, Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue[])
 		// Forced skipping of method Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.ReplaceAll(Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue[])
 		// Forced skipping of method Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.First()
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public override string ToString()
-		{
-			throw new global::System.NotImplementedException("The member string HttpLanguageRangeWithQualityHeaderValueCollection.ToString() is not implemented. For more information, visit https://aka.platform.uno/notimplemented#m=string%20HttpLanguageRangeWithQualityHeaderValueCollection.ToString%28%29");
-		}
-#endif
+		// Skipping already declared method Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.ToString()
 		// Processing: System.Collections.Generic.IList<Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue>
 #if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		// DeclaringType: System.Collections.Generic.IList<Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue>

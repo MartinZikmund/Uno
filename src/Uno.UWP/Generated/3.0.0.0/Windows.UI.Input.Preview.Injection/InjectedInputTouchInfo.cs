@@ -13,7 +13,13 @@ namespace Windows.UI.Input.Preview.Injection
 		// Skipping already declared property PointerInfo
 		// Skipping already declared property Orientation
 		// Skipping already declared property Contact
-		// Skipping already declared method Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo.InjectedInputTouchInfo()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public InjectedInputTouchInfo()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo", "InjectedInputTouchInfo.InjectedInputTouchInfo()");
+		}
+#endif
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo.InjectedInputTouchInfo()
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo.Contact.get
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo.Contact.set

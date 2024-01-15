@@ -15,7 +15,13 @@ namespace Windows.ApplicationModel.Contacts
 		// Skipping already declared property Kind
 		// Skipping already declared property Description
 		// Skipping already declared property Country
-		// Skipping already declared method Windows.ApplicationModel.Contacts.ContactAddress.ContactAddress()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public ContactAddress()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.Contacts.ContactAddress", "ContactAddress.ContactAddress()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactAddress.ContactAddress()
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactAddress.StreetAddress.get
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactAddress.StreetAddress.set

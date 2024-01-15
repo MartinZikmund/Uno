@@ -66,7 +66,13 @@ namespace Windows.ApplicationModel.Contacts
 			}
 		}
 #endif
-		// Skipping already declared method Windows.ApplicationModel.Contacts.ContactPicker.ContactPicker()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public ContactPicker()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.Contacts.ContactPicker", "ContactPicker.ContactPicker()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPicker.ContactPicker()
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPicker.CommitButtonText.get
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPicker.CommitButtonText.set

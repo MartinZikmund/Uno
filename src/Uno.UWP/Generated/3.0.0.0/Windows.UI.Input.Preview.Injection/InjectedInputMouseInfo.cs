@@ -13,7 +13,13 @@ namespace Windows.UI.Input.Preview.Injection
 		// Skipping already declared property MouseData
 		// Skipping already declared property DeltaY
 		// Skipping already declared property DeltaX
-		// Skipping already declared method Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo.InjectedInputMouseInfo()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public InjectedInputMouseInfo()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo", "InjectedInputMouseInfo.InjectedInputMouseInfo()");
+		}
+#endif
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo.InjectedInputMouseInfo()
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo.MouseOptions.get
 		// Forced skipping of method Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo.MouseOptions.set

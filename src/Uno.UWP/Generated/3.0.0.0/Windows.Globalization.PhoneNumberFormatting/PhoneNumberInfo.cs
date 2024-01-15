@@ -3,8 +3,8 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.Globalization.PhoneNumberFormatting
 {
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-	[global::Uno.NotImplemented]
+#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || false
+	[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__")]
 #endif
 	public partial class PhoneNumberInfo : global::Windows.Foundation.IStringable
 	{
@@ -80,13 +80,7 @@ namespace Windows.Globalization.PhoneNumberFormatting
 			throw new global::System.NotImplementedException("The member PhoneNumberMatchResult PhoneNumberInfo.CheckNumberMatch(PhoneNumberInfo otherNumber) is not implemented. For more information, visit https://aka.platform.uno/notimplemented#m=PhoneNumberMatchResult%20PhoneNumberInfo.CheckNumberMatch%28PhoneNumberInfo%20otherNumber%29");
 		}
 #endif
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
-		public override string ToString()
-		{
-			throw new global::System.NotImplementedException("The member string PhoneNumberInfo.ToString() is not implemented. For more information, visit https://aka.platform.uno/notimplemented#m=string%20PhoneNumberInfo.ToString%28%29");
-		}
-#endif
+		// Skipping already declared method Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.ToString()
 #if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public static global::Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult TryParse(string input, out global::Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo phoneNumber)

@@ -11,7 +11,13 @@ namespace Windows.ApplicationModel.Contacts
 		// Skipping already declared property Number
 		// Skipping already declared property Kind
 		// Skipping already declared property Description
-		// Skipping already declared method Windows.ApplicationModel.Contacts.ContactPhone.ContactPhone()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public ContactPhone()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.Contacts.ContactPhone", "ContactPhone.ContactPhone()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPhone.ContactPhone()
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPhone.Number.get
 		// Forced skipping of method Windows.ApplicationModel.Contacts.ContactPhone.Number.set

@@ -9,11 +9,6 @@ namespace Windows.UI.Notifications
 	public partial class BadgeUpdater
 	{
 #if __ANDROID__ || false || false || false || false || false || false
-		internal BadgeUpdater()
-		{
-		}
-#endif
-#if __ANDROID__ || false || false || false || false || false || false
 		[global::Uno.NotImplemented("__ANDROID__")]
 		public void Update(global::Windows.UI.Notifications.BadgeNotification notification)
 		{

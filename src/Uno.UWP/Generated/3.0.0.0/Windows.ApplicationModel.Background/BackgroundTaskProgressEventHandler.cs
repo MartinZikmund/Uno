@@ -3,7 +3,5 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.ApplicationModel.Background
 {
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-	public delegate void BackgroundTaskProgressEventHandler(global::Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, global::Windows.ApplicationModel.Background.BackgroundTaskProgressEventArgs args);
-#endif
+	// Skipping already declared delegate Windows.ApplicationModel.Background.BackgroundTaskProgressEventHandler
 }

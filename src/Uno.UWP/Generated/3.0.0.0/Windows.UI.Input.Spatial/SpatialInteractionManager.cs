@@ -3,16 +3,11 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.UI.Input.Spatial
 {
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-	[global::Uno.NotImplemented]
+#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || false
+	[global::Uno.NotImplemented("__ANDROID__", "__IOS__", "IS_UNIT_TESTS", "__WASM__", "__SKIA__", "__NETSTD_REFERENCE__")]
 #endif
 	public partial class SpatialInteractionManager
 	{
-#if __ANDROID__ || __IOS__ || IS_UNIT_TESTS || __WASM__ || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
-		internal SpatialInteractionManager()
-		{
-		}
-#endif
 		// Forced skipping of method Windows.UI.Input.Spatial.SpatialInteractionManager.SourceDetected.add
 		// Forced skipping of method Windows.UI.Input.Spatial.SpatialInteractionManager.SourceDetected.remove
 		// Forced skipping of method Windows.UI.Input.Spatial.SpatialInteractionManager.SourceLost.add

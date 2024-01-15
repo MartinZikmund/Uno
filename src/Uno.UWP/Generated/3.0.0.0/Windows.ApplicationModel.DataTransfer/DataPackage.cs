@@ -11,7 +11,13 @@ namespace Windows.ApplicationModel.DataTransfer
 		// Skipping already declared property RequestedOperation
 		// Skipping already declared property Properties
 		// Skipping already declared property ResourceMap
-		// Skipping already declared method Windows.ApplicationModel.DataTransfer.DataPackage.DataPackage()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public DataPackage()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.DataTransfer.DataPackage", "DataPackage.DataPackage()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.DataTransfer.DataPackage.DataPackage()
 		// Skipping already declared method Windows.ApplicationModel.DataTransfer.DataPackage.GetView()
 		// Forced skipping of method Windows.ApplicationModel.DataTransfer.DataPackage.Properties.get

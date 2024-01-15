@@ -3,16 +3,11 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.Phone.Devices.Notification
 {
-#if false || false || IS_UNIT_TESTS || false || __SKIA__ || false || __MACOS__
-	[global::Uno.NotImplemented("IS_UNIT_TESTS", "__SKIA__", "__MACOS__")]
+#if false || false || IS_UNIT_TESTS || false || __SKIA__ || false || false
+	[global::Uno.NotImplemented("IS_UNIT_TESTS", "__SKIA__")]
 #endif
 	public partial class VibrationDevice
 	{
-#if false || false || IS_UNIT_TESTS || false || __SKIA__ || false || __MACOS__
-		internal VibrationDevice()
-		{
-		}
-#endif
 #if false || false || IS_UNIT_TESTS || false || __SKIA__ || __NETSTD_REFERENCE__ || __MACOS__
 		[global::Uno.NotImplemented("IS_UNIT_TESTS", "__SKIA__", "__NETSTD_REFERENCE__", "__MACOS__")]
 		public void Vibrate(global::System.TimeSpan duration)

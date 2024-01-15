@@ -98,13 +98,7 @@ namespace Windows.Devices.Geolocation
 			}
 		}
 #endif
-#if false || false || IS_UNIT_TESTS || false || __SKIA__ || __NETSTD_REFERENCE__ || false
-		[global::Uno.NotImplemented("IS_UNIT_TESTS", "__SKIA__", "__NETSTD_REFERENCE__")]
-		public Geolocator()
-		{
-			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.Devices.Geolocation.Geolocator", "Geolocator.Geolocator()");
-		}
-#endif
+		// Skipping already declared method Windows.Devices.Geolocation.Geolocator.Geolocator()
 		// Forced skipping of method Windows.Devices.Geolocation.Geolocator.Geolocator()
 		// Forced skipping of method Windows.Devices.Geolocation.Geolocator.DesiredAccuracy.get
 		// Forced skipping of method Windows.Devices.Geolocation.Geolocator.DesiredAccuracy.set

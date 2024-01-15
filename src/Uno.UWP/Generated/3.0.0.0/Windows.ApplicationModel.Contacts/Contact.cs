@@ -248,7 +248,13 @@ namespace Windows.ApplicationModel.Contacts
 			}
 		}
 #endif
-		// Skipping already declared method Windows.ApplicationModel.Contacts.Contact.Contact()
+#if __ANDROID__ || __IOS__ || false || false || false || false || false
+		[global::Uno.NotImplemented("__ANDROID__", "__IOS__")]
+		public Contact()
+		{
+			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.ApplicationModel.Contacts.Contact", "Contact.Contact()");
+		}
+#endif
 		// Forced skipping of method Windows.ApplicationModel.Contacts.Contact.Contact()
 		// Forced skipping of method Windows.ApplicationModel.Contacts.Contact.Name.get
 		// Forced skipping of method Windows.ApplicationModel.Contacts.Contact.Name.set
