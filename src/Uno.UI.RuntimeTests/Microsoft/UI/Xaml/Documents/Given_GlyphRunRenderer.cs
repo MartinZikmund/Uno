@@ -49,7 +49,7 @@ public class Given_GlyphRunRenderer
 		using (var typeface = SKTypeface.FromData(SKData.CreateCopy(data), 0))
 		using (var skFont = new SKFont(typeface, fontSize) { Edging = edging, Subpixel = true })
 		using (var builder = new SKTextBlobBuilder())
-		using (var paint = new SKPaint { Color = SKColors.Black, IsAntialias = true })
+		using (var paint = new SKPaint { Color = SKColors.Black, IsAntialias = true, MaskFilter = SkiaDrawingSession.LinearTextCoverage })
 		{
 			var points = new SKPoint[positions.Length];
 			for (var i = 0; i < positions.Length; i++)
@@ -85,7 +85,7 @@ public class Given_GlyphRunRenderer
 
 		using var expected = CreateSurface(info);
 		using (var builder = new SKTextBlobBuilder())
-		using (var paint = new SKPaint { Color = SKColors.Black, IsAntialias = true, Style = SKPaintStyle.Stroke, StrokeWidth = strokeWidth })
+		using (var paint = new SKPaint { Color = SKColors.Black, IsAntialias = true, Style = SKPaintStyle.Stroke, StrokeWidth = strokeWidth, MaskFilter = SkiaDrawingSession.LinearTextCoverage })
 		{
 			var points = new SKPoint[positions.Length];
 			for (var i = 0; i < positions.Length; i++)
@@ -101,6 +101,44 @@ public class Given_GlyphRunRenderer
 		var mismatches = CountMismatches(actual, expected, info, out var inked);
 		Assert.IsTrue(inked > 0, "Nothing was stroked.");
 		Assert.AreEqual(0, mismatches, $"{mismatches} pixels differ from Skia's stroked text rendering.");
+	}
+
+	// Skia's default glyph masks are gamma-adjusted by the text's luminance, which draws dark text thinner and light text
+	// heavier than its coverage: the same text must cover the same pixels whichever way round its colours are.
+	[TestMethod]
+	[PlatformCondition(ConditionMode.Include, RuntimeTestPlatforms.Skia)]
+	[DataRow(14f)]
+	[DataRow(20f)]
+	public async Task When_Skia_Draws_GlyphRun_Then_Coverage_Does_Not_Depend_On_Text_Luminance(float fontSize)
+	{
+		var font = CreateSkiaFont(await LoadFontData(), fontSize);
+		var (run, positions, info, baseline) = Layout(font, fontSize);
+
+		// A CPU Skia factory: these surfaces are Skia, whatever backend the window presents with.
+		using var factory = new SkiaDrawingFactory();
+		double Coverage(SKColor background, Windows.UI.Color foreground, bool darkText)
+		{
+			using var surface = CreateSurface(info);
+			surface.Canvas.Clear(background);
+			new SkiaDrawingSession(surface.Canvas, factory).DrawGlyphRun(font, run.Glyphs, positions, baseline, foreground);
+
+			using var pixmap = surface.PeekPixels();
+			var bytes = pixmap.GetPixelSpan();
+			double coverage = 0;
+			for (var i = 0; i < bytes.Length; i += 4)
+			{
+				// Grey on grey: any colour channel carries the coverage.
+				coverage += darkText ? (255 - bytes[i]) / 255.0 : bytes[i] / 255.0;
+			}
+
+			return coverage;
+		}
+
+		var dark = Coverage(SKColors.White, Microsoft.UI.Colors.Black, darkText: true);
+		var light = Coverage(SKColors.Black, Microsoft.UI.Colors.White, darkText: false);
+
+		Assert.IsGreaterThan(0d, dark);
+		Assert.IsLessThan(0.02, Math.Abs(light - dark) / dark, $"Dark text covers {dark:F0} pixels and light text {light:F0}: the glyph masks are not linear coverage.");
 	}
 
 	// A font the Skia backend can't draw natively falls back to the portable outline renderer.

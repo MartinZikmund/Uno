@@ -177,7 +177,7 @@ internal class SkiaDrawingSession : IDrawingSession
 			return;
 		}
 
-		DrawTextBlob(skiaFont, glyphs, positions, baselineY, FillPaint(color));
+		DrawTextBlob(skiaFont, glyphs, positions, baselineY, TextPaint(FillPaint(color)));
 	}
 
 	public void StrokeGlyphRun(IFont font, ReadOnlySpan<ushort> glyphs, ReadOnlySpan<Vector2> positions, float baselineY, Color color, float strokeWidth)
@@ -188,7 +188,7 @@ internal class SkiaDrawingSession : IDrawingSession
 			return;
 		}
 
-		DrawTextBlob(skiaFont, glyphs, positions, baselineY, StrokePaint(color, strokeWidth));
+		DrawTextBlob(skiaFont, glyphs, positions, baselineY, TextPaint(StrokePaint(color, strokeWidth)));
 	}
 
 	private void DrawTextBlob(SkiaFont font, ReadOnlySpan<ushort> glyphs, ReadOnlySpan<Vector2> positions, float baselineY, SKPaint paint)
@@ -375,6 +375,18 @@ internal class SkiaDrawingSession : IDrawingSession
 	{
 		var paint = _sparePaint ??= new SKPaint();
 		paint.Reset();
+		return paint;
+	}
+
+	// Skia's glyph masks are gamma-adjusted by the text's luminance: dark text draws thinner and light text heavier than
+	// its coverage (light text inks over half again as much at 14px), so text looks weak on light themes and blooms on
+	// dark ones next to a browser's. Any mask filter makes Skia keep the glyph's linear coverage, still from its glyph
+	// cache; an identity gamma changes nothing else.
+	internal static readonly SKMaskFilter LinearTextCoverage = SKMaskFilter.CreateGamma(1f);
+
+	private static SKPaint TextPaint(SKPaint paint)
+	{
+		paint.MaskFilter = LinearTextCoverage;
 		return paint;
 	}
 
